@@ -8,6 +8,12 @@ Personally I work on a MacOS, so others OS configs my be different
 bash setup.sh
 ```
 
+### INSTALLING TMUX
+
+```
+brew install tmux
+```
+
 ### INSTALLING NEOVIM
 
 ```
