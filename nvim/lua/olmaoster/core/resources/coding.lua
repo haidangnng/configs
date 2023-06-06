@@ -89,11 +89,6 @@ return {
         mapping = cmp.mapping.preset.cmdline(),
         sources = cmp.config.sources({ { name = "path" } }, { { name = "cmdline" } }),
       })
-      cmp.setup.filetype("java", {
-        completion = {
-          keyword_length = 2,
-        },
-      })
       return {
         completion = {
           completeopt = "menu,menuone,noinsert",

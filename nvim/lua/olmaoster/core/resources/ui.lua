@@ -79,7 +79,9 @@ return {
       },
     },
   },
-
+	{ 'echasnovski/mini.surround', version = false, config = function ()
+    require('mini.surround').setup()
+	end},
   {
     "echasnovski/mini.indentscope",
     lazy = true,
@@ -173,7 +175,9 @@ return {
     "petertriho/nvim-scrollbar",
     event = "BufReadPost",
     opts = {
-      set_highlights = false,
+      show = true,
+      show_in_active_only = true,
+      set_highlights = true,
       excluded_filetypes = {
         "prompt",
         "TelescopePrompt",
@@ -187,6 +191,8 @@ return {
         "",
       },
       handlers = {
+        cursor = true,
+        diagnostics = true,
         gitsigns = true,
       },
     },

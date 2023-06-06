@@ -5,7 +5,6 @@ M.attach = function(client, buffer)
   if not status_ok then
     return
   end
-  local a = 0
   lspsaga.setup({})
   local keymap = vim.keymap.set
 

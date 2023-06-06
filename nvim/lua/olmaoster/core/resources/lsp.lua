@@ -7,43 +7,17 @@ return {
       "williamboman/mason.nvim",
       "williamboman/mason-lspconfig.nvim",
       "glepnir/lspsaga.nvim",
-    },
-    keys = {
-      -- { "<leader>la", "<cmd>lua vim.lsp.buf.code_action()<cr>", desc = "Code Action" },
-      -- { "<leader>ld", "<cmd>Telescope lsp_document_diagnostics<cr>", desc = "Document Diagnostics" },
-      -- { "<leader>lw", "<cmd>Telescope lsp_workspace_diagnostics<cr>", desc = "Workspace Diagnostics" },
-      -- { "<leader>li", "<cmd>LspInfo<cr>", desc = "Info" },
-      -- { "<leader>lI", "<cmd>LspInstallInfo<cr>", desc = "Installer Info" },
-      -- { "<leader>lj", "<cmd>lua vim.lsp.diagnostic.goto_next()<CR>", desc = "Next Diagnostic" },
-      -- { "<leader>lk", "<cmd>lua vim.lsp.diagnostic.goto_prev()<cr>", desc = "Prev Diagnostic" },
-      -- { "<leader>ll", "<cmd>lua vim.lsp.codelens.run()<cr>", desc = "CodeLens Action" },
-      -- { "<leader>lq", "<cmd>lua vim.lsp.diagnostic.set_loclist()<cr>", desc = "Quickfix" },
-      -- { "<leader>lr", "<cmd>lua vim.lsp.buf.rename()<cr>", desc = "Rename" },
-      -- { "<leader>ls", "<cmd>Telescope lsp_document_symbols<cr>", desc = "Document Symbols" },
-      -- { "<leader>lS", "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>", desc = "Workspace Symbols" },
-      -- {
-      --   "<leader>W",
-      --   function()
-      --     vim.lsp.buf.format({
-      --       filter = function(client)
-      --         -- do not use default `lua_ls` to format
-      --         local exclude_servers = { "lua_ls" }
-      --         return not vim.tbl_contains(exclude_servers, client.name)
-      --       end,
-      --     })
-      --     vim.cmd([[w!]])
-      --   end,
-      --   desc = "Format and Save",
-      -- },
+      -- "simrat39/rust-tools.nvim"
     },
     config = function()
-      -- special attach lsp
-      require("olmaoster.util").on_attach(function(client, buffer)
-        require("olmaoster.config.lsp.keymaps").attach(client, buffer)
-        require("olmaoster.config.lsp.inlayhints").attach(client, buffer)
-        require("olmaoster.config.lsp.lspsaga").attach(client, buffer)
-        require("olmaoster.config.lsp.inlayhints").attach(client, buffer)
-      end)
+        require("olmaoster.util").on_attach(
+        function(client, buffer)
+          require("olmaoster.config.lsp.keymaps").attach(client, buffer)
+          require("olmaoster.config.lsp.lspsaga").attach(client, buffer)
+          require("olmaoster.config.lsp.inlayhints").attach(client, buffer)
+          -- require("olmaoster.config.lsp.rust-tools").attach(client, buffer)
+        end
+      )
 
       -- diagnostics
       for name, icon in pairs(require("olmaoster.core.icons").diagnostics) do
@@ -87,6 +61,17 @@ return {
   {
     "williamboman/mason.nvim",
     cmd = "Mason",
+    opts = {
+      ensure_installed = {
+        "lua_ls",
+        "cssls",
+        "html",
+        "tsserver",
+        'rust_analyzer',
+        "eslint",
+        "tailwindcss"
+      }
+    },
     config = function()
       require("mason").setup()
     end,
@@ -114,20 +99,21 @@ return {
       require("olmaoster.config.null-ls")
     end,
   },
-
   -- {
-  --   "jay-babu/mason-null-ls.nvim",
-  --   event = { "BufReadPre", "BufNewFile" },
-  --   opts = {
-  --     ensure_installed = {
-  --       "stylua",
-  --       "prettier",
-  --       "prettierd",
-  --       "eslint_d",
-  --     },
-  --     automatic_setup = true,
-  --   },
+  -- -- RUST LSP
+  --   "simrat39/rust-tools.nvim",
   -- },
-
-  --  "mfussenegger/nvim-jdtls",
+  -- {
+  --   "rust-lang/rust.vim",
+  --   ft = "rust",
+  --   init = function ()
+  --     vim.g.rustfmt_autosave = 1
+  --   end
+  -- },
+  {
+  -- LSP INLAY HINTS
+  -- rust-tools already provides this feature, but gopls doesn't
+    "lvimuser/lsp-inlayhints.nvim",
+    dependencies = "neovim/nvim-lspconfig"
+  }
 }

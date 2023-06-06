@@ -13,7 +13,7 @@ local function setup()
       component_separators = { left = "", right = "" },
       section_separators = { left = "", right = "" },
       disabled_filetypes = {
-        statusline = { "dashboard", "lazy", "alpha" },
+        statusline = { "dashboard", "lazy" },
       },
       ignore_focus = {},
       always_divide_middle = true,

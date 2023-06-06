@@ -2,11 +2,25 @@ local servers = {
   cssls = {},
   html = {},
   jsonls = {},
-  -- intelephense = {}, -- php language server
-  -- sqlls = {},
-  -- jdtls = {
-  --   disabled = true,
-  -- },
+ -- rust_analyzer = {
+ --    filetypes = { "rust" },
+ --    settings = {
+ --      ["rust-analyzer"] = {
+ --        cargo = {
+ --          features = "all",
+ --        },
+ --        -- Add clippy lints for Rust.
+ --        checkOnSave = true,
+ --        check = {
+ --          command = "clippy",
+ --          features = "all",
+ --        },
+ --        procMacro = {
+ --          enable = true,
+ --        },
+ --      }
+ --    }
+ --  },
   lua_ls = {
     settings = {
       Lua = {
@@ -70,21 +84,6 @@ local servers = {
     },
     settings = {},
   },
-  -- pyright = {
-  --   settings = {
-  --     python = {
-  --       analysis = {
-  --         typeCheckingMode = "basic",
-  --         diagnosticMode = "workspace",
-  --         inlayHints = {
-  --           variableTypes = true,
-  --           functionReturnTypes = true,
-  --         },
-  --       },
-  --     },
-  --   },
-  -- },
-  -- bashls = {},
 }
 
 return servers

@@ -1,51 +1,7 @@
 return {
-  -- {
-  --   "nvim-neo-tree/neo-tree.nvim",
-  --   branch = "v2.x",
-  --   cmd = "Neotree",
-  --   keys = {
-  --     {
-  --       "<leader>e",
-  --       function()
-  --         require("neo-tree.command").execute({
-  --           toggle = true,
-  --           position = "right",
-  --           dir = require("olmaoster.util").get_root(),
-  --         })
-  --       end,
-  --       desc = "Explorer (root dir)",
-  --       remap = true,
-  --     },
-  --     {
-  --       "<leader>E",
-  --       function()
-  --         require("neo-tree.command").execute({
-  --           toggle = true,
-  --           dir = require("olmaoster.util").get_root(),
-  --           position = "float",
-  --         })
-  --       end,
-  --       desc = "Explorer Float (root dir)",
-  --     },
-  --   },
-  --   init = function()
-  --     vim.g.neo_tree_remove_legacy_commands = 1
-  --     if vim.fn.argc() == 1 then
-  --       local stat = vim.loop.fs_stat(vim.fn.argv(0))
-  --       if stat and stat.type == "directory" then
-  --         require("neo-tree")
-  --       end
-  --     end
-  --   end,
-  --   requires = {
-  --     "nvim-lua/plenary.nvim",
-  --     "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
-  --     "MunifTanjim/nui.nvim",
-  --   },
-  --   config = function()
-  --     -- require("olmaoster.config.neo-tree")
-  --   end,
-  -- },
+  {
+    "christoomey/vim-tmux-navigator",
+  },
   {
     "nvim-tree/nvim-tree.lua",
     version = "*",
@@ -55,9 +11,6 @@ return {
     config = function () 
       require('olmaoster.config.nvim-tree')
     end
-  },
-  {
-    "christoomey/vim-tmux-navigator",
   },
   {
     "nvim-telescope/telescope.nvim",
@@ -81,19 +34,12 @@ return {
           -- "%.jpg",
           -- "%.jpeg",
           -- "%.png",
-          "%.svg",
-          "%.otf",
-          "%.ttf",
           "%.webp",
-          ".dart_tool/",
           ".github/",
-          ".gradle/",
           ".idea/",
           ".settings/",
           ".vscode/",
           "__pycache__/",
-          "build/",
-          "gradle/",
           "node_modules/",
           "%.pdb",
           "%.dll",
@@ -155,7 +101,7 @@ return {
       { "<leader>gc", "<cmd>Telescope git_commits<cr>",                  desc = "Checkout commit" },
       -- Find
       -- { "<leader>f",  "<cmd>lua require('telescope.builtin').find_files()<cr>", desc = "Find files" },
-      { "<leader>pf", require("olmaoster.util").telescope("find_files"), desc = "Find files" },
+      { "<leader>pf", require("olmaoster.util").telescope("find_files", nil, { hidden = true }), desc = "Find files" },
       -- { "<leader>F",  "<cmd>Telescope live_grep<cr>",                           desc = "Find Text" },
       { "<leader>ps", require("olmaoster.util").telescope("live_grep"),  desc = "Find Text" },
     },
@@ -243,34 +189,5 @@ return {
       { "]]", desc = "Next Reference" },
       { "[[", desc = "Prev Reference" },
     },
-  },
-
-  {
-    "luukvbaal/statuscol.nvim",
-    event = "BufReadPost",
-    config = function()
-      local builtin = require("statuscol.builtin")
-      require("statuscol").setup({
-        relculright = false,
-        -- ft_ignore = { "neo-tree" },
-        segments = {
-          {
-            -- line number
-            text = { " ", builtin.lnumfunc },
-            condition = { true, builtin.not_empty },
-            click = "v:lua.ScLa",
-          },
-          { text = { "%s" },      click = "v:lua.ScSa" }, -- Sign
-          { text = { "%C", " " }, click = "v:lua.ScFa" }, -- Fold
-        },
-      })
-      -- vim.api.nvim_create_autocmd({ "BufEnter" }, {
-      --   callback = function()
-      --     if vim.bo.filetype == "neo-tree" then
-      --       vim.opt_local.statuscolumn = ""
-      --     end
-      --   end,
-      -- })
-    end,
   },
 }
