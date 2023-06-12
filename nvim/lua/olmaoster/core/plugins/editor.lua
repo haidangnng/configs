@@ -237,7 +237,7 @@ return {
     dependencies = { { "nvim-tree/nvim-web-devicons" } },
     keys = { { "<leader>0", "<cmd>Dashboard<CR>", desc = "Dashboard" } },
     config = function()
-      require("olmaoster.config.dashboard")
+      require("olmaoster.config.editor.dashboard")
     end,
   }
 }
