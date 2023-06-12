@@ -6,8 +6,8 @@ M.attach = function(client, buffer)
     return
   end
   lspsaga.setup({})
-  local keymap = vim.keymap.set
 
+  local keymap = vim.keymap.set
   -- LSP finder - Find the symbol's definition
   -- If there is no definition, it will instead be hidden
   -- When you use an action in finder like "open vsplit",
@@ -23,11 +23,6 @@ M.attach = function(client, buffer)
   -- Rename all occurrences of the hovered word for the selected files
   keymap("n", "gr", "<cmd>Lspsaga rename ++project<CR>")
 
-  -- Peek definition
-  -- You can edit the file containing the definition in the floating window
-  -- It also supports open/vsplit/etc operations, do refer to "definition_action_keys"
-  -- It also supports tagstack
-  -- Use <C-t> to jump back
   keymap("n", "gp", "<cmd>Lspsaga peek_definition<CR>")
 
   -- Go to definition
@@ -78,9 +73,6 @@ M.attach = function(client, buffer)
   -- Call hierarchy
   keymap("n", "<Leader>ci", "<cmd>Lspsaga incoming_calls<CR>")
   keymap("n", "<Leader>co", "<cmd>Lspsaga outgoing_calls<CR>")
-
-  -- Floating terminal
-  keymap({ "n", "t" }, "<A-d>", "<cmd>Lspsaga term_toggle<CR>")
 end
 
 return M

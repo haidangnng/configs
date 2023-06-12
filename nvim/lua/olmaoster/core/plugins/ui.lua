@@ -1,4 +1,5 @@
 return {
+  --- BUFFER TAB BAR --- 
   {
     "akinsho/bufferline.nvim",
     event = { "BufReadPost" },
@@ -19,14 +20,6 @@ return {
           end
           return tostring(count)
         end,
-        -- offsets = {
-        --   {
-        --     filetype = "neo-tree",
-        --     text = "EXPLORER",
-        --     text_align = "center",
-        --     -- separator = true,
-        --   },
-        -- },
         hover = {
           enabled = true,
           delay = 0,
@@ -36,22 +29,23 @@ return {
     },
   },
 
+  --- FILE STATUS LINE --- 
   {
     "nvim-lualine/lualine.nvim",
     event = "VeryLazy",
     opts = {},
     config = function()
-      local lualine_config = require("olmaoster.config.lualine")
+      local lualine_config = require("olmaoster.config.editor.lualine")
       lualine_config.setup({
         float = false,
         separator = "bubble", -- bubble | triangle
-        ---@type any
         colorful = true,
       })
       lualine_config.load()
     end,
   },
 
+  --- INDENT LINE ---
   {
     "lukas-reineke/indent-blankline.nvim",
     event = { "BufReadPost", "BufNewFile" },
@@ -79,40 +73,8 @@ return {
       },
     },
   },
-	{ 'echasnovski/mini.surround', version = false, config = function ()
-    require('mini.surround').setup()
-	end},
-  {
-    "echasnovski/mini.indentscope",
-    lazy = true,
-    enabled = true,
-    -- lazy = true,
-    version = false, -- wait till new 0.7.0 release to put it back on semver
-    -- event = "BufReadPre",
-    opts = {
-      symbol = "▏",
-      -- symbol = "│",
-      options = { try_as_border = false },
-    },
-    config = function(_, opts)
-      vim.api.nvim_create_autocmd("FileType", {
-        pattern = {
-          "help",
-          "alpha",
-          "dashboard",
-          -- "neo-tree",
-          "Trouble",
-          "lazy",
-          "mason",
-        },
-        callback = function()
-          vim.b.miniindentscope_disable = true
-        end,
-      })
-      require("mini.indentscope").setup(opts)
-    end,
-  },
 
+  --- LOCATION BARBECUE LINE ---
   {
     "utilyre/barbecue.nvim",
     event = { "BufReadPost" },
@@ -156,21 +118,8 @@ return {
       },
     },
   },
-  {
-    "glepnir/dashboard-nvim",
-    event = "VimEnter",
-    dependencies = { { "nvim-tree/nvim-web-devicons" } },
-    keys = { { "<leader>0", "<cmd>Dashboard<CR>", desc = "Dashboard" } },
-    config = function()
-      require("olmaoster.config.dashboard")
-    end,
-  },
 
-  {
-    "nvim-tree/nvim-web-devicons",
-    lazy = true,
-  },
-
+  --- SCROLL BAR ---
   {
     "petertriho/nvim-scrollbar",
     event = "BufReadPost",
@@ -182,7 +131,6 @@ return {
         "prompt",
         "TelescopePrompt",
         "noice",
-        -- "neo-tree",
         "dashboard",
         "alpha",
         "lazy",
@@ -197,8 +145,8 @@ return {
       },
     },
   },
-  
 
+  --- COLOR TAGS ---
   {
     "NvChad/nvim-colorizer.lua",
     event = "BufReadPre",

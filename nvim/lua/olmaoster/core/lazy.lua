@@ -13,7 +13,7 @@ vim.opt.rtp:prepend(lazypath)
 
 -- load lazy
 require("lazy").setup({
-  spec = "olmaoster.core.resources",
+  spec = "olmaoster.core.plugins",
   defaults = {
     lazy = false,
     version = "*", -- try installing the latest stable version for plugins that support semver
@@ -24,8 +24,8 @@ require("lazy").setup({
       -- disable some rtp plugins
       disabled_plugins = {
         "gzip",
-        -- "matchit",
-        -- "matchparen",
+        "matchit",
+        "matchparen",
         "tarPlugin",
         "tohtml",
         "tutor",

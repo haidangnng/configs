@@ -2,25 +2,6 @@ local servers = {
   cssls = {},
   html = {},
   jsonls = {},
- -- rust_analyzer = {
- --    filetypes = { "rust" },
- --    settings = {
- --      ["rust-analyzer"] = {
- --        cargo = {
- --          features = "all",
- --        },
- --        -- Add clippy lints for Rust.
- --        checkOnSave = true,
- --        check = {
- --          command = "clippy",
- --          features = "all",
- --        },
- --        procMacro = {
- --          enable = true,
- --        },
- --      }
- --    }
- --  },
   lua_ls = {
     settings = {
       Lua = {

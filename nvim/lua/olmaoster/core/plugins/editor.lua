@@ -1,17 +1,17 @@
 return {
-  {
-    "christoomey/vim-tmux-navigator",
-  },
+  --- FILE TREE ---
   {
     "nvim-tree/nvim-tree.lua",
     version = "*",
     dependencies = {
       "nvim-tree/nvim-web-devicons",
     },
-    config = function () 
-      require('olmaoster.config.nvim-tree')
+    config = function ()
+      require('olmaoster.config.editor.nvim-tree')
     end
   },
+
+  --- FUZZY FINDER ---
   {
     "nvim-telescope/telescope.nvim",
     cmd = "Telescope",
@@ -108,6 +108,7 @@ return {
     -- config = function() require("olmaoster.config.telescope") end,
   },
 
+  --- GITS STATUS ICONS ---
   {
     "lewis6991/gitsigns.nvim",
     event = { "BufReadPre", "BufNewFile" },
@@ -143,7 +144,7 @@ return {
     },
   },
 
-  -- references
+  --- UNDER CURSOR REFERENCES ---
   {
     "RRethy/vim-illuminate",
     event = { "BufReadPost", "BufNewFile" },
@@ -190,4 +191,53 @@ return {
       { "[[", desc = "Prev Reference" },
     },
   },
+
+  --- SYNTAX HIGHLIGHT ---
+  {
+    "nvim-treesitter/nvim-treesitter",
+    version = false, -- last release is way too old and doesn't work on Windows
+    build = ":TSUpdate",
+    event = { "BufReadPost", "BufNewFile" },
+    opts = {
+      ensure_installed = {
+        "bash",
+        "html",
+        "javascript",
+        "json",
+        "lua",
+        "markdown",
+        "toml",
+        "rust",
+        "markdown_inline",
+        "regex",
+        "tsx",
+        "typescript",
+        "vim",
+        "yaml",
+        "scss",
+      },
+      highlight = { enable = true },
+      indent = { enable = true, disable = { "yaml", "python", "html" } },
+      context_commentstring = { enable = true },
+      rainbow = {
+        enable = false,
+        query = "rainbow-parens",
+        disable = { "jsx", "html" },
+      },
+    },
+    config = function(_, opts)
+      require("nvim-treesitter.configs").setup(opts)
+    end,
+  },
+
+  --- DASHBOARD STARTUP ---
+  {
+    "glepnir/dashboard-nvim",
+    event = "VimEnter",
+    dependencies = { { "nvim-tree/nvim-web-devicons" } },
+    keys = { { "<leader>0", "<cmd>Dashboard<CR>", desc = "Dashboard" } },
+    config = function()
+      require("olmaoster.config.dashboard")
+    end,
+  }
 }

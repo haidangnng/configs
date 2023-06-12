@@ -1,14 +1,8 @@
-local config = require("olmaoster.config.lualine.config")
-
 local M = {}
 
 local function setup()
-  local cpn = require("olmaoster.config.lualine.components")
-  local theme = require("olmaoster.config.lualine.highlights").custom(config.options)
-
   require("lualine").setup({
     options = {
-      theme = theme,
       icons_enabled = true,
       component_separators = { left = "", right = "" },
       section_separators = { left = "", right = "" },
@@ -58,7 +52,20 @@ local function setup()
   })
 end
 
-M.setup = config.setup
+local default = {
+  float = true,
+  separator = "bubble", -- bubble | triangle
+  ---@type any
+  colorful = true,
+  separator_icon = { left = "", right = " " },
+  thin_separator_icon = { left = "", right = " " },
+  -- separator_icon = { left = "█", right = "█" },
+  -- thin_separator_icon = { left = " ", right = " " },
+}
+
+M.setup = function (opts)
+   M.options = vim.tbl_deep_extend("force", {}, default, opts or {})
+end
 
 M.load = function()
   setup()
