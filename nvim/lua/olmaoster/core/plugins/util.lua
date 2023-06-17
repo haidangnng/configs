@@ -1,4 +1,9 @@
 return {
+  {
+    "MunifTanjim/nui.nvim",
+    lazy = true,
+  },
+
   --- MULTI CURSOR SELECT ---
   {
     "mg979/vim-visual-multi",

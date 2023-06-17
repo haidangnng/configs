@@ -1,3 +1,6 @@
+local Util = require("olmaoster.util")
+local Icon = require("olmaoster.core.icons")
+
 return {
   --- BUFFER TAB BAR --- 
   {
@@ -6,11 +9,8 @@ return {
     opts = {
       options = {
         diagnostics = "nvim_lsp", -- | "nvim_lsp" | "coc",
-        -- separator_style = "", -- | "thick" | "thin" | "slope" | { 'any', 'any' },
-        separator_style = { "", "" }, -- | "thick" | "thin" | { 'any', 'any' },
+        separator_style = "slant", -- | "thick" | "thin" | "slope" | { 'any', 'any' },
         indicator = {
-          -- icon = " ",
-          -- style = 'icon',
           style = "underline",
         },
         close_command = "Bdelete! %d", -- can be a string | function, see "Mouse actions"
@@ -33,14 +33,15 @@ return {
   {
     "nvim-lualine/lualine.nvim",
     event = "VeryLazy",
-    opts = {},
-    config = function()
+    opts = {
+      float = true,
+      separator = "bubble", -- bubble | triangle
+      ---@type any
+      colorful = true,
+    },
+    config = function(_, opts)
       local lualine_config = require("olmaoster.config.editor.lualine")
-      lualine_config.setup({
-        float = false,
-        separator = "bubble", -- bubble | triangle
-        colorful = true,
-      })
+      lualine_config.setup(opts)
       lualine_config.load()
     end,
   },
@@ -172,29 +173,65 @@ return {
     },
   },
 
-  -- better vim.ui
-  -- {
-  --   "stevearc/dressing.nvim",
-  --   lazy = true,
-  --   opts = {
-  --     input = {
-  --       border = { "▄", "▄", "▄", "█", "▀", "▀", "▀", "█" }, -- [ top top top - right - bottom bottom bottom - left ]
-  --       win_options = { winblend = 0 },
-  --     },
-  --     select = { telescope = require("olmaoster.util").telescope_theme("dropdown") },
-  --   },
-  --   init = function()
-  --     ---@diagnostic disable-next-line: duplicate-set-field
-  --     vim.ui.select = function(...)
-  --       require("lazy").load({ plugins = { "dressing.nvim" } })
-  --       return vim.ui.select(...)
-  --     end
-  --     ---@diagnostic disable-next-line: duplicate-set-field
-  --     vim.ui.input = function(...)
-  --       require("lazy").load({ plugins = { "dressing.nvim" } })
-  --       return vim.ui.input(...)
-  --     end
-  --   end,
-  -- },
+  --- BETTER VIM.UI ---
+  {
+    "stevearc/dressing.nvim",
+    lazy = true,
+    opts = {
+      input = {
+        border = { "▄", "▄", "▄", "█", "▀", "▀", "▀", "█" }, -- [ top top top - right - bottom bottom bottom - left ]
+        win_options = { winblend = 0 },
+      },
+      select = { telescope = require("olmaoster.util").telescope_theme("dropdown") },
+    },
+    init = function()
+      ---@diagnostic disable-next-line: duplicate-set-field
+      vim.ui.select = function(...)
+        require("lazy").load({ plugins = { "dressing.nvim" } })
+        return vim.ui.select(...)
+      end
+      ---@diagnostic disable-next-line: duplicate-set-field
+      vim.ui.input = function(...)
+        require("lazy").load({ plugins = { "dressing.nvim" } })
+        return vim.ui.input(...)
+      end
+    end,
+  },
+
+  --- NOTIFY UI BOX --- 
+  {
+    "folke/noice.nvim",
+    event = "VeryLazy",
+    opts = {
+      cmdline = {
+        view = "cmdline",
+        format = {
+          cmdline = { icon = "  " },
+          search_down = { icon = "  󰄼" },
+          search_up = { icon = "  " },
+          lua = { icon = "  " },
+        },
+      },
+      lsp = {
+        progress = { enabled = true },
+        hover = { enabled = false },
+        signature = { enabled = false },
+        -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
+        override = {
+          ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+          ["vim.lsp.util.stylize_markdown"] = true,
+          ["cmp.entry.get_documentation"] = true,
+        },
+      },
+      routes = {
+        {
+          filter = {
+            event = "msg_show",
+            find = "%d+L, %d+B",
+          },
+        },
+      },
+    },
+  }
 }
 

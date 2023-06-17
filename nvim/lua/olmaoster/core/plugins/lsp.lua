@@ -7,13 +7,13 @@ return {
       "williamboman/mason.nvim",
       "williamboman/mason-lspconfig.nvim",
       "glepnir/lspsaga.nvim",
-      -- "simrat39/rust-tools.nvim"
     },
     config = function()
-        require("olmaoster.util").on_attach(
+      require("olmaoster.util").on_attach(
         function(client, buffer)
           require("olmaoster.config.lsp.keymaps").attach(client, buffer)
           require("olmaoster.config.lsp.lspsaga").attach(client, buffer)
+          require("olmaoster.config.lsp.gitsigns").attach(client, buffer)
           require("olmaoster.config.lsp.inlayhints").attach(client, buffer)
         end
       )
@@ -69,32 +69,19 @@ return {
           package_uninstalled = "◍",
         },
       },
-      ensure_installed = {
-        "lua_ls",
-        "cssls",
-        "html",
-        "tsserver",
-        'rust_analyzer',
-        "eslint",
-        "tailwindcss"
-      }
+      -- ensure_installed = {
+      --   "prettier",
+      --   "lua_ls",
+      --   "cssls",
+      --   "html",
+      --   "tsserver",
+      --   "eslint",
+      --   "tailwindcss"
+      -- }
     },
     config = function()
       require("mason").setup()
     end,
-    -- opts = {
-    --   ui = {
-    --     -- border = "rounded",
-    --     border = { "▄", "▄", "▄", "█", "▀", "▀", "▀", "█" },
-    --     icons = {
-    --       package_installed = "◍",
-    --       package_pending = "◍",
-    --       package_uninstalled = "◍",
-    --     },
-    --   },
-    --   log_level = vim.log.levels.INFO,
-    --   max_concurrent_installers = 4,
-    -- },
   },
   {
     "hrsh7th/nvim-cmp",
@@ -221,7 +208,58 @@ return {
     end,
   },
   {
+    "jay-babu/mason-null-ls.nvim",
+    event = { "BufReadPre", "BufNewFile" },
+    opts = {
+      ensure_installed = {
+        "prettier",
+        "lua_ls",
+        "cssls",
+        "html",
+        "tsserver",
+        "eslint",
+        "stylua",
+        "tailwindcss"
+      },
+      automatic_setup = true,
+    },
+  },
+  {
     "lvimuser/lsp-inlayhints.nvim",
     dependencies = "neovim/nvim-lspconfig"
-  }
+  },
+  {
+    "simrat39/rust-tools.nvim",
+    config = function ()
+      local rt = require("rust-tools")
+
+      rt.setup({
+        server = {
+          on_attach = function(_, bufnr)
+            -- Hover actions
+            vim.keymap.set("n", "<C-space>", rt.hover_actions.hover_actions, { buffer = bufnr })
+            -- Code action groups
+            vim.keymap.set("n", "<Leader>a", rt.code_action_group.code_action_group, { buffer = bufnr })
+          end,
+        },
+      })
+    end
+  },
+  {
+    "ray-x/lsp_signature.nvim",
+    event = { "InsertEnter" },
+    opts = {
+      floating_window = false, -- show hint in a floating window, set to false for virtual text only mode
+      floating_window_above_cur_line = true, -- try to place the floating above the current line when possible Note:
+      hint_scheme = "Comment", -- highlight group for the virtual text
+    },
+  },
+
+  {
+    "glepnir/lspsaga.nvim",
+    lazy = true,
+    config = function()
+      require("lspsaga").setup({})
+    end,
+  },
 }

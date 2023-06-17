@@ -1,3 +1,5 @@
+local Icons = require("olmaoster.core.icons")
+
 return {
   --- FILE TREE ---
   {
@@ -12,12 +14,42 @@ return {
   },
 
   --- FUZZY FINDER ---
+  -- { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
   {
     "nvim-telescope/telescope.nvim",
     cmd = "Telescope",
-    version = false, -- telescope did only one release, so use HEAD for now
     opts = {
       defaults = {
+        mappings = {
+          i = {
+            ['<C-l>'] = 'select_vertical',
+          }
+        },
+        preview = {
+          mime_hook = function(filepath, bufnr, opts)
+            local is_image = function(filepath)
+              local image_extensions = {'png','jpg'}   -- Supported image formats
+              local split_path = vim.split(filepath:lower(), '.', {plain=true})
+              local extension = split_path[#split_path]
+              return vim.tbl_contains(image_extensions, extension)
+            end
+            if is_image(filepath) then
+              local term = vim.api.nvim_open_term(bufnr, {})
+              local function send_output(_, data, _ )
+                for _, d in ipairs(data) do
+                  vim.api.nvim_chan_send(term, d..'\r\n')
+                end
+              end
+              vim.fn.jobstart(
+                {
+                  'catimg', filepath  -- Terminal image viewer command
+                },
+                {on_stdout=send_output, stdout_buffered=true, pty=true})
+            else
+              require("telescope.previewers.utils").set_preview_message(bufnr, opts.winid, "Binary cannot be previewed")
+            end
+          end
+            },
         prompt_prefix = "   ",
         selection_caret = " ❯ ",
         sorting_strategy = "ascending",
@@ -89,23 +121,15 @@ return {
       -- search
       -- { "sb", "<cmd>Telescope git_branches<cr>", desc = "Checkout branch" },
       -- { "sc", "<cmd>Telescope colorscheme<cr>", desc = "Colorscheme" },
-      -- { "sM", "<cmd>Telescope man_pages<cr>", desc = "Man Pages" },
-      { "sh",         "<cmd>Telescope help_tags<cr>",                    desc = "Find Help" },
-      { "sr",         "<cmd>Telescope oldfiles<cr>",                     desc = "Open Recent File" },
-      -- { "sR", "<cmd>Telescope registers<cr>", desc = "Registers" },
       { "sk",         "<cmd>Telescope keymaps<cr>",                      desc = "Keymaps" },
       { "sC",         "<cmd>Telescope commands<cr>",                     desc = "Commands" },
       -- Git
       { "<leader>gs", "<cmd>Telescope git_status<cr>",                   desc = "Open changed file" },
       { "<leader>gb", "<cmd>Telescope git_branches<cr>",                 desc = "Checkout branch" },
       { "<leader>gc", "<cmd>Telescope git_commits<cr>",                  desc = "Checkout commit" },
-      -- Find
-      -- { "<leader>f",  "<cmd>lua require('telescope.builtin').find_files()<cr>", desc = "Find files" },
       { "<leader>pf", require("olmaoster.util").telescope("find_files", nil, { hidden = true }), desc = "Find files" },
-      -- { "<leader>F",  "<cmd>Telescope live_grep<cr>",                           desc = "Find Text" },
       { "<leader>ps", require("olmaoster.util").telescope("live_grep"),  desc = "Find Text" },
     },
-    -- config = function() require("olmaoster.config.telescope") end,
   },
 
   --- GITS STATUS ICONS ---
@@ -114,12 +138,12 @@ return {
     event = { "BufReadPre", "BufNewFile" },
     opts = {
       signs = {
-        add = { text = "┃" },
-        change = { text = "┋" },
-        delete = { text = "契" },
-        topdelhfe = { text = "契" },
-        changedelete = { text = "┃" },
-        untracked = { text = "┃" },
+        add = { text = Icons.gitsigns.add },
+        change = { text = Icons.gitsigns.change },
+        delete = { text = Icons.gitsigns.delete },
+        topdelhfe = { text = Icons.gitsigns.topdelhfe },
+        changedelete = { text = Icons.gitsigns.changedelete },
+        untracked = { text = Icons.gitsigns.untracked },
       },
       current_line_blame = true,
       current_line_blame_opts = {
@@ -216,13 +240,17 @@ return {
         "yaml",
         "scss",
       },
+      auto_install = true,
       highlight = { enable = true },
-      indent = { enable = true, disable = { "yaml", "python", "html" } },
+      indent = {
+        enable = true,
+        disable = { "yaml", "python", "html" }
+      },
       context_commentstring = { enable = true },
       rainbow = {
         enable = false,
         query = "rainbow-parens",
-        disable = { "jsx", "html" },
+        -- disable = { "jsx", "html" },
       },
     },
     config = function(_, opts)
@@ -239,5 +267,9 @@ return {
     config = function()
       require("olmaoster.config.editor.dashboard")
     end,
+  },
+  {
+    'declancm/maximize.nvim',
+    config = function() require('maximize').setup() end
   }
 }
