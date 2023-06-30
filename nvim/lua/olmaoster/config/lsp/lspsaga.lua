@@ -36,7 +36,7 @@ M.attach = function(client, buffer)
   keymap("n", "gt", "<cmd>Lspsaga peek_type_definition<CR>")
 
   -- Go to type definition
-  keymap("n", "gt", "<cmd>Lspsaga goto_type_definition<CR>")
+  keymap("n", "<leader>gt", "<cmd>Lspsaga goto_type_definition<CR>")
 
   -- Show line diagnostics
   -- You can pass argument ++unfocus to

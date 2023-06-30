@@ -109,7 +109,7 @@ M.lazy_notify = function()
     end
   end)
   -- or if it took more than 500ms, then something went wrong
-  timer:start(500, 0, replay)
+  timer:start(2000, 0, replay)
 end
 
 ---@param type "ivy" | "dropdown" | "cursor" | nil

@@ -24,11 +24,11 @@ local function generate(config, palette)
   end
   return {
     SLGitIcon = {
-      bg = float and palette.float_background or palette.statusbar_bg,
+      -- bg = float and palette.float_background or palette.statusbar_bg,
       fg = colorful and palette.white or palette.statusbar_fg,
     },
     SLBranchName = {
-      bg = float and palette.float_background or palette.statusbar_bg,
+      -- bg = float and palette.float_background or palette.statusbar_bg,
       fg = colorful and palette.green or palette.statusbar_fg,
     },
     SLError = {
@@ -56,11 +56,11 @@ local function generate(config, palette)
       fg = colorful and palette.red or palette.statusbar_fg,
     },
     SLPosition = {
-      bg = float and palette.float_background or palette.statusbar_bg,
+      -- bg = float and palette.float_background or palette.statusbar_bg,
       fg = colorful and palette.magenta or palette.statusbar_fg,
     },
     SLFiletype = {
-      bg = float and palette.float_background or palette.statusbar_bg,
+      -- bg = float and palette.float_background or palette.statusbar_bg,
       fg = colorful and palette.blue or palette.statusbar_fg,
     },
     SLShiftWidth = {
@@ -72,22 +72,22 @@ local function generate(config, palette)
       fg = colorful and palette.green or palette.statusbar_fg,
     },
     SLVisual = {
-      bg = float and palette.float_background or palette.statusbar_bg,
+      -- bg = float and palette.float_background or palette.statusbar_bg,
       fg = colorful and palette.magenta or palette.statusbar_fg,
       bold = true,
     },
     SLCommand = {
-      bg = float and palette.float_background or palette.statusbar_bg,
+      -- bg = float and palette.float_background or palette.statusbar_bg,
       fg = colorful and palette.yellow or palette.statusbar_fg,
       bold = true,
     },
     SLInsert = {
-      bg = float and palette.float_background or palette.statusbar_bg,
+      -- bg = float and palette.float_background or palette.statusbar_bg,
       fg = colorful and palette.blue or palette.statusbar_fg,
       bold = true,
     },
     SLNormal = {
-      bg = float and palette.float_background or palette.statusbar_bg,
+      -- bg = float and palette.float_background or palette.statusbar_bg,
       fg = colorful and palette.orange or palette.statusbar_fg,
       bold = true,
     },

@@ -238,6 +238,7 @@ return {
         "typescript",
         "vim",
         "yaml",
+        "svelte",
         "scss",
       },
       auto_install = true,
@@ -268,8 +269,22 @@ return {
       require("olmaoster.config.editor.dashboard")
     end,
   },
+  --- MAXIMIZE WINDOW PANE ---
   {
     'declancm/maximize.nvim',
     config = function() require('maximize').setup() end
+  },
+  --- VISUAL CODE BLOCK ---
+  {
+    "HampusHauffman/block.nvim",
+    config = function()
+      require("block").setup({})
+    end
+  },
+  {
+    'evanleck/vim-svelte'
+  },
+  {
+    'leafOfTree/vim-svelte-plugin'
   }
 }

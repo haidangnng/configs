@@ -2,6 +2,41 @@ local servers = {
   cssls = {},
   html = {},
   jsonls = {},
+  svelte = {
+    "svelte-language-server"
+  },
+  tailwindcss = {
+    settings = {
+      hovers = true,
+      suggestions = true,
+      filetypes = { "aspnetcorerazor", "astro", "astro-markdown", "blade", "django-html", "edge", "eelixir", "ejs", "erb", "eruby", "gohtml", "haml", "handlebars", "hbs", "html", "html-eex", "heex", "jade", "leaf", "liquid", "markdown", "mdx", "mustache", "njk", "nunjucks", "php", "razor", "slim", "twig", "css", "less", "postcss", "sass", "scss", "stylus", "sugarss", "javascript", "javascriptreact", "reason", "rescript", "typescript", "typescriptreact", "vue", "svelte" },
+      validate = true,
+      lint = {
+        cssConflict = 'warning',
+        invalidApply = 'error',
+        invalidScreen = 'error',
+        invalidVariant = 'error',
+        invalidConfigPath = 'error',
+        invalidTailwindDirective = 'error',
+        recommendedVariantOrder = 'warning',
+      },
+      classAttributes = {
+        'class',
+        'className',
+        'class:list',
+        'classList',
+        'ngClass',
+      },
+      -- root_dir = function(fname)
+      --   local root_pattern = require("lspconfig").util.root_pattern(
+      --     "tailwind.config.cjs",
+      --     "tailwind.config.js",
+      --     "postcss.config.js"
+      --   )
+      --   return root_pattern(fname)
+      -- end,
+    }
+  },
   rust_analyzer = {
     settings = {
       ["rust-analyzer"] = {

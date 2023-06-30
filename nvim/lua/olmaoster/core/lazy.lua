@@ -1,4 +1,5 @@
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+
 if not vim.loop.fs_stat(lazypath) then
   vim.fn.system({
     "git",
@@ -9,6 +10,7 @@ if not vim.loop.fs_stat(lazypath) then
     lazypath,
   })
 end
+
 vim.opt.rtp:prepend(lazypath)
 
 -- load lazy
@@ -18,7 +20,7 @@ require("lazy").setup({
     lazy = false,
     version = "*", -- try installing the latest stable version for plugins that support semver
   },
-  checker = { enabled = false, notify = false },
+  checker = { enabled = true, notify = true},
   performance = {
     rtp = {
       -- disable some rtp plugins

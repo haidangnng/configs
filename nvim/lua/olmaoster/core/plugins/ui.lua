@@ -1,6 +1,3 @@
-local Util = require("olmaoster.util")
-local Icon = require("olmaoster.core.icons")
-
 return {
   --- BUFFER TAB BAR --- 
   {

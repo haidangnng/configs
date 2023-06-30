@@ -21,7 +21,18 @@ return {
               rows = 10,
             },
           },
-          snippets = {},
+          snippets = {
+            ["!"] = "<!DOCTYPE html>\n"
+              .. '<html lang="en">\n'
+              .. "<head>\n"
+              .. '\t<meta charset="${charset}">\n'
+              .. '\t<meta name="viewport" content="width=device-width, initial-scale=1.0">\n'
+              .. '\t<meta http-equiv="X-UA-Compatible" content="ie=edge">\n'
+              .. "\t<title></title>\n"
+              .. "</head>\n"
+              .. "<body>\n\t${child}|\n</body>\n"
+              .. "</html>",
+          },
         },
       }
     end,

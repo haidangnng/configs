@@ -35,10 +35,10 @@ M.branch = {
     end
     prev_branch = str
     local icon = hl_str("  ", "SLGitIcon", "SLBranchName")
-    return hl_str(config.separator_icon.left, "SLSeparator")
+    return hl_str(config.thin_separator_icon.left, "SLSeparator")
       .. hl_str(icon, "SLGitIcon")
       .. hl_str(truncate(str, 10), "SLBranchName")
-      .. hl_str(config.separator_icon.right, "SLSeparator", "SLSeparator")
+      .. hl_str(config.thin_separator_icon.right, "SLSeparator", "SLSeparator")
   end,
 }
 
@@ -46,8 +46,8 @@ M.position = function()
   -- print(vim.inspect(config.separator_icon))
   local current_line = vim.fn.line(".")
   local current_column = vim.fn.col(".")
-  local left_sep = hl_str(config.separator_icon.left, "SLSeparator")
-  local right_sep = hl_str(config.separator_icon.right, "SLSeparator", "SLSeparator")
+  local left_sep = hl_str(config.thin_separator_icon.left, "SLSeparator")
+  local right_sep = hl_str(config.thin_separator_icon.right, "SLSeparator", "SLSeparator")
   local str = "Ln " .. current_line .. ", Col " .. current_column
   return left_sep .. hl_str(str, "SLPosition", "SLPosition") .. right_sep
 end
@@ -115,8 +115,8 @@ local mode = {
 M.mode = {
   "mode",
   fmt = function(str)
-    local left_sep = hl_str(config.separator_icon.left, "SLSeparator", "SLPadding")
-    local right_sep = hl_str(config.separator_icon.right, "SLSeparator", "SLPadding")
+    local left_sep = hl_str(config.thin_separator_icon.left, "SLSeparator", "SLPadding")
+    local right_sep = hl_str(config.thin_separator_icon.right, "SLSeparator", "SLPadding")
     if mode[str] then
       return left_sep .. hl_str(str, mode[str]) .. right_sep
     else
@@ -165,8 +165,8 @@ M.filetype = {
       prev_filetype = str
       filetype_str = str
     end
-    local left_sep = hl_str(config.separator_icon.left, "SLSeparator")
-    local right_sep = hl_str(config.separator_icon.right, "SLSeparator", "SLSeparator")
+    local left_sep = hl_str(config.thin_separator_icon.left, "SLSeparator")
+    local right_sep = hl_str(config.thin_separator_icon.right, "SLSeparator", "SLSeparator")
     -- Upper case first character
     filetype_str = filetype_str:gsub("%a", string.upper, 1)
     local filetype_hl = hl_str(filetype_str, "SLFiletype", "SLFiletype")

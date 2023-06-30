@@ -69,15 +69,16 @@ return {
           package_uninstalled = "◍",
         },
       },
-      -- ensure_installed = {
-      --   "prettier",
-      --   "lua_ls",
-      --   "cssls",
-      --   "html",
-      --   "tsserver",
-      --   "eslint",
-      --   "tailwindcss"
-      -- }
+      ensure_installed = {
+        "prettier",
+        "lua_ls",
+        "cssls",
+        "html",
+        "tsserver",
+        "eslint",
+        "tailwindcss",
+        "svelte-language-server"
+      }
     },
     config = function()
       require("mason").setup()
@@ -258,8 +259,17 @@ return {
   {
     "glepnir/lspsaga.nvim",
     lazy = true,
-    config = function()
-      require("lspsaga").setup({})
-    end,
   },
+{
+  "ray-x/go.nvim",
+  dependencies = {  -- optional packages
+    "ray-x/guihua.lua",
+  },
+  config = function()
+    require("go").setup()
+  end,
+  event = {"CmdlineEnter"},
+  ft = {"go", 'gomod'},
+  build = ':lua require("go.install").update_all_sync()' -- if you need to install/update all binaries
+}
 }
