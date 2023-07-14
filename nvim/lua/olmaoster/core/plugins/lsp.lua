@@ -71,13 +71,15 @@ return {
       },
       ensure_installed = {
         "prettier",
+        "emmet_ls",
         "lua_ls",
         "cssls",
+        "rust_analyzer",
         "html",
         "tsserver",
         "eslint",
         "tailwindcss",
-        "svelte-language-server"
+        -- "svelte-language-server"
       }
     },
     config = function()
@@ -97,6 +99,16 @@ return {
       "saadparwaiz1/cmp_luasnip",
     },
     opts = function()
+      local snip_status_ok, luasnip = pcall(require, "luasnip")
+      if not snip_status_ok then
+        return
+      end
+
+      local check_backspace = function()
+        local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+        return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match "%s" == nil
+      end
+
       local cmp = require("cmp")
       cmp.setup.cmdline("/", {
         mapping = cmp.mapping.preset.cmdline(),
@@ -127,8 +139,37 @@ return {
           ["<C-Space>"] = cmp.mapping.complete(),
           ["<C-e>"] = cmp.mapping.abort(),
           ["<CR>"] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
-          ["<Tab>"] = cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert }),
-          ["<S-Tab>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
+          ["<Tab>"] = cmp.mapping(function(fallback)
+              if cmp.visible() then
+                cmp.select_next_item()
+              elseif luasnip.jumpable(1) then
+                luasnip.jump(1)
+              elseif luasnip.expand_or_jumpable() then
+                luasnip.expand_or_jump()
+              elseif luasnip.expandable() then
+                luasnip.expand()
+              elseif check_backspace() then
+                -- cmp.complete()
+                fallback()
+              else
+                fallback()
+              end
+            end, {
+              "i",
+              "s",
+            }),
+            ["<S-Tab>"] = cmp.mapping(function(fallback)
+              if cmp.visible() then
+                cmp.select_prev_item()
+              elseif luasnip.jumpable(-1) then
+                luasnip.jump(-1)
+              else
+                fallback()
+              end
+            end, {
+              "i",
+              "s",
+            }),
           ["<Esc>"] = cmp.mapping(function(fallback)
             require("luasnip").unlink_current()
             fallback()
@@ -136,6 +177,7 @@ return {
         }),
         sources = cmp.config.sources({
           { name = "nvim_lsp" },
+          { name = "cmp_tabnine", group_index = 2 },
           { name = "luasnip" },
           { name = "buffer" },
           { name = "path" },
@@ -147,6 +189,7 @@ return {
             item.kind = icons[item.kind]
             item.menu = ({
               nvim_lsp = "Lsp",
+              cmp_tabnine = "Tabnine",
               nvim_lua = "Lua",
               luasnip = "Snippet",
               buffer = "Buffer",
@@ -231,20 +274,6 @@ return {
   },
   {
     "simrat39/rust-tools.nvim",
-    config = function ()
-      local rt = require("rust-tools")
-
-      rt.setup({
-        server = {
-          on_attach = function(_, bufnr)
-            -- Hover actions
-            vim.keymap.set("n", "<C-space>", rt.hover_actions.hover_actions, { buffer = bufnr })
-            -- Code action groups
-            vim.keymap.set("n", "<Leader>a", rt.code_action_group.code_action_group, { buffer = bufnr })
-          end,
-        },
-      })
-    end
   },
   {
     "ray-x/lsp_signature.nvim",
@@ -260,16 +289,34 @@ return {
     "glepnir/lspsaga.nvim",
     lazy = true,
   },
-{
-  "ray-x/go.nvim",
-  dependencies = {  -- optional packages
-    "ray-x/guihua.lua",
+  {
+    "ray-x/go.nvim",
+    dependencies = {  -- optional packages
+      "ray-x/guihua.lua",
+    },
+    config = function()
+      require("go").setup()
+    end,
+    event = {"CmdlineEnter"},
+    ft = {"go", 'gomod'},
+    build = ':lua require("go.install").update_all_sync()' -- if you need to install/update all binaries
   },
-  config = function()
-    require("go").setup()
-  end,
-  event = {"CmdlineEnter"},
-  ft = {"go", 'gomod'},
-  build = ':lua require("go.install").update_all_sync()' -- if you need to install/update all binaries
-}
+  {"b0o/schemastore.nvim"},
+  {
+    'tzachar/cmp-tabnine',
+    build = './install.sh',
+    dependencies = 'hrsh7th/nvim-cmp',
+    opts = {
+      max_lines = 1000,
+      max_num_results = 20,
+      sort = true,
+      run_on_every_keystroke = true,
+      snippet_placeholder = "..",
+      ignored_file_types = { -- default is not to ignore
+        -- uncomment to ignore in lua:
+        -- lua = true
+      },
+    }
+  },
+  { "jose-elias-alvarez/typescript.nvim" }
 }

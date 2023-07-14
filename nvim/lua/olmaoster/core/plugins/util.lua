@@ -10,11 +10,6 @@ return {
     event = "BufAdd",
   },
 
-  --- TMUX WINDOW NAVIGATOR ---
-  {
-    "christoomey/vim-tmux-navigator",
-  },
-
   --- BUFFER CLOSE ---
   {
     "moll/vim-bbye",

@@ -14,7 +14,7 @@ return {
   },
 
   --- FUZZY FINDER ---
-  -- { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
+  { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
   {
     "nvim-telescope/telescope.nvim",
     cmd = "Telescope",
@@ -238,7 +238,7 @@ return {
         "typescript",
         "vim",
         "yaml",
-        "svelte",
+        -- "svelte",
         "scss",
       },
       auto_install = true,
@@ -260,15 +260,29 @@ return {
   },
 
   --- DASHBOARD STARTUP ---
-  {
-    "glepnir/dashboard-nvim",
-    event = "VimEnter",
-    dependencies = { { "nvim-tree/nvim-web-devicons" } },
-    keys = { { "<leader>0", "<cmd>Dashboard<CR>", desc = "Dashboard" } },
-    config = function()
-      require("olmaoster.config.editor.dashboard")
-    end,
-  },
+  -- {
+  --   'goolord/alpha-nvim',
+  --   event = "VimEnter",
+  --   dependencies = { 'nvim-tree/nvim-web-devicons' },
+  --   config = function()
+  --     require("olmaoster.config.editor.alpha")
+  --   end,
+  -- },
+  -- {
+  --   "ahmedkhalf/project.nvim",
+  --   config = function()
+  --     require("olmaoster.config.editor.project")
+  --   end,
+  -- },
+  -- {
+  --   "glepnir/dashboard-nvim",
+  --   event = "VimEnter",
+  --   dependencies = { { "nvim-tree/nvim-web-devicons" } },
+  --   keys = { { "<leader>0", "<cmd>Dashboard<CR>", desc = "Dashboard" } },
+  --   config = function()
+  --     require("olmaoster.config.editor.dashboard")
+  --   end,
+  -- },
   --- MAXIMIZE WINDOW PANE ---
   {
     'declancm/maximize.nvim',
@@ -286,5 +300,12 @@ return {
   },
   {
     'leafOfTree/vim-svelte-plugin'
-  }
+  },
+
+  --- TMUX WINDOW NAVIGATOR ---
+  {
+    "christoomey/vim-tmux-navigator",
+    lazy = false
+  },
+
 }
