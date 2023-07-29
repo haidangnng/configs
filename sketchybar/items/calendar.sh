@@ -2,8 +2,12 @@
 
 calendar=(
   icon=cal
-  icon.font="$FONT:Black:12.0"
+  # label.color=$(get_color STATUSLINE_BG)
+  # icon.color=$(get_color STATUSLINE_BG) 
+  label.font="$FONT:Black:14.0"
+  icon.font="$FONT:Black:14.0"
   icon.padding_right=0
+  icon.padding_left=0
   label.width=45
   label.align=right
   padding_left=15

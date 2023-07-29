@@ -14,7 +14,7 @@ M.ui = {
   },
   theme_toggle = { "kanagawa", "dark_horizon" },
   -- theme_toggle = { "kanagawa", "chadracula" },
-  -- transparency = true,
+  transparency = true,
   theme = "kanagawa",
   telescope = { style = "bordered" }, -- borderless / bordered
   statusline = {

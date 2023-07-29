@@ -72,8 +72,8 @@ return {
 	-- General
 	automatically_reload_config = true,
 	inactive_pane_hsb = { saturation = 0.7, brightness = 0.5 },
-	-- window_background_opacity = 0.93,
- --  macos_window_background_blur = 15,
+	window_background_opacity = 0.8,
+  macos_window_background_blur = 5,
 	window_close_confirmation = "NeverPrompt",
 	window_frame = {
     active_titlebar_bg = "#090909",

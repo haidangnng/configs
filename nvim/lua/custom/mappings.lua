@@ -158,11 +158,7 @@ M.general = {
     [">"] = { ">gv", "Stay indent mode", opts },
     ["<"] = { "<gv", "Stay indent mode", opts },
     ["p"] = { '"_dP', "paste without yanking", opts},
-
-    ["jk"] = { "<ESC>", "escape insert mode" , opts = { nowait = true }},
-    ["jK"] = { "<ESC>", "escape insert mode" , opts = { nowait = true }},
-    ["Jk"] = { "<ESC>", "escape insert mode" , opts = { nowait = true }},
-    ["JK"] = { "<ESC>", "escape insert mode" , opts = { nowait = true }},
+    ["q"] = { "<ESC>", "escape insert mode" , opts = { nowait = true }},
   },
   x = {
   },
