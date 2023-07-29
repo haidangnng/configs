@@ -50,6 +50,7 @@ return {
         mappings = {
           i = {
             ['<C-l>'] = 'select_vertical',
+            ['<C-j>'] = 'select_horizontal',
           }
         },
         preview = {
@@ -159,6 +160,7 @@ return {
         changedelete = { text = Icons.gitsigns.changedelete },
         untracked = { text = Icons.gitsigns.untracked },
       },
+      numhl = true,
       current_line_blame = true,
       current_line_blame_opts = {
         delay = 300,

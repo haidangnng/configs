@@ -3,12 +3,19 @@ local M = {}
 M.ui = {
    hl_override = {
        Comment = { -- custom highlights are also allowed
-         fg = "dark_purple"
-      }
+         fg = { "dark_purple", 1 }
+      },
    },
-  theme_toggle = { "yoru", "chadracula" },
-  transparency = true,
-  theme = "yoru",
+
+  hl_add ={
+      GitSignsCurrentLineBlame = {
+        fg = 'cyan'
+      }
+  },
+  theme_toggle = { "kanagawa", "dark_horizon" },
+  -- theme_toggle = { "kanagawa", "chadracula" },
+  -- transparency = true,
+  theme = "kanagawa",
   telescope = { style = "bordered" }, -- borderless / bordered
   statusline = {
     theme = "vscode_colored",

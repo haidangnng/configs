@@ -3,12 +3,23 @@ local act = wezterm.action
 
 return {
   keys = {
+    -- Disable default
+    -- { key = 'h', mods = 'SHIFT', action = act.DisableDefaultAssignment },
+    -- { key = 'j', mods = 'SHIFT', action = act.DisableDefaultAssignment },
+    -- { key = 'k', mods = 'SHIFT', action = act.DisableDefaultAssignment },
+    -- { key = 'l', mods = 'SHIFT', action = act.DisableDefaultAssignment },
     -- TABS
     { key = 't', mods = 'LEADER', action = act({ SpawnTab = "CurrentPaneDomain"}) },
     { key = 'q', mods = 'LEADER', action = act({ CloseCurrentTab = { confirm = true }}) },
     { key = 'l', mods = 'LEADER', action = act({ ActivateTabRelative = 1}) },
     { key = 'h', mods = 'LEADER', action = act({ ActivateTabRelative = -1}) },
-    -- PANES
+  
+     -- PANES
+    {
+      key = 'm',
+      mods = 'LEADER',
+      action = wezterm.action.TogglePaneZoomState,
+    },
     { key = '|', mods = 'LEADER', action = act({ SplitHorizontal = { domain = "CurrentPaneDomain" }}) },
     { key = '-', mods = 'LEADER', action = act({ SplitVertical = { domain = "CurrentPaneDomain" }}) },
     { key = 'w', mods = 'LEADER', action = act({ CloseCurrentPane = { confirm = true }}) },

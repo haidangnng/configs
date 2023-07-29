@@ -1,40 +1,43 @@
 local wezterm = require("wezterm")
 
 local function font_with_fallback(name, params)
-	local names = { name, "Apple Color Emoji", "azuki_font" }
+	local names = { name, "SF Pro", "Hack Nerd Font Mono", "Apple Color Emoji", "azuki_font" }
 	return wezterm.font_with_fallback(names, params)
 end
 
-local font_name = "SpaceMono Nerd Font"
+local font_name = "SpaceMono Nerd Font Mono"
 
 return {
 	-- OpenGL for GPU acceleration, Software for CPU
+  color_scheme = "Catppuccin Mocha", -- or Macchiato, Frappe, Latte
 	front_end = "OpenGL",
 	-- Font config
 	font = font_with_fallback(font_name),
-	font_size = 13,
+	font_size = 12.5,
 	line_height = 1.2,
 
+  use_fancy_tab_bar = false,
+  tab_max_width = 50,
 	-- Aesthetic Night Colorscheme
 	bold_brightens_ansi_colors = true,
 	colors = {
-		foreground = "#edeff0",
-		background = "#0c0e0f",
-		cursor_bg = "#edeff0",
-		cursor_fg = "#edeff0",
-		cursor_border = "#232526",
-		selection_fg = "#0c0e0f",
-		selection_bg = "#edeff0",
-		scrollbar_thumb = "#edeff0",
-		split = "#090909",
-		ansi = { "#232526", "#df5b61", "#78b892", "#de8f78", "#6791c9", "#bc83e3", "#67afc1", "#e4e6e7" },
-		brights = { "#2c2e2f", "#e8646a", "#81c19b", "#e79881", "#709ad2", "#c58cec", "#70b8ca", "#f2f4f5" },
-		indexed = { [136] = "#edeff0" },
+		-- foreground = "#cdd6f4",
+		-- background = "#1e1e2e",
+		-- cursor_bg = "#edeff0",
+		-- cursor_fg = "#edeff0",
+		-- cursor_border = "#232526",
+		-- selection_fg = "#0c0e0f",
+		-- selection_bg = "#edeff0",
+		-- scrollbar_thumb = "#edeff0",
+		-- split = "#090909",
+		-- ansi = { "#232526", "#df5b61", "#78b892", "#de8f78", "#6791c9", "#bc83e3", "#67afc1", "#e4e6e7" },
+		-- brights = { "#2c2e2f", "#e8646a", "#81c19b", "#e79881", "#709ad2", "#c58cec", "#70b8ca", "#f2f4f5" },
+		-- indexed = { [136] = "#edeff0" },
     tab_bar = {
-      background = "rgba(44, 46, 47, 0.2)",
+      background = "#181825",
       active_tab = {
-        bg_color =  "rgba(44, 46, 47, 0.9)",
-        fg_color = '#c0c0c0',
+        bg_color =  "#313244",
+        fg_color = '#cdd6f4',
         underline = 'None',
       },
 
@@ -43,10 +46,10 @@ return {
         fg_color = '#808080',
       },
 
-      inactive_tab_hover = {
-        bg_color = 'rgba(255,255,255,0)',
-        fg_color = '#909090',
-      },
+      -- inactive_tab_hover = {
+      --   bg_color = 'rgba(255,255,255,0)',
+      --   fg_color = '#909090',
+      -- },
 
     },
 	},
@@ -68,10 +71,11 @@ return {
 
 	-- General
 	automatically_reload_config = true,
-	inactive_pane_hsb = { saturation = 1.0, brightness = 1.0 },
-	window_background_opacity = 0.9,
+	inactive_pane_hsb = { saturation = 0.7, brightness = 0.5 },
+	-- window_background_opacity = 0.93,
+ --  macos_window_background_blur = 15,
 	window_close_confirmation = "NeverPrompt",
-	window_frame = { 
+	window_frame = {
     active_titlebar_bg = "#090909",
     font = font_with_fallback(font_name, { bold = true }) },
 }

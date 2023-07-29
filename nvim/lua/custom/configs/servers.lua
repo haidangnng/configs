@@ -21,7 +21,8 @@ local servers = {
     cmd = { "svelteserver", "--stdio"}
   },
   emmet_ls = {
-    cmd = { "ls_emmet", "--stdio" },
+    cmd = { "emmet-ls", "--stdio" },
+    root_dir = util.root_pattern(".git"),
     filetypes = {
       "html",
       "css",

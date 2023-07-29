@@ -2,13 +2,15 @@
 
 update() {
   source "$CONFIG_DIR/colors.sh"
-  COLOR=$BACKGROUND_2
+  COLOR=$(get_color RED 50)
   if [ "$SELECTED" = "true" ]; then
-    COLOR=$GREY
+    COLOR=$(get_color RED)
   fi
-  sketchybar --set $NAME icon.highlight=$SELECTED \
-                         label.highlight=$SELECTED \
-                         background.border_color=$COLOR
+  space_highlight=(
+    icon.highlight=$SELECTED
+    label.highlight=$SELECTED
+  )
+  sketchybar --set $NAME "${space_highlight[@]}" 
 }
 
 mouse_clicked() {

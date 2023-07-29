@@ -56,7 +56,7 @@ windows_on_spaces () {
           icon_strip+=" $($CONFIG_DIR/plugins/icon_map.sh "$app")"
         done <<< "$apps"
       fi
-      args+=(--set space.$space label="$icon_strip" label.drawing=on)
+      args+=(--set space.$space label="$icon_strip" label.drawing=on label.padding_right=10 padding_right=10)
     done
   done <<< "$CURRENT_SPACES"
 

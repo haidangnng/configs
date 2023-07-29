@@ -20,26 +20,21 @@ do
     padding_left=2
     padding_right=2
     label.padding_right=20
-    icon.highlight_color=$RED
-    label.color=$GREY
-    label.highlight_color=$WHITE
+    icon.highlight_color=$(get_color RED 90)
+    label.color=$(get_color WHITE 90)
+    label.highlight_color=$(get_color RED)
     label.font="sketchybar-app-font:Regular:16.0"
     label.y_offset=-1
-    background.color=$BACKGROUND_1
-    background.border_color=$BACKGROUND_2
     background.drawing=off
     label.drawing=off
     script="$PLUGIN_DIR/space.sh"
-  )
-
+)
   sketchybar --add space space.$sid left    \
              --set space.$sid "${space[@]}" \
              --subscribe space.$sid mouse.clicked
 done
 
 spaces_bracket=(
-  background.color=$BACKGROUND_1
-  background.border_color=$BACKGROUND_2
 )
 
 separator=(

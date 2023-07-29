@@ -5,6 +5,10 @@ local M = {}
 M.disabled = {
   n = {
     ["<C-a>"] = "",
+    ["<S-h>"] = "",
+    ["<S-l>"] = "",
+    ["<S-j>"] = "",
+    ["<S-k>"] = "",
   }
 }
 
@@ -35,19 +39,19 @@ M.nvterm = {
       "Toggle floating term",
     },
 
-    ["<C-j>"] = {
-      function()
-        require("nvterm.terminal").toggle "horizontal"
-      end,
-      "Toggle horizontal term",
-    },
-
-    ["<C-l>"] = {
-      function()
-        require("nvterm.terminal").toggle "vertical"
-      end,
-      "Toggle vertical term",
-    },
+    -- ["<C-j>"] = {
+    --   function()
+    --     require("nvterm.terminal").toggle "horizontal"
+    --   end,
+    --   "Toggle horizontal term",
+    -- },
+    --
+    -- ["<C-l>"] = {
+    --   function()
+    --     require("nvterm.terminal").toggle "vertical"
+    --   end,
+    --   "Toggle vertical term",
+    -- },
   },
 
   n = {
@@ -59,14 +63,14 @@ M.nvterm = {
       "Toggle floating term",
     },
 
-    ["<C-tj>"] = {
+    ["<leader>tj"] = {
       function()
         require("nvterm.terminal").toggle "horizontal"
       end,
       "Toggle horizontal term",
     },
 
-    ["<C-tl>"] = {
+    ["<leader>tl"] = {
       function()
         require("nvterm.terminal").toggle "vertical"
       end,
@@ -88,24 +92,24 @@ M.nvterm = {
 
 M.lspsaga = {
   n = {
-   ["gf"] =  { "<cmd>Lspsaga finder<CR>", "Navigate window", opts},
-   ["<leader>ca"] =  { "<cmd>Lspsaga code_action<CR>", "Navigate window", opts},
-   ["gr"] =  { "<cmd>Lspsaga rename<CR>", "Navigate window", opts},
-   ["gp"] =  { "<cmd>Lspsaga peek_definition<CR>", "Navigate window", opts},
-   ["gd"] =  { "<cmd>Lspsaga goto_definition<CR>", "Navigate window", opts},
-   ["gt"] =  { "<cmd>Lspsaga peek_type_definition<CR>", "Navigate window", opts},
-   ["<leader>pd"] =  { "<cmd>Lspsaga show_workspace_diagnostics<CR>", "Navigate window", opts},
-   ["]d"] =  { "<cmd>Lspsaga diagnostic_jump_next<CR>", "Navigate window", opts},
-   ["[d"] =  { "<cmd>Lspsaga lsp_finder<CR>", "Navigate window", opts},
-   ["[D"] =  {
+    ["gf"] =  { "<cmd>Lspsaga finder<CR>", "Navigate window", opts},
+    ["<leader>ca"] =  { "<cmd>Lspsaga code_action<CR>", "Navigate window", opts},
+    ["gr"] =  { "<cmd>Lspsaga rename<CR>", "Navigate window", opts},
+    ["gp"] =  { "<cmd>Lspsaga peek_definition<CR>", "Navigate window", opts},
+    ["gd"] =  { "<cmd>Lspsaga goto_definition<CR>", "Navigate window", opts},
+    ["gt"] =  { "<cmd>Lspsaga peek_type_definition<CR>", "Navigate window", opts},
+    ["<leader>pd"] =  { "<cmd>Lspsaga show_workspace_diagnostics<CR>", "Navigate window", opts},
+    ["]d"] =  { "<cmd>Lspsaga diagnostic_jump_next<CR>", "Navigate window", opts},
+    ["[d"] =  { "<cmd>Lspsaga lsp_finder<CR>", "Navigate window", opts},
+    ["[D"] =  {
       function()
           require("lspsaga.diagnostic"):goto_prev({ severity = vim.diagnostic.severity.ERROR })
       end, "Navigate window", opts},
-   ["]D"] =  {
+    ["]D"] =  {
       function()
         require("lspsaga.diagnostic"):goto_next({ severity = vim.diagnostic.severity.ERROR })
       end, "Navigate window", opts},
-   ["K"] =  { "<cmd>Lspsaga hover_doc<CR>", "Navigate window", opts},
+    ["K"] =  { "<cmd>Lspsaga hover_doc<CR>", "Navigate window", opts},
    },
 }
 
@@ -131,9 +135,10 @@ M.general = {
   -------------------- NvimTreeToggle --------------------
    ["<leader>e"] = {":NvimTreeToggle toggle<CR>", "Toggle tree view", opts},
 
-   ["<S-Up>"] = {":resize +2<CR>", "Resize Up", opts},
-   ["<S-Down>"] = {":resize -2<CR>", "Resize Up", opts},
-   ["<S-Left>"] = {":vertical resize -2<CR>", "Resize Up", opts},
+   ["<S-k>"] = {":resize +2<CR>", "Resize Up", opts},
+   ["<S-j>"] = {":resize -2<CR>", "Resize Down", opts},
+   ["<S-h>"] = {":vertical resize -2<CR>", "Resize left", opts},
+   ["<S-l>"] = {":vertical resize +2<CR>", "Resize right", opts},
   },
 
   i = {
@@ -152,7 +157,12 @@ M.general = {
     ["<C-k>"] = { ":m .-2<CR>==", "Move line block", opts },
     [">"] = { ">gv", "Stay indent mode", opts },
     ["<"] = { "<gv", "Stay indent mode", opts },
-    ["p"] = { "_dP", "paste without yanking", opts}
+    ["p"] = { '"_dP', "paste without yanking", opts},
+
+    ["jk"] = { "<ESC>", "escape insert mode" , opts = { nowait = true }},
+    ["jK"] = { "<ESC>", "escape insert mode" , opts = { nowait = true }},
+    ["Jk"] = { "<ESC>", "escape insert mode" , opts = { nowait = true }},
+    ["JK"] = { "<ESC>", "escape insert mode" , opts = { nowait = true }},
   },
   x = {
   },

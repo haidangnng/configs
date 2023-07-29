@@ -2,29 +2,18 @@
 
 local wezterm = require("wezterm")
 
-local function tab_title(tab_info)
-  local title = tab_info.tab_title
-  -- if the tab title is explicitly set, take that
-  if title and #title > 0 then
-    return title
-  end
-  -- Otherwise, use the title from the active pane
-  -- in that tab
-  return tab_info.active_pane.title
-end
+wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover)
+  local pane_title = tab.active_pane.title
+  local user_title = tab.active_pane.user_vars.panetitle
 
-wezterm.on(
-  'format-tab-title',
-  function(tab, tabs, panes, config, hover, max_width)
-    local title = tab_title(tab)
-    if tab.is_active then
-      return {
-        { Text = '   ' .. title .. ' ' },
-      }
-    end
-    return title
+  if user_title ~= nil and #user_title > 0 then
+    pane_title = user_title
   end
-)
+
+  return {
+    {Text=" " .. pane_title .. " "},
+  }
+end)
 
 -- PANE NAVIGATION
 
