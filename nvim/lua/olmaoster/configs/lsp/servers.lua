@@ -1,46 +1,13 @@
 local util = require "lspconfig/util"
 
 local servers = {
-  bashls = {},
-  cssls = {},
-  html = {},
-  -- black = {},
-  ruff_lsp = {
-    init_options = {
-      settings = {
-        -- Any extra CLI arguments for `ruff` go here.
-        args = {"--ignore", "E501"},
-      }
-    }
-  },
-  pyright = {
-    settings = {
-      python = {
-        disableOrganizeImports = true,
-        analysis = {
-          indexing = true,
-          typeCheckingMode = "basic",
-          diagnosticMode = "openFilesOnly",
-          autoImportCompletions = false,
-          autoSearchPaths = false,
-        },
-      },
-    },
-    filetypes = {"python"},
-  },
-  -- texlab = {},
-  -- latexindent= {},
-  prismals = {
-    cmd = { "prisma-language-server", "--stdio"},
-    filetypes = {"prisma"},
-    root_dir = util.root_pattern(".git", "package.json"),
-    settings = {
-      prisma = {
-        prismaFmtBinPath = ""
-      }
-    }
-  },
-  gopls = {
+  --python 
+  pyright = {},
+
+  prismals = {},
+
+  -- golang
+   gopls = {
     cmd = { "gopls" },
     filetypes = { "go", "gomod", "gowork", "gotmpl" },
     root_dir = util.root_pattern("go.work", "go.mod", ".git"),
@@ -54,6 +21,21 @@ local servers = {
       },
     },
   },
+  -- rust
+  rust_analyzer = {
+    filetypes = "rust",
+    root_dir = util.root_pattern("Cargo.toml"),
+    settings = {
+      ['rust-analyzer'] = {
+        cargo = {
+          allFeatures = true,
+        }
+      }
+    }
+  },
+
+  cssls = {},
+  html = {},
   svelte = {
     filetypes = {
       "svelte",
@@ -84,6 +66,7 @@ local servers = {
       "sss",
       "hbs",
       "handlebars",
+      "vue"
     },
   },
   jsonls = {
@@ -97,11 +80,6 @@ local servers = {
     },
     setup = {
       commands = {
-        -- Format = {
-        --   function()
-        --     vim.lsp.buf.range_formatting({}, { 0, 0 }, { vim.fn.line "$", 0 })
-        --   end,
-        -- },
       },
     },
   },

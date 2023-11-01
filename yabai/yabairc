@@ -37,11 +37,13 @@ BORDERS=(
   window_gap 6
 	window_border on
 	window_border_blur off
-	window_border_hidpi on
+	window_border_hidpi off 
 	window_border_width 2
-	window_border_radius 12
-	active_window_border_color 0xfff5799c
-  normal_window_border_color 0xff86b9c2
+	window_border_radius 5
+	active_window_border_color 0xffffffff
+  normal_window_border_color 0x000000ff
+	# active_window_border_color 0xfff5799c
+ # normal_window_border_color 0xff86b9c2
 )
 # window_border_radius 11 \
 
@@ -70,6 +72,7 @@ yabai -m config "${MOUSE[@]}"
 
 # RULES
 UNMANAGED=(
+  QGIS-LTR
   ‎WhatsApp
   Pycharm
   Python

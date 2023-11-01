@@ -1,4 +1,6 @@
 return {
+  'ThePrimeagen/vim-be-good',
+
 	"nvim-lua/plenary.nvim",
   --- MINI SURROUND ---
   {
@@ -27,12 +29,6 @@ return {
   },
   --- BUFFER CLOSE ---
   {
-    "lewis6991/gitsigns.nvim",
-    config = function()
-      require("olmaoster.configs.gitsigns")
-    end
-  },
-  {
     "moll/vim-bbye",
     event = { "BufRead" },
     keys = {
@@ -55,17 +51,17 @@ return {
 
   --- NOTES NEORG ---
   {
-      "nvim-neorg/neorg",
-      ft = 'norg', -- lazy load on filetype
-      cmd = 'Neorg', -- lazy load on command, allows you to autocomplete :Neorg regardless of whether it's loaded yet
-      --  (you could also just remove both lazy loading things)
-      priority = 10, -- treesitter is on default priority of 50, neorg should load after it.
-      build = ":Neorg sync-parsers",
-      dependencies = { "nvim-lua/plenary.nvim" },
-      config = function()
-        require('olmaoster.configs.neorg')
-      end,
-    },
+    "nvim-neorg/neorg",
+    ft = 'norg', -- lazy load on filetype
+    cmd = 'Neorg', -- lazy load on command, allows you to autocomplete :Neorg regardless of whether it's loaded yet
+    --  (you could also just remove both lazy loading things)
+    priority = 10, -- treesitter is on default priority of 50, neorg should load after it.
+    build = ":Neorg sync-parsers",
+    dependencies = { "nvim-lua/plenary.nvim" },
+    config = function()
+      require('olmaoster.configs.neorg')
+    end,
+  },
 
   --- ILLUMINATE ---
   {
@@ -137,4 +133,32 @@ return {
       require('nvim-ts-autotag').setup()
     end,
   },
-}
+
+  --- VIRTUAL ENV SWITCHER ---
+  {
+    'AckslD/swenv.nvim',
+    config = function ()
+      require("olmaoster.configs.swenv")
+    end
+  },
+  --- LEET CODE ---
+  {
+    "kawre/leetcode.nvim",
+    build = ":TSUpdate html",
+    dependencies = {
+        "nvim-treesitter/nvim-treesitter",
+        "nvim-telescope/telescope.nvim",
+        "nvim-lua/plenary.nvim", -- required by telescope
+        "MunifTanjim/nui.nvim",
+
+        -- optional
+        "nvim-tree/nvim-web-devicons",
+
+        -- recommended
+        -- "rcarriga/nvim-notify",
+    },
+    opts = {
+        -- configuration goes here
+      lang = "javascript",
+    },
+}}

@@ -212,5 +212,14 @@ M.gopher = {
   }
 }
 
+M.swenv = {
+  n = {
+    ["<leader>pe"] = {
+      "<cmd>lua require('swenv.api').pick_venv()<CR>",
+      "choose python env"
+    }
+  }
+}
+
 return M
 

@@ -6,6 +6,7 @@ else
   treesitter_config.setup({
     ensure_installed = {
       "c",
+      "go",
       "lua",
       "vim",
       "vimdoc",
@@ -15,7 +16,8 @@ else
       "javascript",
       "html",
       "typescript",
-      "tsx"
+      "tsx",
+      "python"
     },
     sync_install = false,
     highlight = { enable = true },

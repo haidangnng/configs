@@ -5,43 +5,59 @@ local function font_with_fallback(name, params)
 	return wezterm.font_with_fallback(names, params)
 end
 
--- local font_name = "Hack Nerd Font Mono"
-local font_name = "Inconsolata Nerd Font"
+local font_name = "FiraMono Nerd Font Mono"
 
 return {
   -- OpenGL for GPU acceleration, Software for CPU
   front_end = "OpenGL",
   -- Font config
+  -- cell_width = 1,
   font = font_with_fallback(font_name),
-  font_size = 15.5,
-  line_height = 1.3,
-
-  use_fancy_tab_bar = false,
-  tab_max_width = 50,
-  color_scheme = 'Everblush',
-  -- Aesthetic Night Colorscheme
-  bold_brightens_ansi_colors = true,
-  colors = {
-    tab_bar = {
-      background = "#1e2326",
-      active_tab = {
-        bg_color =  "#56635f",
-        fg_color = '#D3C6AA',
-        underline = 'None',
-      },
-
-      inactive_tab = {
-        bg_color = '#1e2326',
-        fg_color = '#808080',
-      },
-
-      -- inactive_tab_hover = {
-      --   bg_color = 'rgba(255,255,255,0)',
-      --   fg_color = '#909090',
-      -- },
-
+  font_size = 14,
+  line_height = 1.4,
+  font_rules = {
+    {
+      italic = true,
+      font = font_with_fallback(font_name, { italic = true }),
+    },
+    {
+      italic = true,
+      intensity = "Bold",
+      font = font_with_fallback(font_name, { italic = true, bold = true }),
+    },
+    {
+      intensity = "Bold",
+      font = font_with_fallback(font_name, { bold = true }),
     },
   },
+
+  use_fancy_tab_bar = false,
+  tab_max_width = 150,
+  color_scheme = 'duskfox',
+  -- Aesthetic Night Colorscheme
+	bold_brightens_ansi_colors = true,
+	colors = {
+		-- foreground = "#edeff0",
+		background = "#110f1a",
+		-- -- background = "#0c0e0f",
+		-- cursor_bg = "#edeff0",
+		-- cursor_fg = "#edeff0",
+		-- cursor_border = "#232526",
+		-- selection_fg = "#0c0e0f",
+		-- selection_bg = "#edeff0",
+		-- scrollbar_thumb = "#edeff0",
+		-- split = "#090909",
+		-- ansi = { "#232526", "#df5b61", "#78b892", "#de8f78", "#6791c9", "#bc83e3", "#67afc1", "#e4e6e7" },
+		-- brights = { "#2c2e2f", "#e8646a", "#81c19b", "#e79881", "#709ad2", "#c58cec", "#70b8ca", "#f2f4f5" },
+		-- indexed = { [136] = "#edeff0" },
+		tab_bar = {
+			active_tab = {
+				bg_color = "#0c0e0f",
+				fg_color = "#edeff0",
+				italic = true,
+			},
+		},
+	},
 
   -- Padding
   window_padding = {
@@ -51,19 +67,19 @@ return {
     bottom = 0,
   },
 
+
   -- Tab Bar
   enable_tab_bar = true,
   hide_tab_bar_if_only_one_tab = true,
-  show_tab_index_in_tab_bar = true,
   show_new_tab_button_in_tab_bar = false,
   tab_bar_at_bottom = true,
 
   -- General
   automatically_reload_config = true,
   inactive_pane_hsb = { saturation = 0.7, brightness = 0.6 },
-  window_background_opacity = 0.95,
-  macos_window_background_blur = 10,
-  window_close_confirmation = "NeverPrompt",
+  window_background_opacity = 0.90,
+  macos_window_background_blur = 15,
+
   window_frame = {
     active_titlebar_bg = "#090909",
     font = font_with_fallback(font_name, { bold = true }) },

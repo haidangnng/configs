@@ -3,6 +3,13 @@ local status, gitsigns = pcall(require, 'gitsigns')
 local opts = {
     numhl = true,
     current_line_blame = true,
+    current_line_blame_opts = {
+      virt_text = true,
+      virt_text_pos = 'eol', -- 'eol' | 'overlay' | 'right_align'
+      delay = 0,
+      ignore_whitespace = false,
+    },
+    current_line_blame_formatter = '<author>, <author_time:%Y-%m-%d> - <summary>',
     preview_config = {
       border = { "▄", "▄", "▄", "█", "▀", "▀", "▀", "█" }, -- [ top top top - right - bottom bottom bottom - left ]
     },
@@ -15,19 +22,12 @@ local opts = {
       untracked    = { text = '┆' },
     },
     signcolumn = true,  -- Toggle with `:Gitsigns toggle_signs`
-    linehl     = true, -- Toggle with `:Gitsigns toggle_linehl`
-    word_diff  = true, -- Toggle with `:Gitsigns toggle_word_diff`
+    -- linehl     = true, -- Toggle with `:Gitsigns toggle_linehl`
+    -- word_diff  = true, -- Toggle with `:Gitsigns toggle_word_diff`
     watch_gitdir = {
       follow_files = true
     },
     attach_to_untracked = true,
-    current_line_blame_opts = {
-      virt_text = true,
-      virt_text_pos = 'eol', -- 'eol' | 'overlay' | 'right_align'
-      delay = 1000,
-      ignore_whitespace = false,
-    },
-    current_line_blame_formatter = '<author>, <author_time:%Y-%m-%d> - <summary>',
     sign_priority = 6,
     update_debounce = 100,
     status_formatter = nil, -- Use default
@@ -40,6 +40,6 @@ local opts = {
 if not status then
   print('Something went wrong:', gitsigns)
 else
-  gitsigns.setup({opts})
+  gitsigns.setup(opts)
 end
 

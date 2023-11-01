@@ -19,9 +19,15 @@ null_ls.setup({
     null_ls.builtins.formatting.prettierd.with({
      filetypes = { "html", "markdown", "css", "svelte", "typescript", "typescriptreact", "javascript", "javascriptreact"},
     }),
-    -- null_ls.builtins.formatting.prismaFmt,
     null_ls.builtins.diagnostics.eslint.with({
       diagnostics_format = "[eslint] #{m}\n(#{c})",
+    }),
+    null_ls.builtins.diagnostics.ruff,
+    null_ls.builtins.diagnostics.mypy.with({
+        extra_args = function()
+        local virtual = os.getenv("VIRTUAL_ENV") or os.getenv("CONDA_DEFAULT_ENV") or "/opt/homebrew/"
+        return { "--python-executable", virtual .. "/bin/python3" }
+        end,
     }),
     null_ls.builtins.formatting.black.with({
           args = {
@@ -32,14 +38,8 @@ null_ls.setup({
             "-",
           },
         }),
-    null_ls.builtins.diagnostics.mypy,
-    null_ls.builtins.diagnostics.ruff,
     null_ls.builtins.formatting.latexindent,
-    -- null_ls.builtins.diagnostics.eslint_d,
     null_ls.builtins.formatting.rustywind,
-    null_ls.builtins.formatting.goimports,
-    null_ls.builtins.formatting.gofumpt,
-    null_ls.builtins.formatting.golines,
   },
   on_attach = function(client, bufnr)
     if client.supports_method("textDocument/formatting") then

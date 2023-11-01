@@ -56,6 +56,8 @@ local options = {
     selection_caret = " ❯ ",
     sorting_strategy = "ascending",
     file_ignore_patterns = {
+      ".mypy_cache",
+      "__pycache__",
       ".git/",
       "target/",
       "docs/",

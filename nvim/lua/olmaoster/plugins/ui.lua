@@ -1,7 +1,7 @@
 return {
   -- COLORSCHEME --
   {
-    "neanias/everforest-nvim",
+    "EdenEast/nightfox.nvim",
     version = false,
     lazy = false,
     priority = 1000, -- make sure to load this before all the other start plugins
@@ -67,31 +67,33 @@ return {
   --- INDENT LINE ---
   {
     "lukas-reineke/indent-blankline.nvim",
+    main = "ibl",
     config = function ()
       vim.opt.list = true
       -- vim.opt.listchars:append "space:⋅"
 
-      require("indent_blankline").setup {
-        indentLine_enabled = 1,
-        filetype_exclude = {
-          "help",
-          "terminal",
-          "lazy",
-          "lspinfo",
-          "TelescopePrompt",
-          "TelescopeResults",
-          "mason",
-          "nvdash",
-          "dashboard",
-          "nvcheatsheet",
-          "",
-        },
-        buftype_exclude = { "terminal" },
-        show_trailing_blankline_indent = false,
-        show_first_indent_level = false,
-        show_current_context = true,
-        show_current_context_start = true,
+      require("ibl").setup {
       }
     end
+  },
+  --- FOLD ---
+  {
+    "kevinhwang91/nvim-ufo",
+    dependencies = {
+      "kevinhwang91/promise-async",
+      "nvim-treesitter/nvim-treesitter",
+    },
+    config = function()
+      vim.o.foldcolumn = "0" -- '0' does not show the fold column, higher values increase the width
+      vim.o.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
+      vim.o.foldlevelstart = 99
+      vim.o.foldenable = true
+
+      require("ufo").setup({
+        provider_selector = function()
+          return { "treesitter", "indent" }
+        end,
+      })
+    end,
   },
 }

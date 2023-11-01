@@ -1,5 +1,4 @@
 return {
-  --- TREE SITTER ---
   {
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
@@ -16,9 +15,11 @@ return {
       require('olmaoster.configs.lsp.lsp-zero')
     end
   },
+
   --- Uncomment these if you want to manage LSP servers from neovim
   {'williamboman/mason.nvim'},
   {'williamboman/mason-lspconfig.nvim'},
+
   -- LSP Support
   {
     'neovim/nvim-lspconfig',
@@ -26,6 +27,7 @@ return {
       {'hrsh7th/cmp-nvim-lsp'},
     },
   },
+
   -- Autocompletion
   {
     'hrsh7th/nvim-cmp',
@@ -64,4 +66,27 @@ return {
     end,
   },
   { "folke/neodev.nvim", opts = {} },
-}
+  -- RUST --
+  {
+    "rust-lang/rust.vim",
+    ft = "rust",
+    init = function()
+      vim.g.rustfmt_autosave = 1
+    end
+  },
+
+  -- GOLANG --
+{
+  "ray-x/go.nvim",
+  dependencies = {  -- optional packages
+    "ray-x/guihua.lua",
+    "neovim/nvim-lspconfig",
+    "nvim-treesitter/nvim-treesitter",
+  },
+  config = function()
+    require("go").setup()
+  end,
+  event = {"CmdlineEnter"},
+  ft = {"go", 'gomod'},
+  build = ':lua require("go.install").update_all_sync()' -- if you need to install/update all binaries
+}}

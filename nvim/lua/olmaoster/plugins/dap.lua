@@ -28,5 +28,17 @@ return {
       local path = "~/.local/share/nvim/mason/packages/debugpy/venv/bin/python"
       require("dap-python").setup(path)
     end,
+  },
+
+  {
+    "simrat39/rust-tools.nvim",
+    ft = "rust",
+    dependencies = "neovim/nvim-lspconfig",
+    opts = function()
+      return require "olmaoster.configs.rust-tools"
+    end,
+    config = function(_, opts)
+      require('rust-tools').setup(opts)
+    end
   }
 }

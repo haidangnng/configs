@@ -32,7 +32,7 @@ local options = {
 	wrap = true,
 	scrolloff = 10,
 	sidescrolloff = 10,
-	guifont = "monospace:h17"
+	guifont = "monospace:h17";
 }
 
 for k, v in pairs(options) do
@@ -41,4 +41,4 @@ end
 
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
-
+vim.o.formatoptions = vim.o.formatoptions .. "orj"
