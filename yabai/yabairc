@@ -34,26 +34,24 @@ WINDOWS=(
 )
 
 BORDERS=(
-  window_gap 6
-	window_border on
-	window_border_blur off
-	window_border_hidpi off 
-	window_border_width 2
-	window_border_radius 5
-	active_window_border_color 0xffffffff
-  normal_window_border_color 0x000000ff
-	# active_window_border_color 0xfff5799c
- # normal_window_border_color 0xff86b9c2
+  window_border on
+  window_border_blur off
+  window_border_hidpi off 
+  window_border_width 5
+  window_border_radius 5
+# active_window_border_color 0xffffffff
+#  normal_window_border_color 0x000000ff
+  active_window_border_color 0xfff5799c
+  normal_window_border_color 0xff86b9c2
 )
-# window_border_radius 11 \
 
 LAYOUT=(
 	layout bsp
-	top_padding 4
-	bottom_padding 4
-	left_padding 4
-	right_padding 4
-	window_gap 2
+	top_padding 10
+	bottom_padding 10
+	left_padding 10
+	right_padding 10
+	window_gap 10
 )
 
 MOUSE=(

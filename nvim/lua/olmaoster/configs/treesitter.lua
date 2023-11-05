@@ -17,7 +17,8 @@ else
       "html",
       "typescript",
       "tsx",
-      "python"
+      "python",
+      "toml"
     },
     sync_install = false,
     highlight = { enable = true },

@@ -24,7 +24,7 @@ local servers = {
   -- rust
   rust_analyzer = {
     filetypes = "rust",
-    root_dir = util.root_pattern("Cargo.toml"),
+    -- root_dir = util.root_pattern("Cargo.toml"),
     settings = {
       ['rust-analyzer'] = {
         cargo = {
