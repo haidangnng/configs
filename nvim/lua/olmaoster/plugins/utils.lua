@@ -1,7 +1,7 @@
 return {
   'ThePrimeagen/vim-be-good',
-
 	"nvim-lua/plenary.nvim",
+
   --- MINI SURROUND ---
   {
     'echasnovski/mini.surround',
@@ -10,16 +10,19 @@ return {
       require('mini.surround').setup()
     end
   },
+
   --- MAXIMIZE WINDOW PANE ---
   {
     'declancm/maximize.nvim',
     lazy = false,
     config = function() require('maximize').setup() end
   },
+
   --- ZEN MODE ---
   {
     "folke/zen-mode.nvim",
   },
+
   --- NAVIGATOR ---
   {
       'numToStr/Navigator.nvim',
@@ -27,6 +30,7 @@ return {
           require('Navigator').setup()
       end
   },
+
   --- BUFFER CLOSE ---
   {
     "moll/vim-bbye",
@@ -47,20 +51,6 @@ return {
   {
     "dstein64/vim-startuptime",
     cmd = "StartupTime",
-  },
-
-  --- NOTES NEORG ---
-  {
-    "nvim-neorg/neorg",
-    ft = 'norg', -- lazy load on filetype
-    cmd = 'Neorg', -- lazy load on command, allows you to autocomplete :Neorg regardless of whether it's loaded yet
-    --  (you could also just remove both lazy loading things)
-    priority = 10, -- treesitter is on default priority of 50, neorg should load after it.
-    build = ":Neorg sync-parsers",
-    dependencies = { "nvim-lua/plenary.nvim" },
-    config = function()
-      require('olmaoster.configs.neorg')
-    end,
   },
 
   --- ILLUMINATE ---
@@ -141,6 +131,7 @@ return {
       require("olmaoster.configs.swenv")
     end
   },
+
   --- LEET CODE ---
   {
     "kawre/leetcode.nvim",

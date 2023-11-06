@@ -10,15 +10,7 @@ return {
       require('olmaoster.configs.colorscheme')
     end,
   },
-  --- DASHBOARD ---
-  {
-    'glepnir/dashboard-nvim',
-    event = 'VimEnter',
-    config = function()
-      require("olmaoster.configs.dashboard")
-    end,
-    dependencies = { {'nvim-tree/nvim-web-devicons'}}
-  },
+
   --- STATUSLINE ---
   {
     'nvim-lualine/lualine.nvim',
@@ -27,6 +19,7 @@ return {
       require("olmaoster.configs.statusline")
     end
   },
+
   --- VIM UI ---
   {
     "stevearc/dressing.nvim",
@@ -50,6 +43,7 @@ return {
       end
     end,
   },
+
   --- NOTIFY UI --
   {
     "folke/noice.nvim",
@@ -76,24 +70,25 @@ return {
       }
     end
   },
-  --- FOLD ---
-  {
-    "kevinhwang91/nvim-ufo",
-    dependencies = {
-      "kevinhwang91/promise-async",
-      "nvim-treesitter/nvim-treesitter",
-    },
-    config = function()
-      vim.o.foldcolumn = "0" -- '0' does not show the fold column, higher values increase the width
-      vim.o.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
-      vim.o.foldlevelstart = 99
-      vim.o.foldenable = true
 
-      require("ufo").setup({
-        provider_selector = function()
-          return { "treesitter", "indent" }
-        end,
-      })
-    end,
-  },
+  --- FOLD ---
+  -- {
+  --   "kevinhwang91/nvim-ufo",
+  --   dependencies = {
+  --     "kevinhwang91/promise-async",
+  --     "nvim-treesitter/nvim-treesitter",
+  --   },
+  --   config = function()
+  --     vim.o.foldcolumn = "0" -- '0' does not show the fold column, higher values increase the width
+  --     vim.o.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
+  --     vim.o.foldlevelstart = 99
+  --     vim.o.foldenable = true
+  --
+  --     require("ufo").setup({
+  --       provider_selector = function()
+  --         return { "treesitter", "indent" }
+  --       end,
+  --     })
+  --   end,
+  -- },
 }

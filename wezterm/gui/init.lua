@@ -1,7 +1,7 @@
 local wezterm = require("wezterm")
 
 local function font_with_fallback(name, params)
-	local names = { name, "SF Pro", "Hack Nerd Font Mono", "Apple Color Emoji", "azuki_font" }
+	local names = { name,"Space Nerd Font Mono", "SF Pro", "Hack Nerd Font Mono", "Apple Color Emoji", "azuki_font" }
 	return wezterm.font_with_fallback(names, params)
 end
 
@@ -50,13 +50,13 @@ return {
 		-- ansi = { "#232526", "#df5b61", "#78b892", "#de8f78", "#6791c9", "#bc83e3", "#67afc1", "#e4e6e7" },
 		-- brights = { "#2c2e2f", "#e8646a", "#81c19b", "#e79881", "#709ad2", "#c58cec", "#70b8ca", "#f2f4f5" },
 		-- indexed = { [136] = "#edeff0" },
-		tab_bar = {
-			active_tab = {
-				bg_color = "#0c0e0f",
-				fg_color = "#edeff0",
-				italic = true,
-			},
-		},
+		-- tab_bar = {
+		-- 	inactive_tab = {
+		-- 		bg_color = "#0c0e0f",
+		-- 		fg_color = "#edeff0",
+		-- 		italic = true,
+		-- 	},
+		-- },
 	},
 
   -- Padding

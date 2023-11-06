@@ -35,7 +35,7 @@ return {
     ft = "rust",
     dependencies = "neovim/nvim-lspconfig",
     opts = function()
-      return require "olmaoster.configs.rust-tools"
+      return require "olmaoster.configs.rust-tool"
     end,
     config = function(_, opts)
       require('rust-tools').setup(opts)

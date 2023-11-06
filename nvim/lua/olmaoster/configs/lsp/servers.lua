@@ -21,6 +21,7 @@ local servers = {
       },
     },
   },
+
   -- rust
   rust_analyzer = {
     filetypes = "rust",
