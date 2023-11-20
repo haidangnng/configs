@@ -11,7 +11,7 @@ yabai -m space --focus next        # move right
 
 # BAR HEIGHT
 # BAR_HEIGHT=$(sketchybar -m --query bar | jq -r '.height')
-BAR_HEIGHT=0
+BAR_HEIGHT=30
 GENERAL=(
 	external_bar all:"${BAR_HEIGHT}":0
 	split_type auto
@@ -120,6 +120,7 @@ UNMANAGED=(
 	Slack
   Spotify
 	Telegram
+	Studio 3T
 )
 
 for ((i = 1; i <= "${#UNMANAGED[@]}"; i++)); do

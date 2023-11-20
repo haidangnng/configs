@@ -18,7 +18,9 @@ else
       "typescript",
       "tsx",
       "python",
-      "toml"
+      "toml",
+      "svelte",
+      "css"
     },
     sync_install = false,
     highlight = { enable = true },

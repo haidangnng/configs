@@ -1,6 +1,5 @@
--- TAB TITLE
-
 local wezterm = require("wezterm")
+local act = wezterm.action
 
 wezterm.on('user-var-changed', function(window, pane, name, value)
     local overrides = window:get_config_overrides() or {}
@@ -24,23 +23,6 @@ wezterm.on('user-var-changed', function(window, pane, name, value)
     end
     window:set_config_overrides(overrides)
 end)
-
-wezterm.on("format-tab-title", function(tab, tabs, panes, config, hover)
-  local pane_title = tab.active_pane.title
-  local user_title = tab.active_pane.user_vars.panetitle
-
-  if user_title ~= nil and #user_title > 0 then
-    pane_title = user_title
-  end
-
-  return {
-    {Text=" " .. pane_title .. " "},
-  }
-end)
-
--- PANE NAVIGATION
-
-local act = wezterm.action
 
 local function isViProcess(pane)
     return pane:get_foreground_process_name():find('n?vim') ~= nil
@@ -73,10 +55,11 @@ end)
 
 
 -- Show which key table is active in the status area
-wezterm.on('update-right-status', function(window, pane)
-  local name = window:active_key_table()
-  if name then
-    name = 'TABLE: ' .. name
-  end
-  window:set_right_status(name or '')
-end)
+-- wezterm.on('update-right-status', function(window, pane)
+--   local name = window:active_key_table()
+--   if name then
+--     name = 'TABLE: ' .. name
+--   end
+--   window:set_right_status(name or '')
+-- end)
+

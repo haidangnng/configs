@@ -3,7 +3,6 @@ local components = require("olmaoster.configs.statusline.components")
 require('lualine').setup {
   options = {
     icons_enabled = true,
-    theme = 'codedark',
     component_separators = {},
     section_separators = {},
     disabled_filetypes = {
@@ -13,24 +12,25 @@ require('lualine').setup {
         "alpha",
         "NvimTree"
       },
-      winbar = {},
+      winbar = {"*"},
+      tabline = {"*"},
     },
     ignore_focus = {},
     always_divide_middle = true,
     globalstatus = false,
     refresh = {
       statusline = 1000,
-      tabline = 1000,
-      winbar = 1000,
     }
-  },
-  color = {
-    bg = "none"
   },
   sections = {
     lualine_a = {
-      "mode",
-      -- fmt =       components.mode(),
+      {
+        "mode",
+        -- fmt = function()
+        --   return " "
+        -- end,
+        -- draw_empty = true
+      },
     },
     lualine_b = {
       components.fileInfo,
@@ -40,6 +40,7 @@ require('lualine').setup {
     },
     lualine_x = {
       components.LSP_Diagnostics,
+      components.LSP_progress,
     },
     lualine_y = {
       components.gitchanges
@@ -50,8 +51,4 @@ require('lualine').setup {
       components.cwd,
     }
   },
-  tabline = {},
-  winbar = {},
-  inactive_winbar = {},
-  extensions = {}
 }

@@ -47,7 +47,9 @@ M.modes = {
 
 M.mode = function()
   local m = vim.api.nvim_get_mode().mode
-  return "%#" .. M.modes[m][2] .. "#" .. "  " .. M.modes[m][1] .. " "
+  print(m)
+  return ""
+  -- return "%#" .. M.modes[m][2] .. "#" .. "  " .. M.modes[m][1] .. " "
 end
 
 M.fileInfo = function()

@@ -8,7 +8,6 @@ return {
     { key = 'd', mods = 'CTRL|SHIFT', action = act.ScrollByPage(0.5) },
     -- TABS
     { key = 't', mods = 'LEADER', action = act({ SpawnTab = "CurrentPaneDomain"}) },
-    { key = 'q', mods = 'LEADER', action = act({ CloseCurrentTab = { confirm = true }}) },
     { key = 'l', mods = 'LEADER', action = act({ ActivateTabRelative = 1}) },
     { key = 'h', mods = 'LEADER', action = act({ ActivateTabRelative = -1}) },
      -- PANES
@@ -19,8 +18,7 @@ return {
     },
     { key = '|', mods = 'LEADER', action = act({ SplitHorizontal = { domain = "CurrentPaneDomain" }}) },
     { key = '-', mods = 'LEADER', action = act({ SplitVertical = { domain = "CurrentPaneDomain" }}) },
-    -- { key = 'w', mods = 'LEADER', action = act({ CloseCurrentPane = { confirm = true }}) },
-    -- { key = 's', mods = 'LEADER', action = act({ PaneSelect = { alphabet = "1234567890"}}) },
+    { key = 'w', mods = 'LEADER', action = act({ CloseCurrentPane = { confirm = true }}) },
     { key = 'h', mods = 'CTRL', action = act.EmitEvent('ActivatePaneDirection-left') },
     { key = 'j', mods = 'CTRL', action = act.EmitEvent('ActivatePaneDirection-down') },
     { key = 'k', mods = 'CTRL', action = act.EmitEvent('ActivatePaneDirection-up') },

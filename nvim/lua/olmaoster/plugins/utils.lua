@@ -150,6 +150,6 @@ return {
     },
     opts = {
         -- configuration goes here
-      lang = "javascript",
+      lang = "rust",
     },
 }}
