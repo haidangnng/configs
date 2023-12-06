@@ -2,8 +2,8 @@ require('olmaoster.core')
 require('olmaoster.lazy')
 
 require("olmaoster.core.utils").load_mappings()
--- Run gofmt + goimport on save
 
+-- Run gofmt + goimport on save
 local format_sync_grp = vim.api.nvim_create_augroup("GoImport", {})
 vim.api.nvim_create_autocmd("BufWritePre", {
   pattern = "*.go",

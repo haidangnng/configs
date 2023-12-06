@@ -1,5 +1,4 @@
 return {
-  'ThePrimeagen/vim-be-good',
 	"nvim-lua/plenary.nvim",
 
   --- MINI SURROUND ---
@@ -122,14 +121,6 @@ return {
     config = function(_)
       require('nvim-ts-autotag').setup()
     end,
-  },
-
-  --- VIRTUAL ENV SWITCHER ---
-  {
-    'AckslD/swenv.nvim',
-    config = function ()
-      require("olmaoster.configs.swenv")
-    end
   },
 
   --- LEET CODE ---

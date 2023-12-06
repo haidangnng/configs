@@ -107,8 +107,6 @@ return {
       { "gb", mode = { "n", "o" }, desc = "Comment toggle blockwise" },
       { "gb", mode = "x", desc = "Comment toggle blockwise (visual)" },
     },
-    -- opts = {
-    -- },
     init = function()
       require("olmaoster.core.utils").load_mappings "comment"
     end,

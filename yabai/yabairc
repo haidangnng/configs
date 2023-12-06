@@ -72,6 +72,7 @@ yabai -m config "${MOUSE[@]}"
 UNMANAGED=(
   QGIS-LTR
   ‎WhatsApp
+  Steam
   Pycharm
   Python
   Calendar
