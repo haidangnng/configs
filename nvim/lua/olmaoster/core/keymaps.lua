@@ -90,9 +90,6 @@ M.general = {
     ["<leader>ti"] = {":tabnext<CR>", "Next tab", opts},
     ["<leader>to"] = {":tabprev<CR>", "Previous tab", opts},
 
-    -------------------- NvimTreeToggle --------------------
-    ["<leader>e"] = {":NvimTreeToggle toggle<CR>", "Toggle tree view", opts},
-
     -- ["<leader>k"] = {"<C-w>+", "Resize Up", opts},
     -- ["<leader>j"] = {"<C-w>-", "Resize Down", opts},
     -- ["<leader>h"] = {"<C-w><", "Resize left", opts},

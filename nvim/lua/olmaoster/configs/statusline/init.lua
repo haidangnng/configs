@@ -26,10 +26,10 @@ require('lualine').setup {
     lualine_a = {
       {
         "mode",
-        -- fmt = function()
-        --   return " "
-        -- end,
-        -- draw_empty = true
+        fmt = function()
+          return " "
+        end,
+        draw_empty = true
       },
     },
     lualine_b = {
@@ -42,13 +42,8 @@ require('lualine').setup {
       components.LSP_Diagnostics,
       components.LSP_progress,
     },
-    lualine_y = {
-      components.gitchanges
-    },
     lualine_z = {
-      components.filetype,
       components.LSP_status,
-      components.cwd,
     }
   },
 }

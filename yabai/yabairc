@@ -9,9 +9,7 @@ yabai -m signal --add event=window_moved action="sketchybar --trigger windows_on
 yabai -m space --focus prev        # move left
 yabai -m space --focus next        # move right
 
-# BAR HEIGHT
-# BAR_HEIGHT=$(sketchybar -m --query bar | jq -r '.height')
-BAR_HEIGHT=30
+BAR_HEIGHT=$(sketchybar -m --query bar | jq -r '.height')
 GENERAL=(
 	external_bar all:"${BAR_HEIGHT}":0
 	split_type auto
@@ -19,7 +17,7 @@ GENERAL=(
 	auto_balance off
 	insert_feedback_color 0xff7793d1
 )
-# external_bar all:39:0 \
+external_bar all:39:0 \
 
 WINDOWS=(
 	window_placement second_child
@@ -39,19 +37,17 @@ BORDERS=(
   window_border_hidpi off 
   window_border_width 5
   window_border_radius 5
-# active_window_border_color 0xffffffff
-#  normal_window_border_color 0x000000ff
   active_window_border_color 0xfff5799c
   normal_window_border_color 0xff86b9c2
 )
 
 LAYOUT=(
 	layout bsp
-	top_padding 10
-	bottom_padding 10
-	left_padding 10
-	right_padding 10
-	window_gap 10
+	top_padding 20
+	bottom_padding 20
+	left_padding 20
+	right_padding 20
+	window_gap 20
 )
 
 MOUSE=(
@@ -129,10 +125,5 @@ for ((i = 1; i <= "${#UNMANAGED[@]}"; i++)); do
 	yabai -m rule --add app="^${UNMANAGED[(($i - 1))]}.*$" manage=off
 done
 
-# Exclude problematic apps from being managed:
-# yabai -m rule --add label="Finder" app="^Finder$" title="(Co(py|nnect)|Move|Info|Pref)" manage=off
-# yabai -m rule --add label="Safari" app="^Safari$" title="^(General|(Tab|Password|Website|Extension)s|AutoFill|Se(arch|curity)|Privacy|Advance)$" manage=off
-# yabai -m rule --add label="About This Mac" app="System Information" title="About This Mac" manage=off
-# yabai -m rule --add label="Select file to save to" app="^Inkscape$" title="Select file to save to" manage=off
 echo "yabai configuration loaded.."
 borders active_color=0xffe1e3e4 inactive_color=0xff494d64 width=5.0 2>/dev/null 1>&2 &

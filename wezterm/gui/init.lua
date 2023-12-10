@@ -38,18 +38,16 @@ return {
 
   use_fancy_tab_bar = false,
   tab_max_width = 150,
-
-  color_scheme = 'carbonfox',
-  -- Aesthetic Night Colorscheme
+  color_scheme = 'nightfox',
 	bold_brightens_ansi_colors = true,
 	colors = {
-		background = "#110f1a",
+		background = "#050212",
 	},
 
   -- Padding
   window_padding = {
-    left = 5,
-    right = 5,
+    left = 0,
+    right = 0,
     top = 0,
     bottom = 0,
   },
@@ -63,7 +61,7 @@ return {
 
   -- General
   automatically_reload_config = true,
-  inactive_pane_hsb = { saturation = 0.7, brightness = 0.6 },
+  inactive_pane_hsb = { saturation = 0.8, brightness = 0.2 },
   window_background_opacity = 0.80,
   macos_window_background_blur = 20,
 
