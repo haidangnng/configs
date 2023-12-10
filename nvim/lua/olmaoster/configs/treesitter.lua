@@ -11,8 +11,6 @@ else
       "vim",
       "vimdoc",
       "query",
-      "elixir",
-      "heex",
       "javascript",
       "html",
       "typescript",
@@ -20,7 +18,8 @@ else
       "python",
       "toml",
       "svelte",
-      "css"
+      "css",
+      "rust"
     },
     sync_install = false,
     highlight = { enable = true },
