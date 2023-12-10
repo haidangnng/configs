@@ -70,6 +70,7 @@ yabai -m config "${MOUSE[@]}"
 
 # RULES
 UNMANAGED=(
+  Cisco*
   QGIS-LTR
   ‎WhatsApp
   Steam
