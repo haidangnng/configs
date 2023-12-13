@@ -1,12 +1,12 @@
 local util = require "lspconfig/util"
 
 local servers = {
-  --python 
+  -- FLUTTER --
+  dartls = {},
+  -- PYTHON --
   pyright = {},
-
   prismals = {},
-
-  -- golang
+  -- GOLANG --
    gopls = {
     cmd = { "gopls" },
     filetypes = { "go", "gomod", "gowork", "gotmpl" },
@@ -21,8 +21,7 @@ local servers = {
       },
     },
   },
-
-  -- rust
+  -- RUST --
   rust_analyzer = {
     filetypes = "rust",
     -- root_dir = util.root_pattern("Cargo.toml"),
@@ -35,6 +34,7 @@ local servers = {
     }
   },
 
+  -- WEB DEV --
   cssls = {},
   html = {},
   svelte = {
