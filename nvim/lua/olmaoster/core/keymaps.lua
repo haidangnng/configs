@@ -15,6 +15,13 @@ M.zen = {
   }
 }
 
+M.ufo = {
+  n = {
+    ["zr"] = { "<Cmd>lua require('ufo').openAllFolds()<CR>", "Open All Folds", opts},
+    ["zm"] = { "<Cmd>lua require('ufo').closeAllFolds()<CR>", "Close All Folds", opts},
+  }
+}
+
 M.maximize = {
   n = {
     ["<leader>m"] = { "<Cmd>lua require('maximize').toggle()<CR>", "toggle maximize", opts}
@@ -73,7 +80,8 @@ M.lspsaga = {
 -- Your custom mappings
 M.general = {
   n = {
-    ["<leader>s"] =  {[[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], "Replacing word",opts},
+    ["<leader>rf"] =  {[[:%s/\<<C-r><C-w>\>//gI<Left><Left><Left>]], "Replacing word",opts},
+    ["<leader>rl"] =  {[[:s/\<<C-r><C-w>\>//gI<Left><Left><Left>]], "Replacing word",opts},
     [ "<ESC>"] =  { ":nohl <CR>", "Navigate window", opts},
     [ "<C-h>"] =  { "<CMD>NavigatorLeft<CR>", "Navigate window", opts},
     [ "<C-j>"] =  { "<CMD>NavigatorDown<CR>", "Navigate window", opts},

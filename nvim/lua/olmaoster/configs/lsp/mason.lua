@@ -4,13 +4,14 @@ local lsp_zero = require('lsp-zero')
 local lspconfig = require "lspconfig"
 local servers = require("olmaoster.configs.lsp.servers")
 
+
 local function setup(server)
   if servers[server] and servers[server].disabled then
     return
   end
   local server_opts = vim.tbl_deep_extend("force", {
-    -- on_attach = on_attach,
-    -- capabilities = vim.deepcopy(capabilities),
+    on_attach = lsp_zero.on_attach,
+    capabilities = vim.deepcopy(lsp_zero.capabilities),
   }, servers[server] or {})
   lspconfig[server].setup(server_opts)
 end

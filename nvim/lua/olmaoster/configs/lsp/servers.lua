@@ -1,7 +1,7 @@
 local util = require "lspconfig/util"
 
 local servers = {
-  -- FLUTTER --
+  -- FLUTTER
   dartls = {},
   -- PYTHON --
   pyright = {},
