@@ -18,8 +18,8 @@ return {
   front_end = "OpenGL",
   -- Font config
   font = font_with_fallback(font_name, { weight = "Light" }),
-  font_size = 14.5,
-  line_height = 1.5,
+  font_size = 16,
+  line_height = 1.9,
   font_rules = {
     {
       italic = true,

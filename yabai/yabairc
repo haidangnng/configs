@@ -119,6 +119,7 @@ UNMANAGED=(
   Spotify
 	Telegram
 	Studio 3T
+  Simulator*
 )
 
 for ((i = 1; i <= "${#UNMANAGED[@]}"; i++)); do
