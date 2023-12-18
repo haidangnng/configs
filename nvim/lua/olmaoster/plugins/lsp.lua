@@ -1,5 +1,18 @@
 return {
   {
+    "zbirenbaum/copilot.lua",
+    enabled = true,
+    cmd = "Copilot",
+    event = "InsertEnter",
+    opts = {
+      suggestion = { enabled = false },
+      panel = { enabled = false },
+    },
+    config = function()
+      require("copilot").setup({})
+    end,
+  },
+  {
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
     config = function ()
@@ -40,21 +53,27 @@ return {
         "hrsh7th/cmp-buffer",
         "hrsh7th/cmp-path",
       },
-      {
-        "tzachar/cmp-tabnine",
-        build = "./install.sh",
-        config = function()
-          local tabnine = require "cmp_tabnine.config"
-          tabnine:setup {
-            max_lines = 5,
-            max_num_results = 5,
-            sort = true,
-            run_on_every_keystroke = true,
-            snippet_placeholder = "..",
-          } -- put your options here
-        end,
-      }
+      -- {
+      --   "tzachar/cmp-tabnine",
+      --   build = "./install.sh",
+      --   config = function()
+      --     local tabnine = require "cmp_tabnine.config"
+      --     tabnine:setup {
+      --       max_lines = 5,
+      --       max_num_results = 5,
+      --       sort = true,
+      --       run_on_every_keystroke = true,
+      --       snippet_placeholder = "..",
+      --     } -- put your options here
+      --   end,
+      -- }
     }
+  },
+  {
+    "zbirenbaum/copilot-cmp",
+    config = function ()
+      require("copilot_cmp").setup()
+    end
   },
   {"b0o/schemastore.nvim"},
   {"jose-elias-alvarez/null-ls.nvim"},
@@ -65,7 +84,7 @@ return {
       require('lspsaga').setup({})
     end,
   },
-  { "folke/neodev.nvim", opts = {} },
+  -- { "folke/neodev.nvim", opts = {} },
   -- RUST --
   {
     "rust-lang/rust.vim",
