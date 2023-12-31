@@ -18,8 +18,8 @@ return {
   front_end = "OpenGL",
   -- Font config
   font = font_with_fallback(font_name, { weight = "Light" }),
-  font_size = 16,
-  line_height = 1.9,
+  font_size = 15,
+  line_height = 1.6,
   font_rules = {
     {
       italic = true,
@@ -38,11 +38,12 @@ return {
 
   use_fancy_tab_bar = false,
   tab_max_width = 150,
-  color_scheme = 'nightfox',
+  -- color_scheme = 'nightfox',
+  color_scheme = 'Kasugano (terminal.sexy)',
 	bold_brightens_ansi_colors = true,
-	colors = {
-		background = "#050212",
-	},
+	-- colors = {
+	-- 	background = "#050212",
+	-- },
 
   -- Padding
   window_padding = {
@@ -62,8 +63,8 @@ return {
   -- General
   automatically_reload_config = true,
   inactive_pane_hsb = { saturation = 0.8, brightness = 0.2 },
-  window_background_opacity = 0.80,
-  macos_window_background_blur = 20,
+  window_background_opacity = 0.90,
+  macos_window_background_blur = 40,
 
   mouse_wheel_scrolls_tabs = false,
 

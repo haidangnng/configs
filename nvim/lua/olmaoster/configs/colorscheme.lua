@@ -1,13 +1,14 @@
-require("nightfox").setup({
-  options = {
-    styles = {
-      comments = "italic",
-      keywords = "bold",
-      types = "italic,bold",
-    },
-    transparent = true,
-    dim_active = true,
-  }
-})
+-- require("nightfox").setup({
+--   options = {
+--     styles = {
+--       comments = "italic",
+--       keywords = "bold",
+--       types = "italic,bold",
+--     },
+--     transparent = true,
+--     dim_active = true,
+--   }
+-- })
+--
+-- vim.cmd("colorscheme carbonfox")
 
-vim.cmd("colorscheme carbonfox")

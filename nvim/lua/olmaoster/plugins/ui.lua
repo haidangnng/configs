@@ -1,16 +1,4 @@
 return {
-  -- COLORSCHEME --
-  {
-    "EdenEast/nightfox.nvim",
-    version = false,
-    lazy = false,
-    priority = 1000, -- make sure to load this before all the other start plugins
-    -- Optional; default configuration will be used if setup isn't called.
-    config = function()
-      require('olmaoster.configs.colorscheme')
-    end,
-  },
-
   --- STATUSLINE ---
   {
     'nvim-lualine/lualine.nvim',
@@ -45,18 +33,18 @@ return {
   },
 
   --- NOTIFY UI --
-  {
-    "folke/noice.nvim",
-    event = "VeryLazy",
-    dependencies = {
-      -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
-      "MunifTanjim/nui.nvim",
-      -- "rcarriga/nvim-notify",
-    },
-    config = function ()
-      require("olmaoster.configs.noice")
-    end
-  },
+  -- {
+  --   "folke/noice.nvim",
+  --   event = "VeryLazy",
+  --   dependencies = {
+  --     -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
+  --     "MunifTanjim/nui.nvim",
+  --     -- "rcarriga/nvim-notify",
+  --   },
+  --   config = function ()
+  --     require("olmaoster.configs.noice")
+  --   end
+  -- },
 
   --- INDENT LINE ---
   {

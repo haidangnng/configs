@@ -53,20 +53,6 @@ return {
         "hrsh7th/cmp-buffer",
         "hrsh7th/cmp-path",
       },
-      -- {
-      --   "tzachar/cmp-tabnine",
-      --   build = "./install.sh",
-      --   config = function()
-      --     local tabnine = require "cmp_tabnine.config"
-      --     tabnine:setup {
-      --       max_lines = 5,
-      --       max_num_results = 5,
-      --       sort = true,
-      --       run_on_every_keystroke = true,
-      --       snippet_placeholder = "..",
-      --     } -- put your options here
-      --   end,
-      -- }
     }
   },
   {
@@ -122,39 +108,14 @@ return {
   },
 
   -- FLUTTER
-  {
-    'akinsho/flutter-tools.nvim',
-    lazy = false,
-    dependencies = {
-        'nvim-lua/plenary.nvim',
-        'stevearc/dressing.nvim', -- optional for vim.ui.select
-    },
-    config = function()
-      require('flutter-tools').setup({
-        flutter_path = '/Users/olmaoster/development/flutter/bin/flutter'
-      })
-    end
-  },
-
-  --- COMMENTS ---
-  {
-    "numToStr/Comment.nvim",
-    keys = {
-      { "gcc", mode = "n", desc = "Comment toggle current line" },
-      { "gc", mode = { "n", "o" }, desc = "Comment toggle linewise" },
-      { "gc", mode = "x", desc = "Comment toggle linewise (visual)" },
-      { "gbc", mode = "n", desc = "Comment toggle current block" },
-      { "gb", mode = { "n", "o" }, desc = "Comment toggle blockwise" },
-      { "gb", mode = "x", desc = "Comment toggle blockwise (visual)" },
-    },
-    init = function()
-      require("olmaoster.core.utils").load_mappings "comment"
-    end,
-    config = function(_, opts)
-      require("Comment").setup(vim.tbl_deep_extend('force', opts, {
-        pre_hook = require('ts_context_commentstring.integrations.comment_nvim').create_pre_hook(),
-      }))
-    end,
-  },
-  { "JoosepAlviste/nvim-ts-context-commentstring", lazy = false },
+  -- { 'dart-lang/dart-vim-plugin' },
+  -- {
+  --   'akinsho/flutter-tools.nvim',
+  --   lazy = false,
+  --   config = function()
+  --     require('flutter-tools').setup({
+  --       flutter_path = '/Users/olmaoster/development/flutter/bin/flutter'
+  --     })
+  --   end
+  -- },
 }

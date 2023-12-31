@@ -2,12 +2,12 @@ local util = require "lspconfig/util"
 
 local servers = {
   -- FLUTTER
-  dartls = {},
+  -- dartls = {},
   -- PYTHON --
-  pyright = {},
+  -- pyright = {},
   prismals = {},
   -- GOLANG --
-   gopls = {
+    gopls = {
     cmd = { "gopls" },
     filetypes = { "go", "gomod", "gowork", "gotmpl" },
     root_dir = util.root_pattern("go.work", "go.mod", ".git"),

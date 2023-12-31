@@ -35,8 +35,8 @@ BORDERS=(
   window_border on
   window_border_blur off
   window_border_hidpi off 
-  window_border_width 5
-  window_border_radius 5
+  # window_border_width 5
+  # window_border_radius 0
   active_window_border_color 0xfff5799c
   normal_window_border_color 0xff86b9c2
 )
@@ -67,10 +67,8 @@ yabai -m config "${MOUSE[@]}"
 # RULES
 UNMANAGED=(
   Cisco*
-  QGIS-LTR
   ‎WhatsApp
   Steam
-  Pycharm
   Python
   Calendar
   Notes
@@ -119,7 +117,8 @@ UNMANAGED=(
   Spotify
 	Telegram
 	Studio 3T
-  Simulator*
+  # Simulator*
+  Godot
 )
 
 for ((i = 1; i <= "${#UNMANAGED[@]}"; i++)); do
