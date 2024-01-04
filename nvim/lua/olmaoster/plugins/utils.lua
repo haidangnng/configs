@@ -1,20 +1,6 @@
 return {
 	"nvim-lua/plenary.nvim",
 
-  --- COPILOT ---
-  {
-    "zbirenbaum/copilot.lua",
-    enabled = true,
-    cmd = "Copilot",
-    event = "InsertEnter",
-    opts = {
-      suggestion = { enabled = false },
-      panel = { enabled = false },
-    },
-    config = function()
-      require("copilot").setup({})
-    end,
-  },
   --- TREE SITTER ---
   {
     "nvim-treesitter/nvim-treesitter",
@@ -69,7 +55,6 @@ return {
   --- ICONS ---
   {
     "nvim-tree/nvim-web-devicons",
-    lazy = true,
   },
 
   --- OPTIMIZE STARTUP TIME - 
@@ -180,9 +165,6 @@ return {
       { "gb", mode = { "n", "o" }, desc = "Comment toggle blockwise" },
       { "gb", mode = "x", desc = "Comment toggle blockwise (visual)" },
     },
-    init = function()
-      require("olmaoster.core.utils").load_mappings "comment"
-    end,
     config = function(_, opts)
       require("Comment").setup(vim.tbl_deep_extend('force', opts, {
         pre_hook = require('ts_context_commentstring.integrations.comment_nvim').create_pre_hook(),

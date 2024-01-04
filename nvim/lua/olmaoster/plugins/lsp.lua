@@ -12,13 +12,6 @@ return {
       require("copilot").setup({})
     end,
   },
-  {
-    "nvim-treesitter/nvim-treesitter",
-    build = ":TSUpdate",
-    config = function ()
-      require("olmaoster.configs.treesitter")
-    end
-  },
 
   --- LSP ---
   {
@@ -64,10 +57,17 @@ return {
   {"b0o/schemastore.nvim"},
   {"jose-elias-alvarez/null-ls.nvim"},
   {
-   'nvimdev/lspsaga.nvim',
+    'nvimdev/lspsaga.nvim',
     lazy = false,
     config = function()
-      require('lspsaga').setup({})
+      require('lspsaga').setup({
+        symbol_in_winbar = { enable = false },
+        lightbulbs = { enable = false },
+        ui = {
+          border = "rounded",
+          lines = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
+        }
+      })
     end,
   },
   -- { "folke/neodev.nvim", opts = {} },
@@ -108,14 +108,14 @@ return {
   },
 
   -- FLUTTER
-  -- { 'dart-lang/dart-vim-plugin' },
-  -- {
-  --   'akinsho/flutter-tools.nvim',
-  --   lazy = false,
-  --   config = function()
-  --     require('flutter-tools').setup({
-  --       flutter_path = '/Users/olmaoster/development/flutter/bin/flutter'
-  --     })
-  --   end
-  -- },
+  { 'dart-lang/dart-vim-plugin' },
+  {
+    'akinsho/flutter-tools.nvim',
+    lazy = false,
+    config = function()
+      require('flutter-tools').setup({
+        flutter_path = '/Users/olmaoster/development/flutter/bin/flutter'
+      })
+    end
+  },
 }

@@ -1,4 +1,36 @@
 require("olmaoster.core.options")
+require("olmaoster.core.utils").load_mappings()
+require('olmaoster.lazy')
+
+-- Run gofmt + goimport on save
+local format_sync_grp = vim.api.nvim_create_augroup("GoImport", {})
+
+vim.api.nvim_create_autocmd("BufWritePre", {
+  pattern = "*.go",
+  callback = function()
+   require('go.format').goimport()
+  end,
+  group = format_sync_grp,
+})
+
+vim.cmd("colorscheme habamax")
+vim.cmd('hi Normal guibg=NONE ctermbg=NONE')
+vim.cmd('hi LineNr guibg=NONE ctermbg=NONE guifg=NONE ctermfg=NONE')
+
+-- LSP SAGA highlight
+vim.cmd('highlight HoverBorder guibg=NONE ctermbg=NONE')
+vim.cmd('highlight HoverNormal guibg=NONE ctermbg=NONE')
+vim.cmd('highlight ActionPreviewBorder guibg=NONE ctermbg=NONE')
+vim.cmd('highlight ActionPreviewNormal guibg=NONE ctermbg=NONE')
+vim.cmd('highlight DiagnosticBorder guibg=NONE ctermbg=NONE')
+vim.cmd('highlight DiagnosticNormal guibg=NONE ctermbg=NONE')
+vim.cmd('highlight RenameBorder guibg=NONE ctermbg=NONE')
+vim.cmd('highlight RenameNormal guibg=NONE ctermbg=NONE')
+vim.cmd('highlight SagaBorder guibg=NONE ctermbg=NONE')
+vim.cmd('highlight SagaNormal guibg=NONE ctermbg=NONE')
+
+-- split highlight
+vim.cmd('highlight VertSplit guibg=NONE guifg=#5f875f gui=bold')
 
 local autocmd = vim.api.nvim_create_autocmd
 

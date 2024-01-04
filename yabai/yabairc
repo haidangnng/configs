@@ -117,7 +117,6 @@ UNMANAGED=(
   Spotify
 	Telegram
 	Studio 3T
-  # Simulator*
   Godot
 )
 

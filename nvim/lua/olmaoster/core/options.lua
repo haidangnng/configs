@@ -33,13 +33,19 @@ local options = {
 	scrolloff = 10,
 	sidescrolloff = 10,
 	guifont = "monospace:h17";
+  formatoptions = vim.o.formatoptions .. "orj"
+}
+
+local global = {
+  mapleader = " ",
+  maplocalleader = " ",
+  dart_format_on_save = 1
 }
 
 for k, v in pairs(options) do
 	vim.opt[k] = v
 end
 
-vim.g.mapleader = " "
-vim.g.maplocalleader = " "
-vim.o.formatoptions = vim.o.formatoptions .. "orj"
-vim.g.dart_format_on_save = 1
+for k, v in pairs(global) do
+	vim.g[k] = v
+end

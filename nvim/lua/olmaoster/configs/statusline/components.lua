@@ -2,56 +2,6 @@ local fn = vim.fn
 
 local M = {}
 
-M.modes = {
-  ["n"] = "NORMAL",
-  ["no"] = "NORMAL (no)",
-  ["nov"] = "NORMAL (nov)",
-  ["noV"] = "NORMAL (noV)",
-  ["noCTRL-V"] = "NORMAL",
-  ["niI"] = "NORMAL i",
-  ["niR"] = "NORMAL r",
-  ["niV"] = "NORMAL v",
-  ["nt"] = "NTERMINAL",
-  ["ntT"] = "NTERMINAL (ntT)",
-
-  ["v"] = "VISUAL",
-  ["vs"] = "V-CHAR (Ctrl O)",
-  ["V"] = "V-LINE",
-  ["Vs"] = "V-LINE",
-  [""] = "V-BLOCK",
-
-  ["i"] = "INSERT",
-  ["ic"] = "INSERT (completion)",
-  ["ix"] = "INSERT completion",
-
-  ["t"] = "TERMINAL",
-
-  ["R"] = "REPLACE",
-  ["Rc"] = "REPLACE (Rc)",
-  ["Rx"] = "REPLACEa (Rx)",
-  ["Rv"] = "V-REPLACE",
-  ["Rvc"] = "V-REPLACE (Rvc)",
-  ["Rvx"] = "V-REPLACE (Rvx)",
-
-  ["s"] = "SELECT",
-  ["S"] = "S-LINE",
-  [""] = "S-BLOCK",
-  ["c"] = "COMMAND",
-  ["cv"] = "COMMAND",
-  ["ce"] = "COMMAND",
-  ["r"] = "PROMPT",
-  ["rm"] = "MORE",
-  ["r?"] = "CONFIRM",
-  ["x"] = "CONFIRM",
-  ["!"] = "SHELL",}
-
-M.mode = function()
-  local m = vim.api.nvim_get_mode().mode
-  print(m)
-  return ""
-  -- return "%#" .. M.modes[m][2] .. "#" .. "  " .. M.modes[m][1] .. " "
-end
-
 M.fileInfo = function()
   local icon = " 󰈚 "
   local filename = (fn.expand "%" == "" and "Empty ") or fn.expand "%:t"
@@ -141,61 +91,6 @@ M.LSP_Diagnostics = function()
   info = (info and info > 0) and ("%#St_lspInfo# " .. info .. " ") or ""
 
   return vim.o.columns > 140 and errors .. warnings .. hints .. info or ""
-end
-
-M.filetype = function()
-  return vim.bo.ft == "" and "%#St_ft# {} plain text  " or "%#St_ft#{} " .. vim.bo.ft .. " "
-end
-
-M.LSP_status = function()
-  if rawget(vim, "lsp") then
-    for _, client in ipairs(vim.lsp.get_active_clients()) do
-      if client.attached_buffers[vim.api.nvim_get_current_buf()] and client.name ~= "null-ls" then
-        return (vim.o.columns > 100 and "%#St_LspStatus# 󰄭  " .. client.name .. "  ") or "%#St_LspStatus# 󰄭  LSP  "
-      end
-    end
-  end
-
-  return ""
-end
-
-M.cursor_position = function()
-  return vim.o.columns > 140 and "%#StText# Ln %l, Col %c  " or ""
-end
-
-M.file_encoding = function()
-  return string.upper(vim.bo.fileencoding) == "" and "" or "%#St_encode#" .. string.upper(vim.bo.fileencoding) .. "  "
-end
-
-M.cwd = function()
-  local dir_name = "%#St_cwd# 󰉖 " .. fn.fnamemodify(fn.getcwd(), ":t") .. " "
-  return (vim.o.columns > 85 and dir_name) or ""
-end
-
-M.run = function()
-  local modules = {
-    M.mode(),
-    M.fileInfo(),
-    M.git(),
-    M.LSP_Diagnostics(),
-
-    "%=",
-    M.LSP_progress(),
-    "%=",
-
-    M.gitchanges(),
-    M.cursor_position(),
-    M.file_encoding(),
-    M.filetype(),
-    M.LSP_status(),
-    M.cwd(),
-  }
-
-  -- if config.overriden_modules then
-  --   config.overriden_modules(modules)
-  -- end
-
-  return table.concat(modules)
 end
 
 return M
