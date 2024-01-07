@@ -32,6 +32,9 @@ vim.cmd('highlight SagaNormal guibg=NONE ctermbg=NONE')
 -- split highlight
 vim.cmd('highlight VertSplit guibg=NONE guifg=#5f875f gui=bold')
 
+-- git signs
+vim.cmd('highlight GitSignsChange guibg=NONE guifg=#5f875f gui=bold')
+
 local autocmd = vim.api.nvim_create_autocmd
 
 -- dont list quickfix buffers

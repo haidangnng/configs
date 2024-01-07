@@ -1,6 +1,4 @@
 local lsp_zero = require('lsp-zero')
--- local on_attach = require("lspconfig").on_attach
--- local capabilities = require("lspconfig").capabilities
 local lspconfig = require "lspconfig"
 local servers = require("olmaoster.configs.lsp.servers")
 

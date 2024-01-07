@@ -1,5 +1,25 @@
 return {
 	"nvim-lua/plenary.nvim",
+  ---- CO PILOT ----
+  {
+    "zbirenbaum/copilot-cmp",
+    config = function ()
+      require("copilot_cmp").setup()
+    end
+  },
+  {
+    "zbirenbaum/copilot.lua",
+    enabled = true,
+    cmd = "Copilot",
+    event = "InsertEnter",
+    opts = {
+      suggestion = { enabled = false },
+      panel = { enabled = false },
+    },
+    config = function()
+      require("copilot").setup({})
+    end,
+  },
 
   --- TREE SITTER ---
   {
@@ -25,7 +45,6 @@ return {
   --- MAXIMIZE WINDOW PANE ---
   {
     'declancm/maximize.nvim',
-    lazy = false,
     config = function() require('maximize').setup() end
   },
 
@@ -47,8 +66,6 @@ return {
     "moll/vim-bbye",
     event = { "BufRead" },
     keys = {
-      { "<leader>d",  "<cmd>Bdelete!<cr>",        desc = "Close Buffer" },
-      { "<leader>qa", "<cmd>bufdo Bdelete!<cr>", desc = "Close All Buffer" },
     },
   },
 
@@ -131,7 +148,6 @@ return {
   },
   {
     "windwp/nvim-ts-autotag",
-    lazy = false,
     config = function(_)
       require('nvim-ts-autotag').setup()
     end,
@@ -171,5 +187,5 @@ return {
       }))
     end,
   },
-  { "JoosepAlviste/nvim-ts-context-commentstring", lazy = false },
+  { "JoosepAlviste/nvim-ts-context-commentstring" },
 }

@@ -45,7 +45,6 @@ return {
       },
       use_default_keymaps = false,
     },
-    lazy = false,
     dependencies = { "nvim-tree/nvim-web-devicons" },
   },
 
@@ -53,5 +52,8 @@ return {
   {
     'akinsho/toggleterm.nvim',
     version = "*",
+    config = function ()
+      require("toggleterm").setup{}
+    end
   },
 }

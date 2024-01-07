@@ -38,7 +38,6 @@ null_ls.setup({
             "-",
           },
         }),
-    null_ls.builtins.formatting.latexindent,
     null_ls.builtins.formatting.rustywind,
   },
   on_attach = function(client, bufnr)
@@ -54,7 +53,3 @@ null_ls.setup({
     end
   end,
 })
-
--- vim.api.nvim_create_user_command("DisableLspFormatting", function()
---   vim.api.nvim_clear_autocmds({ group = augroup, buffer = 0 })
--- end, { nargs = 0 })

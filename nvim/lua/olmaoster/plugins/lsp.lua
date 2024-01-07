@@ -1,18 +1,4 @@
 return {
-  {
-    "zbirenbaum/copilot.lua",
-    enabled = true,
-    cmd = "Copilot",
-    event = "InsertEnter",
-    opts = {
-      suggestion = { enabled = false },
-      panel = { enabled = false },
-    },
-    config = function()
-      require("copilot").setup({})
-    end,
-  },
-
   --- LSP ---
   {
     'VonHeikemen/lsp-zero.nvim',
@@ -58,7 +44,6 @@ return {
   {"jose-elias-alvarez/null-ls.nvim"},
   {
     'nvimdev/lspsaga.nvim',
-    lazy = false,
     config = function()
       require('lspsaga').setup({
         symbol_in_winbar = { enable = false },
@@ -95,7 +80,6 @@ return {
   {
     "ray-x/go.nvim",
     dependencies = {  -- optional packages
-      "ray-x/guihua.lua",
       "neovim/nvim-lspconfig",
       "nvim-treesitter/nvim-treesitter",
     },
@@ -108,10 +92,13 @@ return {
   },
 
   -- FLUTTER
-  { 'dart-lang/dart-vim-plugin' },
+  {
+    'dart-lang/dart-vim-plugin',
+    ft="dart"
+  },
   {
     'akinsho/flutter-tools.nvim',
-    lazy = false,
+    ft="dart",
     config = function()
       require('flutter-tools').setup({
         flutter_path = '/Users/olmaoster/development/flutter/bin/flutter'
