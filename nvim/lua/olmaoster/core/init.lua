@@ -13,7 +13,8 @@ vim.api.nvim_create_autocmd("BufWritePre", {
   group = format_sync_grp,
 })
 
-vim.cmd("colorscheme habamax")
+vim.cmd[[colorscheme onedark]]
+-- vim.cmd("colorscheme habamax")
 vim.cmd('hi Normal guibg=NONE ctermbg=NONE')
 vim.cmd('hi LineNr guibg=NONE ctermbg=NONE guifg=NONE ctermfg=NONE')
 

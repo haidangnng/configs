@@ -38,7 +38,7 @@ return {
 
   use_fancy_tab_bar = false,
   tab_max_width = 150,
-  -- color_scheme = 'nightfox',
+  -- color_scheme = 'Tokyo Night',
   color_scheme = 'Kasugano (terminal.sexy)',
 	bold_brightens_ansi_colors = true,
 	-- colors = {

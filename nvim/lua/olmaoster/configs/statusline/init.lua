@@ -5,7 +5,7 @@ require('lualine').setup {
     icons_enabled = true,
     component_separators = {},
     section_separators = {},
-    theme = "gruvbox",
+    theme = "onedark",
     disabled_filetypes = {
       statusline = {
         "dashboard",
