@@ -77,6 +77,7 @@ local servers = {
     settings = {
       json = {
         schemas = require('schemastore').json.schemas(),
+        validate = { enable = true },
       },
     },
     setup = {
@@ -111,21 +112,6 @@ local servers = {
   lua_ls = {
     settings = {
       Lua = {
-        hint = {
-          enable = true,
-          arrayIndex = "Disable", -- "Enable", "Auto", "Disable"
-          await = true,
-          paramName = "Disable",  -- "All", "Literal", "Disable"
-          paramType = false,
-          semicolon = "Disable",  -- "All", "SameLine", "Disable"
-          setType = true,
-        },
-        runtime = {
-          version = "LuaJIT",
-          special = {
-            reload = "require",
-          },
-        },
         diagnostics = {
           globals = { "vim" },
         },
@@ -135,13 +121,6 @@ local servers = {
             [vim.fn.expand("$VIMRUNTIME/lua")] = false,
             [vim.fn.stdpath("config") .. "/lua"] = false,
           },
-        },
-        completion = {
-          callSnippet = "Replace",
-          autoRequire = true,
-        },
-        telemetry = {
-          enable = false,
         },
       },
     },

@@ -1,49 +1,60 @@
 return {
-  --- LSP ---
+  --- AUTOCOMPLETION ---
   {
-    'VonHeikemen/lsp-zero.nvim',
-    branch = 'dev-v3',
-    config = function()
-      require('olmaoster.configs.lsp.lsp-zero')
+    "hrsh7th/nvim-cmp",
+    event = "InsertEnter",
+    dependencies = {
+      "hrsh7th/cmp-buffer",
+      "hrsh7th/cmp-path",
+      'L3MON4D3/LuaSnip',
+      "saadparwaiz1/cmp_luasnip",
+      "rafamadriz/friendly-snippets"
+    },
+    config = function ()
+      require("olmaoster.configs.lsp.cmp")
     end
   },
 
-  --- Uncomment these if you want to manage LSP servers from neovim
-  {'williamboman/mason.nvim'},
-  {'williamboman/mason-lspconfig.nvim'},
+  --- LANGUAGE SERVER MANAGER (MASON)---
+  {
+    'williamboman/mason.nvim',
+    event = "BufReadPre",
+    dependencies = {
+      'williamboman/mason-lspconfig.nvim',
+    },
+    config = function()
+      require('olmaoster.configs.lsp.mason')
+    end
+  },
 
-  -- LSP Support
+  --- LSP CONFIG ---
   {
     'neovim/nvim-lspconfig',
-    dependencies = {
-      {'hrsh7th/cmp-nvim-lsp'},
+    event = {
+      "BufReadPre", "BufNewFile"
     },
+    dependencies = {
+       'hrsh7th/cmp-nvim-lsp',
+       { 'antosha417/nvim-lsp-file-operations', config = true }
+    },
+    -- config = function()
+    --   require('olmaoster.configs.lsp.lspconfigs')
+    -- end
   },
 
-  -- Autocompletion
+  --- NULL LS ---
   {
-    'hrsh7th/nvim-cmp',
-    dependencies = {
-      {
-        'L3MON4D3/LuaSnip',
-        "saadparwaiz1/cmp_luasnip",
-        "hrsh7th/cmp-nvim-lua",
-        "hrsh7th/cmp-nvim-lsp",
-        "hrsh7th/cmp-buffer",
-        "hrsh7th/cmp-path",
-      },
-    }
-  },
-  {
-    "zbirenbaum/copilot-cmp",
-    config = function ()
-      require("copilot_cmp").setup()
+    "jose-elias-alvarez/null-ls.nvim",
+    event = "BufReadPre",
+    config = function()
+      require('olmaoster.configs.lsp.null-ls')
     end
   },
-  {"b0o/schemastore.nvim"},
-  {"jose-elias-alvarez/null-ls.nvim"},
+
+  --- LSPSAGA ---
   {
     'nvimdev/lspsaga.nvim',
+    event = "LspAttach",
     config = function()
       require('lspsaga').setup({
         symbol_in_winbar = { enable = false },
@@ -53,9 +64,28 @@ return {
           lines = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
         }
       })
+
+      -- LSP SAGA highlight
+      vim.cmd('highlight HoverBorder guibg=NONE ctermbg=NONE')
+      vim.cmd('highlight HoverNormal guibg=NONE ctermbg=NONE')
+      vim.cmd('highlight ActionPreviewBorder guibg=NONE ctermbg=NONE')
+      vim.cmd('highlight ActionPreviewNormal guibg=NONE ctermbg=NONE')
+      vim.cmd('highlight DiagnosticBorder guibg=NONE ctermbg=NONE')
+      vim.cmd('highlight DiagnosticNormal guibg=NONE ctermbg=NONE')
+      vim.cmd('highlight RenameBorder guibg=NONE ctermbg=NONE')
+      vim.cmd('highlight RenameNormal guibg=NONE ctermbg=NONE')
+      vim.cmd('highlight SagaBorder guibg=NONE ctermbg=NONE')
+      vim.cmd('highlight SagaNormal guibg=NONE ctermbg=NONE')
     end,
+    dependencies = {
+      'nvim-treesitter/nvim-treesitter', -- optional
+      'nvim-tree/nvim-web-devicons'     -- optional
+    }
   },
-  -- { "folke/neodev.nvim", opts = {} },
+
+  --- JSON SCHEMA ---
+  {"b0o/schemastore.nvim"},
+
   -- RUST --
   {
     "rust-lang/rust.vim",
@@ -86,7 +116,7 @@ return {
     config = function()
       require("go").setup()
     end,
-    event = {"CmdlineEnter"},
+    event = { "BufReadPre", "BufNewFile" },
     ft = {"go", 'gomod'},
     build = ':lua require("go.install").update_all_sync()' -- if you need to install/update all binaries
   },
@@ -106,3 +136,46 @@ return {
     end
   },
 }
+--
+-- return {
+--   --- LSP ---
+--   {
+--     'VonHeikemen/lsp-zero.nvim',
+--     branch = 'dev-v3',
+--     config = function()
+--       require('olmaoster.configs.lsp.lsp-zero')
+--     end
+--   },
+--
+--   --- Uncomment these if you want to manage LSP servers from neovim
+--   {'williamboman/mason.nvim'},
+--   {'williamboman/mason-lspconfig.nvim'},
+--
+--
+--   -- Autocompletion
+--   {
+--     'hrsh7th/nvim-cmp',
+--     dependencies = {
+--       {
+--         'L3MON4D3/LuaSnip',
+--         "saadparwaiz1/cmp_luasnip",
+--         "hrsh7th/cmp-nvim-lua",
+--         "hrsh7th/cmp-nvim-lsp",
+--         "hrsh7th/cmp-buffer",
+--         "hrsh7th/cmp-path",
+--       },
+--     }
+--   },
+--   {
+--     "zbirenbaum/copilot-cmp",
+--     config = function ()
+--       require("copilot_cmp").setup()
+--     end
+--   },
+--   {
+--     'nvimdev/lspsaga.nvim',
+--     config = function()
+--     end,
+--   },
+--   -- { "folke/neodev.nvim", opts = {} },
+-- }

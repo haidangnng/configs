@@ -45,13 +45,12 @@ return {
   --- VIM UI ---
   {
     "stevearc/dressing.nvim",
-    lazy = true,
-    opts = {
-      input = {
-        border = { "▄", "▄", "▄", "█", "▀", "▀", "▀", "█" }, -- [ top top top - right - bottom bottom bottom - left ]
-        win_options = { winblend = 0 },
-      },
-    },
+    event = "VeryLazy",
+    -- opts = {
+    --   input = {
+    --     win_options = { winblend = 0 },
+    --   },
+    -- },
   },
 
   --- NOTIFY UI --
@@ -69,6 +68,7 @@ return {
   --- INDENT LINE ---
   {
     "lukas-reineke/indent-blankline.nvim",
+    event = { "BufReadPost", "BufNewFile" },
     main = "ibl",
     config = function ()
       vim.opt.list = true
@@ -77,14 +77,14 @@ return {
   },
 
   --- FOLD ---
-  {
-    "kevinhwang91/nvim-ufo",
-    dependencies = {
-      "kevinhwang91/promise-async",
-      "nvim-treesitter/nvim-treesitter",
-    },
-    config = function()
-      require("olmaoster.configs.ufo")
-    end,
-  },
+  -- {
+  --   "kevinhwang91/nvim-ufo",
+  --   dependencies = {
+  --     "kevinhwang91/promise-async",
+  --     "nvim-treesitter/nvim-treesitter",
+  --   },
+  --   config = function()
+  --     require("olmaoster.configs.ufo")
+  --   end,
+  -- },
 }

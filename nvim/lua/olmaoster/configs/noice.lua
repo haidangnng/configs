@@ -1,5 +1,5 @@
 local options = {
-    cmdline = {
+  cmdline = {
     view = "cmdline",
     format = {
       cmdline = { icon = "  " },

@@ -18,17 +18,6 @@ vim.cmd[[colorscheme onedark]]
 vim.cmd('hi Normal guibg=NONE ctermbg=NONE')
 vim.cmd('hi LineNr guibg=NONE ctermbg=NONE guifg=NONE ctermfg=NONE')
 
--- LSP SAGA highlight
-vim.cmd('highlight HoverBorder guibg=NONE ctermbg=NONE')
-vim.cmd('highlight HoverNormal guibg=NONE ctermbg=NONE')
-vim.cmd('highlight ActionPreviewBorder guibg=NONE ctermbg=NONE')
-vim.cmd('highlight ActionPreviewNormal guibg=NONE ctermbg=NONE')
-vim.cmd('highlight DiagnosticBorder guibg=NONE ctermbg=NONE')
-vim.cmd('highlight DiagnosticNormal guibg=NONE ctermbg=NONE')
-vim.cmd('highlight RenameBorder guibg=NONE ctermbg=NONE')
-vim.cmd('highlight RenameNormal guibg=NONE ctermbg=NONE')
-vim.cmd('highlight SagaBorder guibg=NONE ctermbg=NONE')
-vim.cmd('highlight SagaNormal guibg=NONE ctermbg=NONE')
 
 -- split highlight
 vim.cmd('highlight VertSplit guibg=NONE guifg=#5f875f gui=bold')

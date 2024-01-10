@@ -1,3 +1,5 @@
+local leet_arg = "leetcode.nvim"
+
 return {
 	"nvim-lua/plenary.nvim",
   ---- CO PILOT ----
@@ -148,7 +150,8 @@ return {
   },
   {
     "windwp/nvim-ts-autotag",
-    config = function(_)
+    filetypes = { "html", "javascript", "javascriptreact", "typescriptreact", "svelte", "vue", "xml" },
+    config = function()
       require('nvim-ts-autotag').setup()
     end,
   },
@@ -156,6 +159,8 @@ return {
   --- LEET CODE ---
   {
     "kawre/leetcode.nvim",
+    event = "VeryLazy",
+    lazy = leet_arg ~= vim.fn.argv()[1],
     build = ":TSUpdate html",
     dependencies = {
         "nvim-treesitter/nvim-treesitter",
@@ -165,6 +170,7 @@ return {
     },
     opts = {
         -- configuration goes here
+      arg = leet_arg,
       lang = "typescript",
       directory = vim.fn.stdpath("data") .. "/leetcode/"
     },
@@ -173,6 +179,7 @@ return {
   --- COMMENTS ---
   {
     "numToStr/Comment.nvim",
+    event = { "BufReadPost", "BufNewFile" },
     keys = {
       { "gcc", mode = "n", desc = "Comment toggle current line" },
       { "gc", mode = { "n", "o" }, desc = "Comment toggle linewise" },

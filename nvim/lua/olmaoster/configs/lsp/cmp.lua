@@ -4,6 +4,8 @@ local field_arrangement = {
   atom_colored = { "kind", "abbr", "menu" },
 }
 
+require("luasnip.loaders.from_vscode").lazy_load()
+
 local formatting_style = {
   -- default fields order i.e completion word + item.kind + item.kind icons
   fields = field_arrangement["atom_colored"] or { "abbr", "kind", "menu" },
@@ -41,13 +43,12 @@ end
 
 local options = {
   completion = {
-    completeopt = "menu,menuone,noinsert",
+    completeopt = "menu,menuone,preview,noselect",
   },
 
   window = {
     completion = {
       scrollbar = false,
-      -- winhighlight = "Normal:CmpPmenu,CursorLine:CmpSel,Search:PmenuSel",
       winhighlight = "Normal:Normal,FloatBorder:BorderBG,CursorLine:PmenuSel,Search:None",
     },
     documentation = {
@@ -62,10 +63,10 @@ local options = {
   },
   formatting = formatting_style,
   mapping = {
-    ["<C-p>"] = cmp.mapping.select_prev_item(),
-    ["<C-n>"] = cmp.mapping.select_next_item(),
+    ["<C-j>"] = cmp.mapping.select_prev_item(),
+    ["<C-k>"] = cmp.mapping.select_next_item(),
     ["<C-d>"] = cmp.mapping.scroll_docs(-4),
-    ["<C-f>"] = cmp.mapping.scroll_docs(4),
+    ["<C-u>"] = cmp.mapping.scroll_docs(4),
     ["<C-Space>"] = cmp.mapping.complete(),
     ["<C-e>"] = cmp.mapping.close(),
     ["<CR>"] = cmp.mapping.confirm {
@@ -101,7 +102,7 @@ local options = {
     { name = "nvim_lsp" },
     { name = "luasnip" },
     { name = "buffer" },
-    { name = "nvim_lua" },
+    -- { name = "nvim_lua" },
     { name = "path" },
     { name = "copilot" },
     -- { name = "cmp_tabnine" },
@@ -111,4 +112,3 @@ local options = {
 options.window.completion.border = border "CmpBorder"
 
 cmp.setup(options)
-
