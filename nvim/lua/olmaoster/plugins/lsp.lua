@@ -58,7 +58,7 @@ return {
     config = function()
       require('lspsaga').setup({
         symbol_in_winbar = { enable = false },
-        lightbulbs = { enable = false },
+        lightbulb = { enable = false },
         ui = {
           border = "rounded",
           lines = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },

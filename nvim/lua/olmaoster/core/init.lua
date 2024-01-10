@@ -14,16 +14,6 @@ vim.api.nvim_create_autocmd("BufWritePre", {
 })
 
 vim.cmd[[colorscheme onedark]]
--- vim.cmd("colorscheme habamax")
-vim.cmd('hi Normal guibg=NONE ctermbg=NONE')
-vim.cmd('hi LineNr guibg=NONE ctermbg=NONE guifg=NONE ctermfg=NONE')
-
-
--- split highlight
-vim.cmd('highlight VertSplit guibg=NONE guifg=#5f875f gui=bold')
-
--- git signs
-vim.cmd('highlight GitSignsChange guibg=NONE guifg=#5f875f gui=bold')
 
 local autocmd = vim.api.nvim_create_autocmd
 

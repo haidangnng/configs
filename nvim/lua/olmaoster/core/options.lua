@@ -27,12 +27,10 @@ local options = {
 	cursorline = true,
 	number = true,
 	relativenumber = true,
-  -- numberwidth = 4,                         -- set number column width to 2 {default 4}
-	signcolumn = "auto",
+  numberwidth = 2,                         -- set number column width to 2 {default 4}
+	signcolumn = "yes",
 	wrap = true,
 	scrolloff = 10,
-	sidescrolloff = 10,
-	guifont = "monospace:h17";
   formatoptions = vim.o.formatoptions .. "orj"
 }
 
