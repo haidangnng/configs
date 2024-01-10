@@ -5,10 +5,6 @@ local function font_with_fallback(name, params)
 	return wezterm.font_with_fallback(names, params)
 end
 
--- local font_name = "FiraMono Nerd Font Mono"
--- local font_name = "SpaceMono Nerd Font"
--- local font_name = "Hack Nerd Font"
--- local font_name = "Inconsolata Nerd Font"
 local font_name = "Monaspace Neon"-- Xenon || Argon || Krypton || Radon || Neon
 local font_name_comment = "Monaspace Radon"-- Xenon || Argon || Krypton || Radon || Neon
 
@@ -19,7 +15,7 @@ return {
   -- Font config
   font = font_with_fallback(font_name, { weight = "Light" }),
   font_size = 15,
-  line_height = 1.6,
+  line_height = 1.7,
   font_rules = {
     {
       italic = true,
@@ -41,9 +37,6 @@ return {
   -- color_scheme = 'Tokyo Night',
   color_scheme = 'Kasugano (terminal.sexy)',
 	bold_brightens_ansi_colors = true,
-	-- colors = {
-	-- 	background = "#050212",
-	-- },
 
   -- Padding
   window_padding = {
@@ -63,8 +56,8 @@ return {
   -- General
   automatically_reload_config = true,
   inactive_pane_hsb = { saturation = 0.8, brightness = 0.2 },
-  window_background_opacity = 0.90,
-  macos_window_background_blur = 40,
+  window_background_opacity = 0.4,
+  macos_window_background_blur = 50,
 
   mouse_wheel_scrolls_tabs = false,
 
