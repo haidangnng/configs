@@ -138,5 +138,17 @@ M.oil = {
   }
 }
 
+M.trouble = {
+  n = {
+    ['-'] = { "<CMD>Oil<CR>", "Open parent directory" },
+    ["<leader>xx"]= {function() require('trouble').toggle() end, "Toggle trouble", opts},
+    ["<leader>xw"]= {function() require('trouble').toggle('workspace_diagnostics') end, "Toggle Trouble workspace_diagnostics", opts},
+    -- ["<leader>xd"]= {function() require('trouble').toggle('document_diagnostics') end, "Toggle trouble document_diagnostics", opts},
+    -- ["<leader>xq"]= {function() require('trouble').toggle('quickfix') end, "Toggle Trouble quickfix", opts},
+    -- ["<leader>xl"]= {function() require('trouble').toggle('loclist') end, "Toggle Trouble loclist", opts},
+    ["gR"]= {function() require('trouble').toggle('lsp_references') end, "Toggle Trouble lsp_references"},
+  }
+}
+
 return M
 

@@ -19,7 +19,7 @@ null_ls.setup({
     null_ls.builtins.formatting.prettierd.with({
      filetypes = { "html", "markdown", "css", "svelte", "typescript", "typescriptreact", "javascript", "javascriptreact"},
     }),
-    null_ls.builtins.diagnostics.eslint_d.with({
+    null_ls.builtins.diagnostics.eslint.with({
       diagnostics_format = "[eslint] #{m}\n(#{c})",
     }),
     null_ls.builtins.diagnostics.ruff,

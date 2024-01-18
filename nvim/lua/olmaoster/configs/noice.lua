@@ -9,10 +9,11 @@ local options = {
     },
   },
   lsp = {
-    progress = { enabled = true },
-    hover = { enabled = false },
-    signature = { enabled = false },
-    -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
+    progress = {
+      enabled = true,
+      view = "mini",
+      throttle = 1000 / 60,
+    },
     override = {
       ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
       ["vim.lsp.util.stylize_markdown"] = true,
@@ -20,24 +21,27 @@ local options = {
     },
   },
   presets = {
-    bottom_search = true, -- use a classic bottom cmdline for search
-    command_palette = true, -- position the cmdline and popupmenu together
-    long_message_to_split = true, -- long messages will be sent to a split
-    inc_rename = false, -- enables an input dialog for inc-rename.nvim
-    lsp_doc_border = false, -- add a border to hover docs and signature help
+    bottom_search = true,
+    command_palette = true,
+    long_message_to_split = true,
+    inc_rename = true,
+    lsp_doc_border = true,
+  },
+  routes = {
+    view = "notify",
+    filter = { event = "msg_showmode" },
   },
   views = {
     mini = {
+      backend = "mini",
+      timeout = 1500,
+      size = { height = "auto", width = "auto", max_height = 5 },
+      border = { style = "none" },
+      zindex = 30,
       win_options = {
-        winblend = 0
-      }
-    },
-  },
-  routes = {
-    {
-      filter = {
-        event = "msg_show",
-        find = "%d+L, %d+B",
+        winbar = "",
+        foldenable = false,
+        winblend = 0,
       },
     },
   },

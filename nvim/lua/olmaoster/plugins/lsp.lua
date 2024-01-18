@@ -1,5 +1,6 @@
 return {
   --- AUTOCOMPLETION ---
+  -- {"lvimuser/lsp-inlayhints.nvim"},
   {
     "hrsh7th/nvim-cmp",
     event = "InsertEnter",
@@ -94,18 +95,23 @@ return {
       vim.g.rustfmt_autosave = 1
     end
   },
+  -- {
+  --   "simrat39/rust-tools.nvim",
+  --   ft = "rust",
+  --   dependencies = "neovim/nvim-lspconfig",
+  --   opts = function()
+  --     return require "olmaoster.configs.rust-tool"
+  --   end,
+  --   config = function(_, opts)
+  --     require('rust-tools').setup(opts)
+  --   end
+  -- },
   {
-    "simrat39/rust-tools.nvim",
-    ft = "rust",
-    dependencies = "neovim/nvim-lspconfig",
-    opts = function()
-      return require "olmaoster.configs.rust-tool"
-    end,
-    config = function(_, opts)
-      require('rust-tools').setup(opts)
-    end
+    'mrcjkb/rustaceanvim',
+    event = "LspAttach",
+    version = '^3', -- Recommended
+    ft = { 'rust' },
   },
-
   -- GOLANG --
   {
     "ray-x/go.nvim",
@@ -136,46 +142,3 @@ return {
     end
   },
 }
---
--- return {
---   --- LSP ---
---   {
---     'VonHeikemen/lsp-zero.nvim',
---     branch = 'dev-v3',
---     config = function()
---       require('olmaoster.configs.lsp.lsp-zero')
---     end
---   },
---
---   --- Uncomment these if you want to manage LSP servers from neovim
---   {'williamboman/mason.nvim'},
---   {'williamboman/mason-lspconfig.nvim'},
---
---
---   -- Autocompletion
---   {
---     'hrsh7th/nvim-cmp',
---     dependencies = {
---       {
---         'L3MON4D3/LuaSnip',
---         "saadparwaiz1/cmp_luasnip",
---         "hrsh7th/cmp-nvim-lua",
---         "hrsh7th/cmp-nvim-lsp",
---         "hrsh7th/cmp-buffer",
---         "hrsh7th/cmp-path",
---       },
---     }
---   },
---   {
---     "zbirenbaum/copilot-cmp",
---     config = function ()
---       require("copilot_cmp").setup()
---     end
---   },
---   {
---     'nvimdev/lspsaga.nvim',
---     config = function()
---     end,
---   },
---   -- { "folke/neodev.nvim", opts = {} },
--- }

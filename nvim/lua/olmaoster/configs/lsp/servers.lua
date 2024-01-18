@@ -1,13 +1,12 @@
 local util = require "lspconfig/util"
 
 local servers = {
-  -- FLUTTER
-  -- dartls = {},
-  -- PYTHON --
-  -- pyright = {},
-  prismals = {},
-  -- GOLANG --
-    gopls = {
+  -- -- PYTHON --
+  -- -- pyright = {},
+  -- prismals = {},
+  -- -- GOLANG --
+  templ = {},
+  gopls = {
     cmd = { "gopls" },
     filetypes = { "go", "gomod", "gowork", "gotmpl" },
     root_dir = util.root_pattern("go.work", "go.mod", ".git"),
@@ -21,22 +20,35 @@ local servers = {
       },
     },
   },
-  -- RUST --
-  rust_analyzer = {
-    filetypes = "rust",
-    -- root_dir = util.root_pattern("Cargo.toml"),
-    settings = {
-      ['rust-analyzer'] = {
-        cargo = {
-          allFeatures = true,
-        }
-      }
-    }
-  },
 
   -- WEB DEV --
   cssls = {},
-  html = {},
+  htmx = {
+    filetypes = {
+      "html",
+      "rs",
+      "templ",
+      "javascript",
+      "javascriptreact",
+      "typescript",
+      "typescriptreact",
+      "gotmpl",
+      "templ",
+    },
+  },
+  html = {
+    filetypes = {
+      "html",
+      "templ",
+      "javascript",
+      "javascriptreact",
+      "typescript",
+      "typescriptreact",
+      "gotmpl",
+      "templ",
+      "rs",
+    },
+  },
   svelte = {
     filetypes = {
       "svelte",
@@ -45,6 +57,7 @@ local servers = {
     cmd = { "svelteserver", "--stdio"}
   },
   emmet_ls = {
+    init_options = { userLanguages = { templ = "html" } },
     cmd = { "emmet-ls", "--stdio" },
     root_dir = util.root_pattern(".git"),
     filetypes = {
@@ -57,6 +70,7 @@ local servers = {
       "typescriptreact",
       "haml",
       "xml",
+      "rs",
       "xsl",
       "pug",
       "slim",
@@ -67,7 +81,9 @@ local servers = {
       "sss",
       "hbs",
       "handlebars",
-      "vue"
+      "vue",
+      "templ",
+      "gotmpl"
     },
   },
   jsonls = {
@@ -89,8 +105,32 @@ local servers = {
     settings = {
       hovers = true,
       suggestions = true,
-      filetypes = { "aspnetcorerazor", "astro", "astro-markdown", "blade", "django-html", "edge", "eelixir", "ejs", "erb", "eruby", "gohtml", "haml", "handlebars", "hbs", "html", "html-eex", "heex", "jade", "leaf", "liquid", "markdown", "mdx", "mustache", "njk", "nunjucks", "php", "razor", "slim", "twig", "css", "less", "postcss", "sass", "scss", "stylus", "sugarss", "javascript", "javascriptreact", "reason", "rescript", "typescript", "typescriptreact", "vue", "svelte" },
+      filetypes = {
+        "django-html",
+        "gohtml",
+        "haml",
+        "html",
+        "html-eex",
+        "markdown",
+        "mdx","twig",
+        "css",
+        "less",
+        "postcss",
+        "sass",
+        "scss",
+        "stylus",
+        "javascript",
+        "javascriptreact",
+        "typescript",
+        "typescriptreact",
+        "vue",
+        "svelte",
+        "templ",
+        "gotmpl",
+        "rs"
+      },
       validate = true,
+      init_options = { userLanguages = { templ = "html", rs = "html" } },
       lint = {
         cssConflict = 'warning',
         invalidApply = 'error',
@@ -126,6 +166,14 @@ local servers = {
     },
   },
   eslint = {
+    root_dir = util.root_pattern(
+       '.eslintrc',
+       '.eslintrc.js',
+       '.eslintrc.cjs',
+       '.eslintrc.yaml',
+       '.eslintrc.yml',
+       '.eslintrc.json'
+    ),
     codeAction = {
       disableRuleComment = {
         enable = true,
