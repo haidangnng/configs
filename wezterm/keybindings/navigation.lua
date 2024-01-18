@@ -7,7 +7,7 @@ return {
     { key = 'u', mods = 'CTRL|SHIFT', action = act.ScrollByPage(-0.5) },
     { key = 'd', mods = 'CTRL|SHIFT', action = act.ScrollByPage(0.5) },
     -- TABS
-    { key = 't', mods = 'LEADER', action = act({ SpawnTab = "CurrentPaneDomain"}) },
+    -- { key = 't', mods = 'LEADER', action = act({ SpawnTab = "CurrentPaneDomain"}) },
     { key = 'l', mods = 'LEADER', action = act({ ActivateTabRelative = 1}) },
     { key = 'h', mods = 'LEADER', action = act({ ActivateTabRelative = -1}) },
      -- PANES
