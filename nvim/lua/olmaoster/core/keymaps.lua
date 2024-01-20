@@ -94,10 +94,10 @@ M.general = {
     ["<C-d>"] = {"<C-d>zz", "Page down centered cursor", opts},
     ["<C-u>"] = {"<C-u>zz", "Page up centered cursor", opts},
 
+    ["<leader>h"] = {"10<C-w><", "Resize Left", opts},
+    ["<leader>l"] = {"10<C-w>>", "Resize Right", opts},
     ["<leader>k"] = {"10<C-w>+", "Resize Up", opts},
-    ["<leader>j"] = {"10<C-w>-", "Resize Down", opts},
-    ["<leader>h"] = {"10<C-w>>", "Resize left", opts},
-    ["<leader>l"] = {"10<C-w><", "Resize right", opts},
+    ["<leader>"] = {"10<C-w>-", "Resize Down", opts},
   },
 
   i = {

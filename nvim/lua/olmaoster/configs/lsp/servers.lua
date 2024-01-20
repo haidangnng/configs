@@ -27,6 +27,7 @@ local servers = {
     filetypes = {
       "html",
       "rs",
+      "rust",
       "templ",
       "javascript",
       "javascriptreact",
@@ -47,6 +48,7 @@ local servers = {
       "gotmpl",
       "templ",
       "rs",
+      "rust",
     },
   },
   svelte = {
@@ -71,6 +73,7 @@ local servers = {
       "haml",
       "xml",
       "rs",
+      "rust",
       "xsl",
       "pug",
       "slim",
@@ -127,10 +130,11 @@ local servers = {
         "svelte",
         "templ",
         "gotmpl",
-        "rs"
+        "rs",
+      "rust",
       },
       validate = true,
-      init_options = { userLanguages = { templ = "html", rs = "html" } },
+      init_options = { userLanguages = { templ = "html", rs = "html", rust = "html" } },
       lint = {
         cssConflict = 'warning',
         invalidApply = 'error',

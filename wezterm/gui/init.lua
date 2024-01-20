@@ -5,21 +5,30 @@ local function font_with_fallback(name, params)
 	return wezterm.font_with_fallback(names, params)
 end
 
-local font_name = "Monaspace Neon"-- Xenon || Argon || Krypton || Radon || Neon
-local font_name_comment = "Monaspace Radon"-- Xenon || Argon || Krypton || Radon || Neon
+-- local font_name = "FiraMono Nerd Font Mono"
+-- local font_name = "SpaceMono Nerd Font"
+-- local font_name = "Hack Nerd Font"
+-- local font_name = "Inconsolata Nerd Font"
+-- local font_name = "Iosevka"
+-- local font_name = "Iosevka Fixed"
+local font_name = "Iosevka Term"
+-- local font_name = "Monaspace Neon"-- Xenon || Argon || Krypton || Radon || Neon
+-- local font_name_comment = "Monaspace Radon"-- Xenon || Argon || Krypton || Radon || Neon
 
 
 return {
   -- OpenGL for GPU acceleration, Software for CPU
   front_end = "OpenGL",
   -- Font config
-  font = font_with_fallback(font_name, { weight = "Light" }),
-  font_size = 13,
-  line_height = 1.7,
+  -- font = font_with_fallback(font_name, { weight = "Light" }),
+  font = font_with_fallback(font_name, { weight = "Regular" }),
+  font_size = 15,
+  line_height = 1.3,
   font_rules = {
     {
       italic = true,
-      font = font_with_fallback(font_name_comment, { italic = true, weight = "ExtraLight" }),
+      -- font = font_with_fallback(font_name_comment, { italic = true, weight = "ExtraLight" }),
+      font = font_with_fallback(font_name, { italic = true, weight = "Light" }),
     },
     {
       italic = true,
