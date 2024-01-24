@@ -56,9 +56,23 @@ M.telescope = {
 
 
 M.lspsaga = {
+
   n = {
+     [ "gR" ]= { "<cmd>Telescope lsp_references<CR>", "Show LSP references", opts },
+     -- [ "gD" ]= {vim.lsp.buf.declaration, "Go to declaration", opts}, -- go to declaration
+     -- [ "gd" ]= {"<cmd>Telescope lsp_definitions<CR>", "Show LSP definitions", opts },-- show lsp definitions
+     -- ["gi"]= {"<cmd>Telescope lsp_implementations<CR>", "Show LSP implementations", opts}, -- show lsp implementations
+     -- ["gt"]= {"<cmd>Telescope lsp_type_definitions<CR>", "Show LSP type definitions", opts}, -- show lsp type definitions
+     ["<leader>ca"]= {vim.lsp.buf.code_action, "See available code actions", opts}, -- see available code actions, in visual mode will apply to selection
+     ["<leader>rn"]= {vim.lsp.buf.rename, "Smart rename", opts}, -- smart rename
+     -- ["<leader>D"]= {"<cmd>Telescope diagnostics bufnr=0<CR>", "Show buffer diagnostics", opts}, -- show  diagnostics for file
+     ["<leader>d"]= {vim.diagnostic.open_float, "Show line diagnostics", opts}, -- show diagnostics for line
+     -- ["[d"]= {vim.diagnostic.goto_prev,  "Go to previous diagnostic", opts}, -- jump to previous diagnostic in buffer
+     -- ["]d"]= {vim.diagnostic.goto_next, "Go to next diagnostic", opts}, -- jump to next diagnostic in buffer
+     -- ["K"]= {vim.lsp.buf.hover, "Show documentation for what is under cursor", opts}, -- show documentation for what is under cursor
+     ["<leader>rs"]= {":LspRestart<CR>", "Restart LSP", opts},
+
     ["gf"] =  { "<cmd>Lspsaga finder<CR>", "LSP Finder", opts},
-    ["<leader>ca"] =  { "<cmd>Lspsaga code_action<CR>", "LSP code action", opts},
     ["gr"] =  { "<cmd>Lspsaga rename<CR>", "LSP rename", opts},
     ["gp"] =  { "<cmd>Lspsaga peek_definition<CR>", "LSP Peek definition", opts},
     ["gd"] =  { "<cmd>Lspsaga goto_definition<CR>", "LSP Go to definition", opts},
@@ -81,6 +95,8 @@ M.lspsaga = {
 -- Your custom mappings
 M.general = {
   n = {
+    [ "<C-A>"] =  { "<C-a>", "Remove words highlight", opts},
+
     ["<leader>rf"] =  {[[:%s/\<<C-r><C-w>\>//gI<Left><Left><Left>]], "Replacing word in file",opts},
     ["<leader>rl"] =  {[[:s/\<<C-r><C-w>\>//gI<Left><Left><Left>]], "Replacing word line",opts},
     [ "<ESC>"] =  { ":nohl <CR>", "Remove words highlight", opts},
@@ -97,7 +113,10 @@ M.general = {
     ["<leader>h"] = {"10<C-w><", "Resize Left", opts},
     ["<leader>l"] = {"10<C-w>>", "Resize Right", opts},
     ["<leader>k"] = {"10<C-w>+", "Resize Up", opts},
-    ["<leader>"] = {"10<C-w>-", "Resize Down", opts},
+    ["<leader>j"] = {"10<C-w>-", "Resize Down", opts},
+
+    ["j"] = {"gj", "down", opts},
+    ["k"] = {"gk", "up", opts},
   },
 
   i = {
@@ -143,9 +162,6 @@ M.trouble = {
     ['-'] = { "<CMD>Oil<CR>", "Open parent directory" },
     ["<leader>xx"]= {function() require('trouble').toggle() end, "Toggle trouble", opts},
     ["<leader>xw"]= {function() require('trouble').toggle('workspace_diagnostics') end, "Toggle Trouble workspace_diagnostics", opts},
-    -- ["<leader>xd"]= {function() require('trouble').toggle('document_diagnostics') end, "Toggle trouble document_diagnostics", opts},
-    -- ["<leader>xq"]= {function() require('trouble').toggle('quickfix') end, "Toggle Trouble quickfix", opts},
-    -- ["<leader>xl"]= {function() require('trouble').toggle('loclist') end, "Toggle Trouble loclist", opts},
     ["gR"]= {function() require('trouble').toggle('lsp_references') end, "Toggle Trouble lsp_references"},
   }
 }
