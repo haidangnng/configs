@@ -1,0 +1,128 @@
+#green bsp, stack, float
+yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
+yabai -m signal --add event=display_added action="sleep 1 && $HOME/.config/yabai/create_spaces.sh"
+yabai -m signal --add event=display_removed action="sleep 1 && $HOME/.config/yabai/create_spaces.sh"
+yabai -m signal --add event=window_created action="sketchybar --trigger windows_on_spaces"
+yabai -m signal --add event=window_focused action="sketchybar --trigger windows_on_spaces"
+yabai -m signal --add event=window_destroyed action="sketchybar --trigger windows_on_spaces"
+yabai -m signal --add event=window_moved action="sketchybar --trigger windows_on_spaces"
+yabai -m space --focus prev        # move left
+yabai -m space --focus next        # move right
+
+# BAR_HEIGHT=0
+GENERAL=(
+	# external_bar all:"${BAR_HEIGHT}":0
+	split_type auto
+	split_ratio 0.5
+	auto_balance off
+	insert_feedback_color 0xff7793d1
+)
+external_bar all:39:0 \
+
+WINDOWS=(
+	window_placement second_child
+	window_topmost off
+	window_shadow on
+	window_opacity on
+	active_window_opacity 1.0
+	normal_window_opacity 0.2
+	window_animation_duration 0.0
+	window_origin_display focused
+	window_opacity_duration 0.15
+)
+
+BORDERS=(
+  window_border on
+  window_border_blur off
+  window_border_hidpi off 
+  # window_border_width 5
+  # window_border_radius 0
+  active_window_border_color 0xfff5799c
+  normal_window_border_color 0xff86b9c2
+)
+
+LAYOUT=(
+	layout bsp
+	top_padding 10
+	bottom_padding 10
+	left_padding 10
+	right_padding 10
+	window_gap 10
+)
+
+MOUSE=(
+	mouse_modifier alt
+	mouse_action1 move
+	mouse_action2 resize
+	mouse_drop_action swap
+	mouse_follows_focus on
+)
+
+yabai -m config "${GENERAL[@]}"
+yabai -m config "${WINDOWS[@]}"
+yabai -m config "${BORDERS[@]}"
+yabai -m config "${LAYOUT[@]}"
+yabai -m config "${MOUSE[@]}"
+
+# RULES
+UNMANAGED=(
+  Cisco*
+  ‎WhatsApp
+  Steam
+  Python
+  Calendar
+  Notes
+  System Preferences
+  Raycast Preferences
+  Raycast
+  Telegram
+  App Store
+  Xverse*
+  Finder
+  Mos
+  Mos Preferences
+  Docker
+  Docker Desktop
+  Logi Options+
+	Activity Monitor
+	App Store
+	Archive Utility
+	Authy
+	Bitwarden
+	Calculator
+	Dictionary
+	FaceTime
+	Photo Booth
+	Screen Sharing
+	Screens
+	Software Update
+	Stats
+	System Information
+	System Preferences
+	System Settings
+	VLC
+	Vimac
+	iStat Menus
+	zoom.us
+	Microsoft Teams
+	Mail
+	Messages
+	Spark
+	Mail
+	Discord
+	Thunderbird
+	Caprine
+	Messenger
+	Slack
+  Spotify
+	Telegram
+	Studio 3T
+  Godot
+)
+
+for ((i = 1; i <= "${#UNMANAGED[@]}"; i++)); do
+	yabai -m rule --add app="^${UNMANAGED[(($i - 1))]}.*$" manage=off
+done
+
+echo "yabai configuration loaded.."
+borders active_color=0xffe1e3e4 inactive_color=0xff494d64 width=5.0 2>/dev/null 1>&2 &
