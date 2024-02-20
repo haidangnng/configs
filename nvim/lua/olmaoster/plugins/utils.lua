@@ -1,4 +1,4 @@
-local leet_arg = "leetcode.nvim"
+-- local leet_arg = "leetcode.nvim"
 
 return {
 	"nvim-lua/plenary.nvim",
@@ -76,16 +76,6 @@ return {
     "nvim-tree/nvim-web-devicons",
   },
 
-  --- OPTIMIZE STARTUP TIME - 
-  {
-    "dstein64/vim-startuptime",
-    cmd = "StartupTime",
-    -- init is called during startup. Configuration for vim plugins typically should be set in an init function
-    init = function()
-      vim.g.startuptime_tries = 10
-    end,
-  },
-
   --- ILLUMINATE ---
   {
     "RRethy/vim-illuminate",
@@ -157,24 +147,24 @@ return {
   },
 
   --- LEET CODE ---
-  {
-    "kawre/leetcode.nvim",
-    event = "VeryLazy",
-    lazy = leet_arg ~= vim.fn.argv()[1],
-    build = ":TSUpdate html",
-    dependencies = {
-        "nvim-treesitter/nvim-treesitter",
-        "nvim-telescope/telescope.nvim",
-        "nvim-lua/plenary.nvim", -- required by telescope
-        "MunifTanjim/nui.nvim",
-    },
-    opts = {
-        -- configuration goes here
-      arg = leet_arg,
-      lang = "typescript",
-      directory = vim.fn.stdpath("data") .. "/leetcode/"
-    },
-  },
+  -- {
+  --   "kawre/leetcode.nvim",
+  --   event = "VeryLazy",
+  --   lazy = leet_arg ~= vim.fn.argv()[1],
+  --   build = ":TSUpdate html",
+  --   dependencies = {
+  --       "nvim-treesitter/nvim-treesitter",
+  --       "nvim-telescope/telescope.nvim",
+  --       "nvim-lua/plenary.nvim", -- required by telescope
+  --       "MunifTanjim/nui.nvim",
+  --   },
+  --   opts = {
+  --       -- configuration goes here
+  --     arg = leet_arg,
+  --     lang = "typescript",
+  --     directory = vim.fn.stdpath("data") .. "/leetcode/"
+  --   },
+  -- },
 
   --- COMMENTS ---
   {

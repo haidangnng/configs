@@ -85,19 +85,19 @@ return {
   {"b0o/schemastore.nvim"},
 
   -- RUST --
-  {
-    "rust-lang/rust.vim",
-    ft = "rust",
-    init = function()
-      vim.g.rustfmt_autosave = 1
-    end
-  },
-  {
-    'mrcjkb/rustaceanvim',
-    event = "LspAttach",
-    version = '^3', -- Recommended
-    ft = { 'rust' },
-  },
+  -- {
+  --   "rust-lang/rust.vim",
+  --   ft = "rust",
+  --   init = function()
+  --     vim.g.rustfmt_autosave = 1
+  --   end
+  -- },
+  -- {
+  --   'mrcjkb/rustaceanvim',
+  --   event = "LspAttach",
+  --   version = '^3', -- Recommended
+  --   ft = { 'rust' },
+  -- },
 
   -- GOLANG --
   {
