@@ -14,7 +14,7 @@ return {
   -- font = font_with_fallback(font_name, { weight = "Light" }),
   font = font_with_fallback(font_name, { weight = "Regular" }),
   font_size = 15,
-  line_height = 1.3,
+  line_height = 1.4,
   cell_width = 1.1,
   font_rules = {
     {

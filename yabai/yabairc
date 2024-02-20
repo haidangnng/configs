@@ -66,6 +66,7 @@ yabai -m config "${MOUSE[@]}"
 
 # RULES
 UNMANAGED=(
+  MATLAB*
   Cisco*
   ‎WhatsApp
   Steam

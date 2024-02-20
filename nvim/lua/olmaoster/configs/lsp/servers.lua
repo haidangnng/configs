@@ -1,6 +1,19 @@
 local util = require "lspconfig/util"
 
 local servers = {
+  -- MATLAB --
+  matlab_ls = {
+    filetypes = {"matlab"},
+    settings = {
+        MATLAB = {
+            installPath = "/Applications/MATLAB_R2023b.app/",
+            indexWorkspace = false,
+            matlabConnectionTiming = "onStart",
+            telemetry = true
+        },
+    },
+    single_file_support = true
+  },
   -- -- PYTHON --
   pyright = {},
   -- prismals = {},
