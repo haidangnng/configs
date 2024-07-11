@@ -4,8 +4,8 @@ return {
     lazy = true,
     priority = 1000,
     opts = {
-      style = 'warmer', -- Default theme style. Choose between 'dark', 'darker', 'cool', 'deep', 'warm', 'warmer' and 'light'
-      transparent = true,  -- Show/hide background
+      style = 'deep', -- Default theme style. Choose between 'dark', 'darker', 'cool', 'deep', 'warm', 'warmer' and 'light'
+      -- transparent = true,  -- Show/hide background
       code_style = {
         comments = 'italic',
         functions = 'bold',
@@ -55,13 +55,13 @@ return {
   },
 
   --- FOLD ---
-  {
-    "kevinhwang91/nvim-ufo",
-    dependencies = {
-      "kevinhwang91/promise-async",
-    },
-    config = function()
-      require("olmaoster.configs.ufo")
-    end,
-  },
+  -- {
+  --   "kevinhwang91/nvim-ufo",
+  --   dependencies = {
+  --     "kevinhwang91/promise-async",
+  --   },
+  --   config = function()
+  --     require("olmaoster.configs.ufo")
+  --   end,
+  -- },
 }

@@ -29,16 +29,7 @@ WINDOWS=(
 	window_animation_duration 0.0
 	window_origin_display focused
 	window_opacity_duration 0.15
-)
-
-BORDERS=(
-  window_border on
-  window_border_blur off
-  window_border_hidpi off 
-  # window_border_width 5
-  # window_border_radius 0
-  active_window_border_color 0xfff5799c
-  normal_window_border_color 0xff86b9c2
+  window_border_radius
 )
 
 LAYOUT=(
@@ -66,6 +57,10 @@ yabai -m config "${MOUSE[@]}"
 
 # RULES
 UNMANAGED=(
+  hw_*
+  RapidMiner Studio
+  QuickTime Player
+  Unity
   MATLAB*
   Cisco*
   ‎WhatsApp
@@ -125,5 +120,7 @@ for ((i = 1; i <= "${#UNMANAGED[@]}"; i++)); do
 	yabai -m rule --add app="^${UNMANAGED[(($i - 1))]}.*$" manage=off
 done
 
+# cpp build out
+yabai -m rule --add app="out" manage=off
+
 echo "yabai configuration loaded.."
-borders active_color=0xffe1e3e4 inactive_color=0xff494d64 width=5.0 2>/dev/null 1>&2 &

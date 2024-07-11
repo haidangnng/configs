@@ -29,20 +29,21 @@ require("mason-lspconfig").setup({
 })
 
 -- DOESN'T WORK IN DEFAULT_SETUP
-require'lspconfig'.rust_analyzer.setup{
-    settings = {
-      ['rust-analyzer'] = {
-        cargo = {
-          allFeatures = true,
-        },
-        procMacro = {
-          ignored = {
-            leptos_macro = {
-              "component",
-              "server",
-            },
-          },
-        },
-      }
-    }
-  }
+require'lspconfig'.gdscript.setup(lsp_capabilities)
+-- require'lspconfig'.rust_analyzer.setup{
+--     settings = {
+--       ['rust-analyzer'] = {
+--         cargo = {
+--           allFeatures = true,
+--         },
+--         procMacro = {
+--           ignored = {
+--             leptos_macro = {
+--               "component",
+--               "server",
+--             },
+--           },
+--         },
+--       }
+--     }
+--   }

@@ -166,5 +166,29 @@ M.trouble = {
   }
 }
 
+  -- " open the REPL terminal buffer
+  -- au FileType sml nnoremap <silent> <buffer> <leader>is :SMLReplStart<CR>
+  -- " close the REPL (mnemonic: k -> kill)
+  -- au FileType sml nnoremap <silent> <buffer> <leader>ik :SMLReplStop<CR>
+  -- " build the project (using CM if possible)
+  -- au FileType sml nnoremap <silent> <buffer> <leader>ib :SMLReplBuild<CR>
+  -- " for opening a structure, not a file
+  -- au FileType sml nnoremap <silent> <buffer> <leader>io :SMLReplOpen<CR>
+  -- " use the current file into the REPL (even if using CM)
+  -- au FileType sml nnoremap <silent> <buffer> <leader>iu :SMLReplUse<CR>
+  -- " clear the REPL screen
+  -- au FileType sml nnoremap <silent> <buffer> <leader>ic :SMLReplClear<CR>
+  -- " set the print depth to 100
+  -- au FileType sml nnoremap <silent> <buffer> <leader>ip :SMLReplPrintDepth<CR>
+
+M.sml = {
+  n = {
+    ["<leader>is"]= { "<CMD>SMLReplStart<CR>", "Start SML Repl", opts},
+    ["<leader>ik"]= { "<CMD>SMLReplStop<CR>", "Stop SML Repl", opts},
+    ["<leader>ib"]= { "<CMD>SMLReplBuild<CR>", "Build SML Repl", opts},
+    ["<leader>iu"]= { "<CMD>SMLReplUse<CR>", "Use SML Repl", opts},
+    ["<leader>il"]= { "<CMD>SMLReplClear<CR>", "Clear SML Repl", opts},
+  }
+}
 return M
 

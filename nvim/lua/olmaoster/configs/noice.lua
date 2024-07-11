@@ -34,7 +34,7 @@ local options = {
   views = {
     mini = {
       backend = "mini",
-      timeout = 1500,
+      timeout = 5000,
       size = { height = "auto", width = "auto", max_height = 5 },
       border = { style = "none" },
       zindex = 30,

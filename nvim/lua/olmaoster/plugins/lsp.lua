@@ -1,6 +1,7 @@
 return {
+  "jez/vim-better-sml",
   --- AUTOCOMPLETION ---
-  -- {"lvimuser/lsp-inlayhints.nvim"},
+  {"lvimuser/lsp-inlayhints.nvim"},
   {
     "hrsh7th/nvim-cmp",
     event = "InsertEnter",
@@ -113,4 +114,9 @@ return {
     ft = {"go", 'gomod'},
     build = ':lua require("go.install").update_all_sync()' -- if you need to install/update all binaries
   },
+
+  --GODOT--
+  {
+    'habamax/vim-godot',
+  }
 }

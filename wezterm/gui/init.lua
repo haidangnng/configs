@@ -13,9 +13,9 @@ return {
   -- Font config
   -- font = font_with_fallback(font_name, { weight = "Light" }),
   font = font_with_fallback(font_name, { weight = "Regular" }),
-  font_size = 15,
+  font_size = 13,
   line_height = 1.4,
-  cell_width = 1.1,
+  -- cell_width = 1,
   font_rules = {
     {
       italic = true,
@@ -55,8 +55,8 @@ return {
   -- General
   automatically_reload_config = true,
   inactive_pane_hsb = { saturation = 0.8, brightness = 0.2 },
-  window_background_opacity = 0.82,
-  macos_window_background_blur = 60,
+  -- window_background_opacity = 0.8,
+  -- macos_window_background_blur = 20,
 
   mouse_wheel_scrolls_tabs = false,
 

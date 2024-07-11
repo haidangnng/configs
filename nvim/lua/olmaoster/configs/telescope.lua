@@ -57,6 +57,8 @@ local options = {
     sorting_strategy = "ascending",
     file_ignore_patterns = {
       ".mypy_cache",
+      ".next/",
+      ".venv",
       "__pycache__",
       ".git/",
       "target/",
@@ -67,9 +69,6 @@ local options = {
       "%.sqlite3",
       "%.ipynb",
       "node_modules/*",
-      -- "%.jpg",
-      -- "%.jpeg",
-      -- "%.png",
       "%.webp",
       ".github/",
       ".idea/",

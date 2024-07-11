@@ -1,6 +1,13 @@
 local util = require "lspconfig/util"
 
 local servers = {
+  -- C Lang
+  clangd = {
+     cmd = {
+        "clangd",
+        "--offset-encoding=utf-16",
+     },
+  },
   -- MATLAB --
   matlab_ls = {
     filetypes = {"matlab"},

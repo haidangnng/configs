@@ -39,6 +39,11 @@ null_ls.setup({
           },
         }),
     null_ls.builtins.formatting.rustywind,
+    null_ls.builtins.formatting.clang_format,
+    null_ls.builtins.formatting.mlint,
+    null_ls.builtins.formatting.smlfmt,
+    null_ls.builtins.formatting.gdformat,
+    -- null_ls.builtins.diagnostics.gdlint
   },
   on_attach = function(client, bufnr)
     if client.supports_method("textDocument/formatting") then
