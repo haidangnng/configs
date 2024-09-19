@@ -1,122 +1,91 @@
 return {
-  "jez/vim-better-sml",
-  --- AUTOCOMPLETION ---
-  {"lvimuser/lsp-inlayhints.nvim"},
-  {
-    "hrsh7th/nvim-cmp",
-    event = "InsertEnter",
-    dependencies = {
-      "hrsh7th/cmp-buffer",
-      "hrsh7th/cmp-path",
-      'L3MON4D3/LuaSnip',
-      "saadparwaiz1/cmp_luasnip",
-      "rafamadriz/friendly-snippets"
-    },
-    config = function ()
-      require("olmaoster.configs.lsp.cmp")
-    end
-  },
+	{
+		"folke/lazydev.nvim",
+		ft = "lua",
+		opts = {
+			library = {
+				{ path = "luvit-meta/library", words = { "vim%.uv" } },
+			},
+		},
+	},
+	{ "Bilal2453/luvit-meta", lazy = true },
 
-  --- LANGUAGE SERVER MANAGER (MASON)---
-  {
-    'williamboman/mason.nvim',
-    event = "BufReadPre",
-    dependencies = {
-      'williamboman/mason-lspconfig.nvim',
-    },
-    config = function()
-      require('olmaoster.configs.lsp.mason')
-    end
-  },
+	{
+		"neovim/nvim-lspconfig",
+		dependencies = {
+			{ "williamboman/mason.nvim", config = true },
+			"williamboman/mason-lspconfig.nvim",
+			"WhoIsSethDaniel/mason-tool-installer.nvim",
+			{ "j-hui/fidget.nvim", opts = {} },
+			"hrsh7th/cmp-nvim-lsp",
+		},
+		config = function()
+			require("olmaoster.configs.lsp")
+		end,
+	},
 
-  --- LSP CONFIG ---
-  {
-    'neovim/nvim-lspconfig',
-    event = {
-      "BufReadPre", "BufNewFile"
-    },
-    dependencies = {
-       'hrsh7th/cmp-nvim-lsp',
-       { 'antosha417/nvim-lsp-file-operations', config = true }
-    },
-  },
+	{ -- Autoformat
+		"stevearc/conform.nvim",
+		event = { "BufWritePre" },
+		cmd = { "ConformInfo" },
+		keys = {
+			{
+				"<leader>f",
+				function()
+					require("conform").format({ async = true, lsp_format = "fallback" })
+				end,
+				mode = "",
+				desc = "[F]ormat buffer",
+			},
+		},
+		config = function()
+			require("olmaoster.configs.comfort")
+		end,
+	},
 
-  --- NULL LS ---
-  {
-    "jose-elias-alvarez/null-ls.nvim",
-    event = "BufReadPre",
-    config = function()
-      require('olmaoster.configs.lsp.null-ls')
-    end
-  },
+	{ -- AUTOCOMPLETION
+		"hrsh7th/nvim-cmp",
+		event = "InsertEnter",
+		dependencies = {
+			{
+				"L3MON4D3/LuaSnip",
+				build = (function()
+					if vim.fn.has("win32") == 1 or vim.fn.executable("make") == 0 then
+						return
+					end
+					return "make install_jsregexp"
+				end)(),
+				dependencies = {
+					{
+						"rafamadriz/friendly-snippets",
+						config = function()
+							require("luasnip.loaders.from_vscode").lazy_load()
+						end,
+					},
+				},
+			},
+			"saadparwaiz1/cmp_luasnip",
+			"hrsh7th/cmp-nvim-lsp",
+			"hrsh7th/cmp-path",
+			"hrsh7th/cmp-buffer",
+		},
+		config = function()
+			require("olmaoster.configs.cmp")
+		end,
+	},
 
-  --- LSPSAGA ---
-  {
-    'nvimdev/lspsaga.nvim',
-    event = "LspAttach",
-    config = function()
-      require('lspsaga').setup({
-        -- symbol_in_winbar = { enable = false },
-        lightbulb = { enable = false },
-        ui = {
-          border = "rounded",
-          lines = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
-        }
-      })
+	--- JSON SCHEMA ---
+	{ "b0o/schemastore.nvim" },
 
-      -- LSP SAGA highlight
-      vim.cmd('highlight HoverBorder guibg=NONE ctermbg=NONE')
-      vim.cmd('highlight HoverNormal guibg=NONE ctermbg=NONE')
-      vim.cmd('highlight ActionPreviewBorder guibg=NONE ctermbg=NONE')
-      vim.cmd('highlight ActionPreviewNormal guibg=NONE ctermbg=NONE')
-      vim.cmd('highlight DiagnosticBorder guibg=NONE ctermbg=NONE')
-      vim.cmd('highlight DiagnosticNormal guibg=NONE ctermbg=NONE')
-      vim.cmd('highlight RenameBorder guibg=NONE ctermbg=NONE')
-      vim.cmd('highlight RenameNormal guibg=NONE ctermbg=NONE')
-      vim.cmd('highlight SagaBorder guibg=NONE ctermbg=NONE')
-      vim.cmd('highlight SagaNormal guibg=NONE ctermbg=NONE')
-    end,
-    dependencies = {
-      'nvim-treesitter/nvim-treesitter', -- optional
-      'nvim-tree/nvim-web-devicons'     -- optional
-    }
-  },
-
-  --- JSON SCHEMA ---
-  {"b0o/schemastore.nvim"},
-
-  -- RUST --
-  -- {
-  --   "rust-lang/rust.vim",
-  --   ft = "rust",
-  --   init = function()
-  --     vim.g.rustfmt_autosave = 1
-  --   end
-  -- },
-  -- {
-  --   'mrcjkb/rustaceanvim',
-  --   event = "LspAttach",
-  --   version = '^3', -- Recommended
-  --   ft = { 'rust' },
-  -- },
-
-  -- GOLANG --
-  {
-    "ray-x/go.nvim",
-    dependencies = {  -- optional packages
-      "neovim/nvim-lspconfig",
-      "nvim-treesitter/nvim-treesitter",
-    },
-    config = function()
-      require("go").setup()
-    end,
-    event = { "BufReadPre", "BufNewFile" },
-    ft = {"go", 'gomod'},
-    build = ':lua require("go.install").update_all_sync()' -- if you need to install/update all binaries
-  },
-
-  --GODOT--
-  {
-    'habamax/vim-godot',
-  }
+	--- LATEX ---
+	{
+		"lervag/vimtex",
+		lazy = false, -- we don't want to lazy load VimTeX
+		-- tag = "v2.15", -- uncomment to pin to a specific release
+		init = function()
+			-- VimTeX configuration goes here, e.g.
+			vim.g.vimtex_view_method = "skim"
+			vim.g.tex_flavor = "latex"
+		end,
+	},
 }

@@ -1,3 +1,13 @@
+local global = {
+	mapleader = " ",
+	maplocalleader = " ",
+	dart_format_on_save = 1,
+}
+
+for k, v in pairs(global) do
+	vim.g[k] = v
+end
+
 local options = {
 	backup = false,
 	clipboard = "unnamedplus",
@@ -27,29 +37,15 @@ local options = {
 	cursorline = true,
 	number = true,
 	relativenumber = true,
-  numberwidth = 2,                         -- set number column width to 2 {default 4}
+	numberwidth = 2, -- set number column width to 2 {default 4}
 	signcolumn = "yes",
 	wrap = true,
 	scrolloff = 10,
-  formatoptions = vim.o.formatoptions .. "orj",
-
-  --  UFO related
-  foldcolumn = '1',
-  foldlevel = 99,
-  foldlevelstart = 99,
-  foldenable = true
-}
-
-local global = {
-  mapleader = " ",
-  maplocalleader = " ",
-  dart_format_on_save = 1
+	formatoptions = vim.o.formatoptions .. "orj",
+	list = true,
+	listchars = { tab = "» ", trail = "·", nbsp = "␣" },
 }
 
 for k, v in pairs(options) do
 	vim.opt[k] = v
-end
-
-for k, v in pairs(global) do
-	vim.g[k] = v
 end

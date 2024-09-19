@@ -1,1 +1,1 @@
-require('olmaoster.core')
+require("olmaoster")
