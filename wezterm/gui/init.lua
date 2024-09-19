@@ -34,7 +34,8 @@ return {
 
   use_fancy_tab_bar = false,
   tab_max_width = 150,
-  color_scheme = 'Kasugano (terminal.sexy)',
+  color_scheme = 'Gruvbox dark, hard (base16)',
+  -- color_scheme = 'Kasugano (terminal.sexy)',
 	bold_brightens_ansi_colors = true,
 
   -- Padding
@@ -55,8 +56,8 @@ return {
   -- General
   automatically_reload_config = true,
   inactive_pane_hsb = { saturation = 0.8, brightness = 0.2 },
-  -- window_background_opacity = 0.8,
-  -- macos_window_background_blur = 20,
+  window_background_opacity = 0.9,
+  macos_window_background_blur = 40,
 
   mouse_wheel_scrolls_tabs = false,
 

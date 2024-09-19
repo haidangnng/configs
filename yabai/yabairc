@@ -59,6 +59,7 @@ yabai -m config "${MOUSE[@]}"
 UNMANAGED=(
   hw_*
   RapidMiner Studio
+  AI Studio
   QuickTime Player
   Unity
   MATLAB*
