@@ -1,7 +1,7 @@
-local status, treesitter_config = pcall(require, 'nvim-treesitter.configs')
+local status, treesitter_config = pcall(require, "nvim-treesitter.configs")
 
 if not status then
-	print('Something went wrong:', treesitter_config)
+	print("Something went wrong:", treesitter_config)
 else
 	treesitter_config.setup({
 		ensure_installed = {
@@ -18,7 +18,8 @@ else
 			"svelte",
 			"css",
 			"rust",
-			"vue"
+			"vue",
+			"prisma",
 		},
 		auto_install = true,
 		sync_install = false,

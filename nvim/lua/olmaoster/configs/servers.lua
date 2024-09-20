@@ -186,6 +186,7 @@ local servers = {
 		},
 		settings = {},
 	},
+	prismals = {},
 }
 
 return servers
