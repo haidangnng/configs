@@ -30,7 +30,7 @@ return {
 		cmd = { "ConformInfo" },
 		keys = {
 			{
-				"<leader>f",
+				"<leader>fm",
 				function()
 					require("conform").format({ async = true, lsp_format = "fallback" })
 				end,
@@ -86,6 +86,38 @@ return {
 			-- VimTeX configuration goes here, e.g.
 			vim.g.vimtex_view_method = "skim"
 			vim.g.tex_flavor = "latex"
+			vim.g.tex_multiple_compile_formats = "pdf,bibtex,pdf,bib"
 		end,
+	},
+
+	{
+		"nvimdev/lspsaga.nvim",
+		event = "LspAttach",
+		config = function()
+			require("lspsaga").setup({
+				-- symbol_in_winbar = { enable = false },
+				lightbulb = { enable = false },
+				ui = {
+					border = "rounded",
+					lines = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
+				},
+			})
+
+			-- LSP SAGA highlight
+			vim.cmd("highlight HoverBorder guibg=NONE ctermbg=NONE")
+			vim.cmd("highlight HoverNormal guibg=NONE ctermbg=NONE")
+			vim.cmd("highlight ActionPreviewBorder guibg=NONE ctermbg=NONE")
+			vim.cmd("highlight ActionPreviewNormal guibg=NONE ctermbg=NONE")
+			vim.cmd("highlight DiagnosticBorder guibg=NONE ctermbg=NONE")
+			vim.cmd("highlight DiagnosticNormal guibg=NONE ctermbg=NONE")
+			vim.cmd("highlight RenameBorder guibg=NONE ctermbg=NONE")
+			vim.cmd("highlight RenameNormal guibg=NONE ctermbg=NONE")
+			vim.cmd("highlight SagaBorder guibg=NONE ctermbg=NONE")
+			vim.cmd("highlight SagaNormal guibg=NONE ctermbg=NONE")
+		end,
+		dependencies = {
+			"nvim-treesitter/nvim-treesitter", -- optional
+			"nvim-tree/nvim-web-devicons", -- optional
+		},
 	},
 }

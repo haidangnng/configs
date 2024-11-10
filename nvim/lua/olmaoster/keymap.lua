@@ -3,6 +3,9 @@ local keymap = vim.api.nvim_set_keymap
 
 keymap("", "<Space>", "<Nop>", opts)
 
+-- DISABLE MACROS
+keymap("", "q", "<Nop>", opts)
+
 local mappings = {}
 
 mappings.zen = {
@@ -58,10 +61,35 @@ mappings.general = {
 		["<leader>rf"] = { [[:%s/\<<C-r><C-w>\>//gI<Left><Left><Left>]], "Replacing word in file", opts },
 		["<leader>rl"] = { [[:s/\<<C-r><C-w>\>//gI<Left><Left><Left>]], "Replacing word line", opts },
 		["<ESC>"] = { ":nohl <CR>", "Remove words highlight", opts },
-		["<C-h>"] = { "<CMD>NavigatorLeft<CR>", "Navigate window Left", opts },
-		["<C-j>"] = { "<CMD>NavigatorDown<CR>", "Navigate window Down", opts },
-		["<C-k>"] = { "<CMD>NavigatorUp<CR>", "Navigate window Up", opts },
-		["<C-l>"] = { "<CMD>NavigatorRight<CR>", "Navigate window Right", opts },
+
+		["<C-h>"] = {
+			function()
+				require("smart-splits").move_cursor_left()
+			end,
+			"Navigate window Left",
+			opts,
+		},
+		["<C-j>"] = {
+			function()
+				require("smart-splits").move_cursor_down()
+			end,
+			"Navigate window Down",
+			opts,
+		},
+		["<C-k>"] = {
+			function()
+				require("smart-splits").move_cursor_up()
+			end,
+			"Navigate window Up",
+			opts,
+		},
+		["<C-l>"] = {
+			function()
+				require("smart-splits").move_cursor_right()
+			end,
+			"Navigate window Right",
+			opts,
+		},
 		["<leader>sj"] = { ":split<Return><C-w>w", "Split window down", opts },
 		["<leader>sl"] = { ":vsplit<Return><C-w>w", "Split window right", opts },
 		["<leader>sq"] = { ":close<CR>", "Delete window", opts },
@@ -71,10 +99,10 @@ mappings.general = {
 
 	i = {
 		-- navigate within insert mode
-		["<C-h>"] = { "<Left>", "Move left" },
-		["<C-l>"] = { "<Right>", "Move right" },
-		["<C-j>"] = { "<Down>", "Move down" },
-		["<C-k>"] = { "<Up>", "Move up" },
+		-- ["<C-h>"] = { "<Left>", "Move left" },
+		-- ["<C-l>"] = { "<Right>", "Move right" },
+		-- ["<C-j>"] = { "<Down>", "Move down" },
+		-- ["<C-k>"] = { "<Up>", "Move up" },
 
 		-------------------- Press jk fast to enter --------------------
 		["jk"] = { "<ESC>", "escape insert mode", opts = { nowait = true } },
@@ -133,20 +161,41 @@ mappings.trouble = {
 	},
 }
 
--- " open the REPL terminal buffer
--- au FileType sml nnoremap <silent> <buffer> <leader>is :SMLReplStart<CR>
--- " close the REPL (mnemonic: k -> kill)
--- au FileType sml nnoremap <silent> <buffer> <leader>ik :SMLReplStop<CR>
--- " build the project (using CM if possible)
--- au FileType sml nnoremap <silent> <buffer> <leader>ib :SMLReplBuild<CR>
--- " for opening a structure, not a file
--- au FileType sml nnoremap <silent> <buffer> <leader>io :SMLReplOpen<CR>
--- " use the current file into the REPL (even if using CM)
--- au FileType sml nnoremap <silent> <buffer> <leader>iu :SMLReplUse<CR>
--- " clear the REPL screen
--- au FileType sml nnoremap <silent> <buffer> <leader>ic :SMLReplClear<CR>
--- " set the print depth to 100
--- au FileType sml nnoremap <silent> <buffer> <leader>ip :SMLReplPrintDepth<CR>
+mappings.lspsaga = {
+	n = {
+		["gR"] = { "<cmd>Telescope lsp_references<CR>", "Show LSP references", opts },
+		["gD"] = { vim.lsp.buf.declaration, "Go to declaration", opts }, -- go to declaration
+		["gi"] = { "<cmd>Telescope lsp_implementations<CR>", "Show LSP implementations", opts }, -- show lsp implementations
+		["<leader>ca"] = { vim.lsp.buf.code_action, "See available code actions", opts }, -- see available code actions, in visual mode will apply to selection
+		["<leader>rn"] = { vim.lsp.buf.rename, "Smart rename", opts }, -- smart rename
+		["<leader>D"] = { "<cmd>Telescope diagnostics bufnr=0<CR>", "Show buffer diagnostics", opts }, -- show  diagnostics for file
+		["<leader>d"] = { vim.diagnostic.open_float, "Show line diagnostics", opts }, -- show diagnostics for line
+		["<leader>rs"] = { ":LspRestart<CR>", "Restart LSP", opts },
+		["gf"] = { "<cmd>Lspsaga finder<CR>", "LSP Finder", opts },
+		["gr"] = { "<cmd>Lspsaga rename<CR>", "LSP rename", opts },
+		["gp"] = { "<cmd>Lspsaga peek_definition<CR>", "LSP Peek definition", opts },
+		["gd"] = { "<cmd>Lspsaga goto_definition<CR>", "LSP Go to definition", opts },
+		["gt"] = { "<cmd>Lspsaga peek_type_definition<CR>", "LSP Peek type definition", opts },
+		["<leader>pd"] = { "<cmd>Lspsaga show_workspace_diagnostics<CR>", "LSP Show workspace diagnostics", opts },
+		["]d"] = { "<cmd>Lspsaga diagnostic_jump_next<CR>", "LSP jump next diagnostics", opts },
+		["[d"] = { "<cmd>Lspsaga diagnostic_jump_prev<CR>", "LSP jump prev diagnostics", opts },
+		["[D"] = {
+			function()
+				require("lspsaga.diagnostic"):goto_prev({ severity = vim.diagnostic.severity.ERROR })
+			end,
+			"go to prev error",
+			opts,
+		},
+		["]D"] = {
+			function()
+				require("lspsaga.diagnostic"):goto_next({ severity = vim.diagnostic.severity.ERROR })
+			end,
+			"go to next error",
+			opts,
+		},
+		["K"] = { "<cmd>Lspsaga hover_doc<CR>", "Hover docs", opts },
+	},
+}
 
 local merge_tb = vim.tbl_deep_extend
 

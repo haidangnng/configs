@@ -87,11 +87,7 @@ return {
 
 	--- NAVIGATOR ---
 	{
-		"numToStr/Navigator.nvim",
-		event = "VeryLazy",
-		config = function()
-			require("Navigator").setup()
-		end,
+		"mrjones2014/smart-splits.nvim",
 	},
 
 	---- TREESITTER ---

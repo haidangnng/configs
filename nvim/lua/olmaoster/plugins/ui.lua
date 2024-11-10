@@ -1,6 +1,15 @@
 return {
 	--- COLORTHEME ---
 	{
+		"navarasu/onedark.nvim",
+		opts = {
+			style = "warmer",
+		},
+		init = function()
+			vim.cmd.colorscheme("onedark")
+		end,
+	},
+	{
 		"ellisonleao/gruvbox.nvim",
 		priority = 1000,
 		config = true,
@@ -8,7 +17,7 @@ return {
 			transparent_mode = true,
 		},
 		init = function()
-			vim.cmd.colorscheme("gruvbox")
+			-- vim.cmd.colorscheme("gruvbox")
 		end,
 	},
 	--- STATUSLINE ---

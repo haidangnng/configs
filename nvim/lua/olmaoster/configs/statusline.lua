@@ -4,7 +4,7 @@ local components = {}
 
 components.fileInfo = function()
 	local icon = " 󰈚 "
-	local filename = (fn.expand "%" == "" and "Empty ") or fn.expand "%:t"
+	local filename = (fn.expand("%") == "" and "Empty ") or fn.expand("%:t")
 
 	if filename ~= "Empty " then
 		local devicons_present, devicons = pcall(require, "nvim-web-devicons")
@@ -35,13 +35,14 @@ components.gitchanges = function()
 
 	local git_status = vim.b.gitsigns_status_dict
 
-	local added = (git_status.added and git_status.added ~= 0) and ("%#St_lspInfo#  " .. git_status.added .. " ") or ""
+	local added = (git_status.added and git_status.added ~= 0) and ("%#St_lspInfo#  " .. git_status.added .. " ")
+		or ""
 	local changed = (git_status.changed and git_status.changed ~= 0)
 			and ("%#St_lspWarning#  " .. git_status.changed .. " ")
-			or ""
+		or ""
 	local removed = (git_status.removed and git_status.removed ~= 0)
 			and ("%#St_lspError#  " .. git_status.removed .. " ")
-			or ""
+		or ""
 
 	return (added .. changed .. removed) ~= "" and (added .. changed .. removed .. " | ") or ""
 end
@@ -93,18 +94,18 @@ components.LSP_Diagnostics = function()
 	return vim.o.columns > 140 and errors .. warnings .. hints .. info or ""
 end
 
-require('lualine').setup {
+require("lualine").setup({
 	options = {
 		icons_enabled = true,
 		component_separators = {},
 		section_separators = {},
-		theme = "gruvbox",
+		theme = "onedark",
 		disabled_filetypes = {
 			statusline = {
 				"dashboard",
 				"lazy",
 				"alpha",
-				"NvimTree"
+				"NvimTree",
 			},
 			winbar = { "*" },
 			tabline = { "*" },
@@ -114,7 +115,7 @@ require('lualine').setup {
 		globalstatus = false,
 		refresh = {
 			statusline = 1000,
-		}
+		},
 	},
 	sections = {
 		lualine_a = {
@@ -123,7 +124,7 @@ require('lualine').setup {
 				fmt = function()
 					return " "
 				end,
-				draw_empty = true
+				draw_empty = true,
 			},
 		},
 		lualine_b = {
@@ -138,6 +139,6 @@ require('lualine').setup {
 		},
 		lualine_z = {
 			components.LSP_status,
-		}
+		},
 	},
-}
+})

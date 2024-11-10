@@ -66,6 +66,7 @@ local options = {
 		selection_caret = " ❯ ",
 		sorting_strategy = "ascending",
 		file_ignore_patterns = {
+			"env/",
 			".mypy_cache",
 			".next/",
 			".venv",

@@ -57,6 +57,7 @@ yabai -m config "${MOUSE[@]}"
 
 # RULES
 UNMANAGED=(
+  Notes
   hw_*
   RapidMiner Studio
   AI Studio
@@ -123,5 +124,6 @@ done
 
 # cpp build out
 yabai -m rule --add app="out" manage=off
-
+yabai -m rule --add app="app" display=1
+yabai -m rule --add app="fers" display=1
 echo "yabai configuration loaded.."
