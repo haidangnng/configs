@@ -17,7 +17,7 @@ local opts = {
 			lsp_format_opt = "fallback"
 		end
 		return {
-			timeout_ms = 500,
+			timeout_ms = 1500,
 			lsp_format = lsp_format_opt,
 		}
 	end,
@@ -27,9 +27,13 @@ local opts = {
 	},
 	formatters_by_ft = {
 		lua = { "stylua" },
-		javascript = { "prettierd", "prettier", stop_after_first = true },
-		typescript = { "prettierd", "prettier", stop_after_first = true },
+		python = { "isort", "black" },
 		latex = { "latexindent" },
+		svelte = { "prettierd", "prettier" },
+		typescript = { "prettierd", "prettier" },
+		typescriptreact = { "prettierd", "prettier" },
+		javascript = { "prettierd", "prettier" },
+		javascriptreact = { "prettierd", "prettier" },
 	},
 }
 

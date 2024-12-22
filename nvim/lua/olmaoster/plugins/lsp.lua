@@ -32,14 +32,14 @@ return {
 			{
 				"<leader>fm",
 				function()
-					require("conform").format({ async = true, lsp_format = "fallback" })
+					require("conform").format({ async = true, lsp_fallback = true })
 				end,
 				mode = "",
 				desc = "[F]ormat buffer",
 			},
 		},
 		config = function()
-			require("olmaoster.configs.comfort")
+			require("olmaoster.configs.conform")
 		end,
 	},
 
@@ -79,18 +79,6 @@ return {
 
 	--- LATEX ---
 	{
-		"lervag/vimtex",
-		lazy = false, -- we don't want to lazy load VimTeX
-		-- tag = "v2.15", -- uncomment to pin to a specific release
-		init = function()
-			-- VimTeX configuration goes here, e.g.
-			vim.g.vimtex_view_method = "skim"
-			vim.g.tex_flavor = "latex"
-			vim.g.tex_multiple_compile_formats = "pdf,bibtex,pdf,bib"
-		end,
-	},
-
-	{
 		"nvimdev/lspsaga.nvim",
 		event = "LspAttach",
 		config = function()
@@ -120,4 +108,5 @@ return {
 			"nvim-tree/nvim-web-devicons", -- optional
 		},
 	},
+	{ "slint-ui/vim-slint" },
 }

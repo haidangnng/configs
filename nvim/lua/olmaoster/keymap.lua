@@ -27,6 +27,14 @@ mappings.bbye = {
 	},
 }
 
+mappings.leet = {
+	n = {
+		["<leader>lc"] = { "<cmd>Leet<cr>", "Leetcode run testcases", opts },
+		["<leader>lcr"] = { "<cmd>Leet run<cr>", "Leetcode run testcases", opts },
+		["<leader>lcs"] = { "<cmd>Leet submit<cr>", "Leetcode submit", opts },
+	},
+}
+
 mappings.nvterm = {
 	t = {
 		["<C-t>"] = { "<Cmd>:ToggleTerm direction=float<CR>", "Toggle floating term", opts },

@@ -3,6 +3,7 @@ return {
 	{
 		"navarasu/onedark.nvim",
 		opts = {
+			transparent = true,
 			style = "warmer",
 		},
 		init = function()
