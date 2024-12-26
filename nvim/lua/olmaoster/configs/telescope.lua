@@ -6,10 +6,7 @@ end
 local options = {
 	extensions = {
 		media_files = {
-			-- filetypes whitelist
-			-- defaults to {"png", "jpg", "mp4", "webm", "pdf"}
 			filetypes = { "png", "webp", "jpg", "jpeg" },
-			-- find command (defaults to `fd`)
 			find_cmd = "rg",
 		},
 		fzf = {
@@ -22,6 +19,7 @@ local options = {
 	pickers = {
 		find_files = {
 			find_command = { "rg", "--files", "--hidden", "-g", "!.git" },
+			theme = "ivy",
 		},
 	},
 	defaults = {
@@ -29,39 +27,40 @@ local options = {
 			i = {
 				["<C-l>"] = "select_vertical",
 				["<C-j>"] = "select_horizontal",
+				["<C-e>"] = "close",
 			},
 			n = {
 				["q"] = "close",
 			},
 		},
-		-- preview = {
-		-- 	mime_hook = function(filepath, bufnr, opts)
-		-- 		local is_image = function(path)
-		-- 			local image_extensions = { "png", "jpg" } -- Supported image formats
-		-- 			local split_path = vim.split(path:lower(), ".", { plain = true })
-		-- 			local extension = split_path[#split_path]
-		-- 			return vim.tbl_contains(image_extensions, extension)
-		-- 		end
-		-- 		if is_image(filepath) then
-		-- 			local term = vim.api.nvim_open_term(bufnr, {})
-		-- 			local function send_output(_, data, _)
-		-- 				for _, d in ipairs(data) do
-		-- 					vim.api.nvim_chan_send(term, d .. "\r\n")
-		-- 				end
-		-- 			end
-		-- 			vim.fn.jobstart({
-		-- 				"catimg",
-		-- 				filepath, -- Terminal image viewer command
-		-- 			}, { on_stdout = send_output, stdout_buffered = true, pty = true })
-		-- 		else
-		-- 			require("telescope.previewers.utils").set_preview_message(
-		-- 				bufnr,
-		-- 				opts.winid,
-		-- 				"Binary cannot be previewed"
-		-- 			)
-		-- 		end
-		-- 	end,
-		-- },
+		preview = {
+			mime_hook = function(filepath, bufnr, opts)
+				local is_image = function(path)
+					local image_extensions = { "png", "jpg" } -- Supported image formats
+					local split_path = vim.split(path:lower(), ".", { plain = true })
+					local extension = split_path[#split_path]
+					return vim.tbl_contains(image_extensions, extension)
+				end
+				if is_image(filepath) then
+					local term = vim.api.nvim_open_term(bufnr, {})
+					local function send_output(_, data, _)
+						for _, d in ipairs(data) do
+							vim.api.nvim_chan_send(term, d .. "\r\n")
+						end
+					end
+					vim.fn.jobstart({
+						"catimg",
+						filepath, -- Terminal image viewer command
+					}, { on_stdout = send_output, stdout_buffered = true, pty = true })
+				else
+					require("telescope.previewers.utils").set_preview_message(
+						bufnr,
+						opts.winid,
+						"Binary cannot be previewed"
+					)
+				end
+			end,
+		},
 		prompt_prefix = "   ",
 		selection_caret = " ❯ ",
 		sorting_strategy = "ascending",

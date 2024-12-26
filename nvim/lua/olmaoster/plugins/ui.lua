@@ -1,27 +1,10 @@
 return {
-	--- COLORTHEME ---
 	{
-		"navarasu/onedark.nvim",
-		opts = {
-			transparent = true,
-			style = "warmer",
-		},
-		init = function()
-			vim.cmd.colorscheme("onedark")
+		"EdenEast/nightfox.nvim",
+		config = function()
+			require("olmaoster.configs.colorscheme.nightfox")
 		end,
 	},
-	{
-		"ellisonleao/gruvbox.nvim",
-		priority = 1000,
-		config = true,
-		opts = {
-			transparent_mode = true,
-		},
-		init = function()
-			-- vim.cmd.colorscheme("gruvbox")
-		end,
-	},
-	--- STATUSLINE ---
 	{
 		"nvim-lualine/lualine.nvim",
 		dependencies = { "nvim-tree/nvim-web-devicons", opt = true },
@@ -30,13 +13,11 @@ return {
 		end,
 	},
 
-	--- VIM UI ---
+	--- SOME UI SHITE ---
 	{
 		"stevearc/dressing.nvim",
 		event = "VeryLazy",
 	},
-
-	--- NOTIFY UI --
 	{
 		"folke/noice.nvim",
 		event = "VeryLazy",
@@ -45,17 +26,6 @@ return {
 		},
 		config = function()
 			require("olmaoster.configs.noice")
-		end,
-	},
-
-	--- INDENT LINE ---
-	{
-		"lukas-reineke/indent-blankline.nvim",
-		event = { "BufReadPost", "BufNewFile" },
-		main = "ibl",
-		config = function()
-			vim.opt.list = true
-			require("ibl").setup({})
 		end,
 	},
 

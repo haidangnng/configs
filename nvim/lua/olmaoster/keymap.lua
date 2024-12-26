@@ -3,27 +3,13 @@ local keymap = vim.api.nvim_set_keymap
 
 keymap("", "<Space>", "<Nop>", opts)
 
--- DISABLE MACROS
-keymap("", "q", "<Nop>", opts)
-
 local mappings = {}
-
-mappings.zen = {
-	n = {
-		["<leader>z"] = { ":ZenMode<CR>", "toggle Zenmode", opts },
-	},
-}
-
-mappings.maximize = {
-	n = {
-		["<leader>m"] = { "<Cmd>lua require('maximize').toggle()<CR>", "toggle maximize", opts },
-	},
-}
 
 mappings.bbye = {
 	n = {
-		["<leader>d"] = { "<cmd>Bdelete!<cr>", "Close buffer", opts },
-		["<leader>qa"] = { "<cmd>bufdo Bdelete!<cr>", "Close all buffer", opts },
+		["<leader>bd"] = { "<cmd>lua MiniBufremove.delete()<cr>", "Close buffer", opts },
+		["<leader>qa"] = { "<cmd>BufRemoveAll all<cr>", "Close all buffer", opts },
+		["<leader>qc"] = { "<cmd>BufRemoveAll others<cr>", "Close all buffer except current", opts },
 	},
 }
 
@@ -64,8 +50,6 @@ mappings.telescope = {
 -- Your custom mappings
 mappings.general = {
 	n = {
-		["<C-A>"] = { "<C-a>", "Increments", opts },
-
 		["<leader>rf"] = { [[:%s/\<<C-r><C-w>\>//gI<Left><Left><Left>]], "Replacing word in file", opts },
 		["<leader>rl"] = { [[:s/\<<C-r><C-w>\>//gI<Left><Left><Left>]], "Replacing word line", opts },
 		["<ESC>"] = { ":nohl <CR>", "Remove words highlight", opts },
@@ -106,12 +90,6 @@ mappings.general = {
 	},
 
 	i = {
-		-- navigate within insert mode
-		-- ["<C-h>"] = { "<Left>", "Move left" },
-		-- ["<C-l>"] = { "<Right>", "Move right" },
-		-- ["<C-j>"] = { "<Down>", "Move down" },
-		-- ["<C-k>"] = { "<Up>", "Move up" },
-
 		-------------------- Press jk fast to enter --------------------
 		["jk"] = { "<ESC>", "escape insert mode", opts = { nowait = true } },
 		["jK"] = { "<ESC>", "escape insert mode", opts = { nowait = true } },
@@ -120,8 +98,6 @@ mappings.general = {
 	},
 
 	v = {
-		["<C-k>"] = { ":m .-2<CR>==", "Move line block", opts },
-		["<C-j>"] = { ":m .+1<CR>==", "Move line block", opts },
 		[">"] = { ">gv", "Stay indent mode", opts },
 		["<"] = { "<gv", "Stay indent mode", opts },
 		["p"] = { '"_dP', "paste without yanking", opts },
@@ -132,8 +108,6 @@ mappings.general = {
 		["p"] = { '"_dP', "paste without yanking", opts },
 		["J"] = { ":move '>+1<CR>gv-gv", "Move line block", opts },
 		["K"] = { ":move '<-2<CR>gv-gv", "Move line block", opts },
-		["<C-j>"] = { ":move '>+1<CR>gv-gv", "Move line block", opts },
-		["<C-k>"] = { ":move '<-2<CR>gv-gv", "Move line block", opts },
 	},
 }
 

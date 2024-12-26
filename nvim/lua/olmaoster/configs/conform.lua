@@ -21,15 +21,12 @@ local opts = {
 			lsp_format = lsp_format_opt,
 		}
 	end,
-	ft_parsers = {
-		typescript = "typescript",
-		typescriptreact = "typescript",
-	},
 	formatters_by_ft = {
 		lua = { "stylua" },
-		python = { "isort", "black" },
-		latex = { "latexindent" },
-		svelte = { "prettierd", "prettier" },
+		-- python = { "isort", "black" },
+		-- latex = { "latexindent" },
+		-- svelte = { "prettierd", "prettier" },
+    json = { "jq" },
 		typescript = { "prettierd", "prettier" },
 		typescriptreact = { "prettierd", "prettier" },
 		javascript = { "prettierd", "prettier" },

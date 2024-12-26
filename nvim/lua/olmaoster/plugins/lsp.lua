@@ -1,5 +1,5 @@
 return {
-	{
+{
 		"folke/lazydev.nvim",
 		ft = "lua",
 		opts = {
@@ -9,7 +9,6 @@ return {
 		},
 	},
 	{ "Bilal2453/luvit-meta", lazy = true },
-
 	{
 		"neovim/nvim-lspconfig",
 		dependencies = {
@@ -17,14 +16,67 @@ return {
 			"williamboman/mason-lspconfig.nvim",
 			"WhoIsSethDaniel/mason-tool-installer.nvim",
 			{ "j-hui/fidget.nvim", opts = {} },
-			"hrsh7th/cmp-nvim-lsp",
 		},
 		config = function()
 			require("olmaoster.configs.lsp")
 		end,
 	},
 
-	{ -- Autoformat
+	--- AUTO COMPLETION ---
+	{
+		"saghen/blink.cmp",
+		dependencies = "rafamadriz/friendly-snippets",
+		version = "*",
+		opts = {
+			keymap = {
+				["<C-e>"] = { "hide", "fallback" },
+				["<CR>"] = { "accept", "fallback" },
+
+				["<Tab>"] = { "select_next", "fallback" },
+				["<S-Tab>"] = { "select_prev", "fallback" },
+
+				["<C-b>"] = { "scroll_documentation_up", "fallback" },
+				["<C-f>"] = { "scroll_documentation_down", "fallback" },
+			},
+
+			appearance = {
+				use_nvim_cmp_as_default = true,
+			},
+
+			sources = {
+				default = { "lsp", "path", "snippets", "buffer" },
+				min_keyword_length = 3,
+			},
+
+			signature = { enabled = true },
+
+			completion = {
+				menu = {
+					-- nvim-cmp style menu
+					draw = {
+						columns = {
+							{ "label", "label_description", gap = 1 },
+							{ "kind_icon", "kind" },
+						},
+					},
+				},
+
+				-- Show documentation when selecting a completion item
+				documentation = { auto_show = true, auto_show_delay_ms = 500 },
+
+				list = {
+					cycle = {
+						from_bottom = true,
+						from_top = true,
+					},
+				},
+			},
+		},
+		opts_extend = { "sources.default" },
+	},
+
+	--- AUTO FORMAT ---
+	{
 		"stevearc/conform.nvim",
 		event = { "BufWritePre" },
 		cmd = { "ConformInfo" },
@@ -43,41 +95,10 @@ return {
 		end,
 	},
 
-	{ -- AUTOCOMPLETION
-		"hrsh7th/nvim-cmp",
-		event = "InsertEnter",
-		dependencies = {
-			{
-				"L3MON4D3/LuaSnip",
-				build = (function()
-					if vim.fn.has("win32") == 1 or vim.fn.executable("make") == 0 then
-						return
-					end
-					return "make install_jsregexp"
-				end)(),
-				dependencies = {
-					{
-						"rafamadriz/friendly-snippets",
-						config = function()
-							require("luasnip.loaders.from_vscode").lazy_load()
-						end,
-					},
-				},
-			},
-			"saadparwaiz1/cmp_luasnip",
-			"hrsh7th/cmp-nvim-lsp",
-			"hrsh7th/cmp-path",
-			"hrsh7th/cmp-buffer",
-		},
-		config = function()
-			require("olmaoster.configs.cmp")
-		end,
-	},
-
 	--- JSON SCHEMA ---
 	{ "b0o/schemastore.nvim" },
 
-	--- LATEX ---
+	--- LSPSAGA ---
 	{
 		"nvimdev/lspsaga.nvim",
 		event = "LspAttach",
@@ -108,5 +129,4 @@ return {
 			"nvim-tree/nvim-web-devicons", -- optional
 		},
 	},
-	{ "slint-ui/vim-slint" },
 }

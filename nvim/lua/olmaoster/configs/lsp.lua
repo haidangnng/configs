@@ -1,5 +1,33 @@
 local servers = require("olmaoster.configs.servers")
 
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities = vim.tbl_deep_extend("force", capabilities, require("blink.cmp").get_lsp_capabilities())
+
+require("mason").setup()
+
+local ensure_installed = vim.tbl_keys(servers or {})
+
+-- vim.list_extend(ensure_installed, {
+-- 	"stylua", -- Used to format Lua code
+-- 	"prettier",
+-- 	"pylint",
+-- 	"isort",
+-- 	"black",
+-- 	"eslint_d",
+-- })
+require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
+
+local default_setup = function(server_name)
+	local server = servers[server_name] or {}
+	server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
+	require("lspconfig")[server_name].setup(server)
+end
+
+require("mason-lspconfig").setup({
+	auto_installation = true,
+	handlers = { default_setup },
+})
+
 vim.api.nvim_create_autocmd("LspAttach", {
 	group = vim.api.nvim_create_augroup("kickstart-lsp-attach", { clear = true }),
 	callback = function(event)
@@ -37,42 +65,4 @@ vim.api.nvim_create_autocmd("LspAttach", {
 			end, "[T]oggle Inlay [H]ints")
 		end
 	end,
-})
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
-require("mason").setup()
-
-local ensure_installed = vim.tbl_keys(servers or {})
-
-vim.list_extend(ensure_installed, {
-	"stylua", -- Used to format Lua code
-	"prettier",
-	"pylint",
-	"isort",
-	"black",
-	"eslint_d",
-})
-require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
-
-require("mason-lspconfig").setup({
-	handlers = {
-		function(server_name)
-			local server = servers[server_name] or {}
-			server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
-			require("lspconfig")[server_name].setup(server)
-		end,
-	},
-})
-
-require("lspconfig").rust_analyzer.setup({
-	settings = {
-		["rust-analyzer"] = {
-			check = {
-				command = "clippy",
-			},
-			diagnostics = {
-				enable = true,
-			},
-		},
-	},
 })
