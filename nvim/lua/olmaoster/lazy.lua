@@ -9,7 +9,8 @@ end ---@diagnostic disable-next-line: undefined-field
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
-  spec = "olmaoster.plugins",
+  -- spec = "olmaoster.plugins",
+  spec = {},
   defaults = {
     lazy = false,
   },
