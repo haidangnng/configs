@@ -41,12 +41,13 @@ return {
       },
 
       sources = {
-        -- min_keyword_length = 3,
+        min_keyword_length = 3,
       },
 
       completion = {
         trigger = {
-          show_on_x_blocked_trigger_characters = { "'", '"', '(' },
+          show_on_x_blocked_trigger_characters = { "'", '"', '(', '{' },
+          show_on_insert_on_trigger_character = false,
         },
         -- Show documentation when selecting a completion item
         documentation = { auto_show = true, auto_show_delay_ms = 1000 },
