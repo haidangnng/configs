@@ -1,7 +1,25 @@
 local util = require("lspconfig/util")
 
 return {
-  lua_ls = {},
+	-- PYTHON
+	ruff = {},
+	pylsp = {
+		settings = {
+			plugins = {
+				pyflakes = { enabled = false },
+				pycodestyle = { enabled = false },
+				autopep8 = { enabled = false },
+				yapf = { enabled = false },
+				mccabe = { enabled = false },
+				pylsp_mypy = { enabled = false },
+				pylsp_black = { enabled = false },
+				pylsp_isort = { enabled = false },
+			},
+		},
+	},
+	-- LUA
+	lua_ls = {},
+	-- FRONTEND
 	ts_ls = {},
 	eslint = {},
 	cssls = {},
@@ -40,4 +58,6 @@ return {
 			"vue",
 		},
 	},
+	prismals = {},
+	yamlls = {},
 }

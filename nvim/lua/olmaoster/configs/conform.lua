@@ -23,10 +23,10 @@ local opts = {
 	end,
 	formatters_by_ft = {
 		lua = { "stylua" },
-		-- python = { "isort", "black" },
+		python = { "pylsp" },
 		-- latex = { "latexindent" },
 		-- svelte = { "prettierd", "prettier" },
-    json = { "jq" },
+		json = { "jq" },
 		typescript = { "prettierd", "prettier" },
 		typescriptreact = { "prettierd", "prettier" },
 		javascript = { "prettierd", "prettier" },

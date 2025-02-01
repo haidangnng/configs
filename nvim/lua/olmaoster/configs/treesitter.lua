@@ -5,6 +5,7 @@ if not status then
 else
 	treesitter_config.setup({
 		ensure_installed = {
+			"python",
 			"lua",
 			"query",
 			"javascript",
@@ -14,6 +15,8 @@ else
 			"toml",
 			"svelte",
 			"css",
+			"prisma",
+			"yaml",
 		},
 		auto_install = true,
 		sync_install = false,

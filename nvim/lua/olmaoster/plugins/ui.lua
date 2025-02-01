@@ -1,11 +1,5 @@
 return {
 	{
-		"EdenEast/nightfox.nvim",
-		config = function()
-			require("olmaoster.configs.colorscheme.nightfox")
-		end,
-	},
-	{
 		"nvim-lualine/lualine.nvim",
 		dependencies = { "nvim-tree/nvim-web-devicons", opt = true },
 		config = function()
@@ -36,4 +30,14 @@ return {
 		dependencies = { "nvim-lua/plenary.nvim" },
 		opts = { signs = false },
 	},
+
+	--- BLINKING YANKING ---
+	-- {
+	-- 	"rachartier/tiny-glimmer.nvim",
+	-- 	event = "TextYankPost",
+	-- 	opts = {
+	-- 		-- your configuration
+	-- 		-- transparency_color = "#73daca",
+	-- 	},
+	-- },
 }
