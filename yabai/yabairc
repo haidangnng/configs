@@ -94,5 +94,5 @@ done
 
 echo "New yabai configuration loaded."
 
-borders inactive_color=0xff4a2574 active_color=0xff7338a0 width=7.0 
+borders inactive_color=0xff97BEDC ctive_color=0xffB1D8F6 width=7.0
 yabai -m rule --add app="^tauri-app$" display=^1
