@@ -5,14 +5,12 @@ local function font_with_fallback(name, params)
 	return wezterm.font_with_fallback(names, params)
 end
 
-local font_name = "Iosevka Nerd Font"
+local font_name = "Iosevka Nerd Font Mono"
 
 return {
 	-- OpenGL for GPU acceleration, Software for CPU
 	front_end = "OpenGL",
-	-- Font config
-	-- font = font_with_fallback(font_name, { weight = "Light" }),
-	font = font_with_fallback(font_name, { weight = "Regular" }),
+	font = font_with_fallback(font_name),
 	font_size = 14,
 	line_height = 1.4,
 	-- cell_width = 1,
@@ -32,7 +30,10 @@ return {
 		},
 	},
 
-	color_scheme = "Kasugano (terminal.sexy)",
+	-- color_scheme = "Kasugano (terminal.sexy)",
+	-- color_scheme = "carbonfox",
+	color_scheme = "Jellybeans (Gogh)",
+
 	bold_brightens_ansi_colors = true,
 
 	-- Padding
@@ -49,25 +50,15 @@ return {
 	show_new_tab_button_in_tab_bar = false,
 	tab_bar_at_bottom = false,
 	use_fancy_tab_bar = false,
-	tab_max_width = 150,
+	-- tab_max_width = 150,
 
 	-- General
 	automatically_reload_config = true,
 	inactive_pane_hsb = { saturation = 0.9, brightness = 0.4 },
-	window_background_opacity = 0.85,
+	window_background_opacity = 0.95,
 	macos_window_background_blur = 50,
+	window_decorations = "RESIZE",
 
 	mouse_wheel_scrolls_tabs = false,
-	window_decorations = "INTEGRATED_BUTTONS|RESIZE",
 	term = "xterm-256color",
-	-- window_frame = {
-	-- 	border_left_width = "0.5cell",
-	-- 	border_right_width = "0.5cell",
-	-- 	border_bottom_height = "0.25cell",
-	-- 	border_top_height = "0.25cell",
-	-- 	border_left_color = "purple",
-	-- 	border_right_color = "purple",
-	-- 	border_bottom_color = "purple",
-	-- 	border_top_color = "purple",
-	-- },
 }
