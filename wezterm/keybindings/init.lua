@@ -1,12 +1,13 @@
-local navigation = require("keybindings.navigation")
+local key_tables = require("keybindings.tables")
+local keys = require("keybindings.keys")
 
 local M = {}
 
-M.keys = navigation.keys
-M.key_tables = navigation.key_tables
+M.keys = keys
+M.key_tables = key_tables
 M.leader = {
-  key = 'a',
-  mods = 'CTRL',
+	key = "a",
+	mods = "CTRL",
 }
 
 return M

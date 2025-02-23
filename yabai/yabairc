@@ -1,126 +1,98 @@
-#green bsp, stack, float
+#!/bin/bash
+# Yabai Configuration
+
+# Green BSP Settings
 yabai -m signal --add event=dock_did_restart action="sudo yabai --load-sa"
 yabai -m signal --add event=display_added action="sleep 1 && $HOME/.config/yabai/create_spaces.sh"
 yabai -m signal --add event=display_removed action="sleep 1 && $HOME/.config/yabai/create_spaces.sh"
-yabai -m signal --add event=window_created action="sketchybar --trigger windows_on_spaces"
-yabai -m signal --add event=window_focused action="sketchybar --trigger windows_on_spaces"
-yabai -m signal --add event=window_destroyed action="sketchybar --trigger windows_on_spaces"
-yabai -m signal --add event=window_moved action="sketchybar --trigger windows_on_spaces"
-yabai -m space --focus prev        # move left
-yabai -m space --focus next        # move right
 
-# BAR_HEIGHT=0
+# Navigation Shortcuts
+yabai -m space --focus prev        # move to previous space
+yabai -m space --focus next        # move to next space
+
+# General Configurations
 GENERAL=(
-	# external_bar all:"${BAR_HEIGHT}":0
-	split_type auto
-	split_ratio 0.5
-	auto_balance off
-	insert_feedback_color 0xff7793d1
+  split_type auto
+  split_ratio 0.5
+  auto_balance on
 )
-external_bar all:39:0 \
 
 WINDOWS=(
-	window_placement second_child
-	window_topmost off
-	window_shadow on
-	window_opacity on
-	active_window_opacity 1.0
-	normal_window_opacity 0.2
-	window_animation_duration 0.0
-	window_origin_display focused
-	window_opacity_duration 0.15
-  window_border_radius
+  window_placement second_child
+  window_shadow off
+  window_opacity on
+  active_window_opacity 1.0
+  normal_window_opacity 0.4
+  window_animation_duration 0.0
+  window_origin_display focused
+  window_opacity_duration 0.2
 )
 
 LAYOUT=(
-	layout bsp
-	top_padding 10
-	bottom_padding 10
-	left_padding 10
-	right_padding 10
-	window_gap 10
+  layout bsp
+  top_padding 5
+  bottom_padding 5
+  left_padding 5
+  right_padding 5
+  window_gap 12
 )
+
 
 MOUSE=(
-	mouse_modifier alt
-	mouse_action1 move
-	mouse_action2 resize
-	mouse_drop_action swap
-	mouse_follows_focus on
+  mouse_modifier ctrl
+  mouse_action1 move
+  mouse_action2 resize
+  mouse_drop_action swap
+  mouse_follows_focus on
 )
 
+# Apply Configurations
 yabai -m config "${GENERAL[@]}"
 yabai -m config "${WINDOWS[@]}"
-yabai -m config "${BORDERS[@]}"
 yabai -m config "${LAYOUT[@]}"
 yabai -m config "${MOUSE[@]}"
 
-# RULES
-UNMANAGED=(
-  hw_*
-  RapidMiner Studio
-  QuickTime Player
-  Unity
-  MATLAB*
-  Cisco*
-  ‎WhatsApp
-  Steam
-  Python
-  Calendar
-  Notes
-  System Preferences
-  Raycast Preferences
-  Raycast
-  Telegram
-  App Store
-  Xverse*
+# Rules for Unmanaged Applications
+UNMANAGED_APPS=(
   Finder
-  Mos
-  Mos Preferences
-  Docker
+  System Preferences
+  QuickTime Player
+  Calendar
+  Spotify
+  Discord
+  Slack
+  Microsoft Teams
+  Steam
+  Zoom.us
+  VLC
+  App Store
+  Notes
+  Telegram
+  Authy
+  Raycast
+  Xverse
   Docker Desktop
   Logi Options+
-	Activity Monitor
-	App Store
-	Archive Utility
-	Authy
-	Bitwarden
-	Calculator
-	Dictionary
-	FaceTime
-	Photo Booth
-	Screen Sharing
-	Screens
-	Software Update
-	Stats
-	System Information
-	System Preferences
-	System Settings
-	VLC
-	Vimac
-	iStat Menus
-	zoom.us
-	Microsoft Teams
-	Mail
-	Messages
-	Spark
-	Mail
-	Discord
-	Thunderbird
-	Caprine
-	Messenger
-	Slack
-  Spotify
-	Telegram
-	Studio 3T
+  iStat Menus
+  Activity Monitor
+  Python
   Godot
+  Thunderbird
+  Caprine
+  Unity
+  AI Studio
+  MATLAB*
+  Cisco*
+  Spark
+  WhatsApp
+  Photo Booth
 )
 
-for ((i = 1; i <= "${#UNMANAGED[@]}"; i++)); do
-	yabai -m rule --add app="^${UNMANAGED[(($i - 1))]}.*$" manage=off
+for app in "${UNMANAGED_APPS[@]}"; do
+  yabai -m rule --add app="^${app}.*$" manage=off
 done
 
-# cpp build out
-yabai -m rule --add app="out" manage=off
+echo "New yabai configuration loaded."
 
-echo "yabai configuration loaded.."
+borders inactive_color=0xff97BEDC ctive_color=0xffB1D8F6 width=7.0
+yabai -m rule --add app="^tauri-app$" display=^1
