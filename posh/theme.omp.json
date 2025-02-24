@@ -55,9 +55,7 @@
         {
           "type": "python",
           "style": "powerline",
-          "powerline_symbol": "",
-          "foreground": "#100e23",
-          "background": "#906cff",
+          "foreground": "#906cff",
           "template": "  {{ .Full }} ",
           "default_venv_names": [
             ".venv",
