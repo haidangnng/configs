@@ -17,6 +17,7 @@ else
 			"css",
 			"prisma",
 			"yaml",
+			"vue",
 		},
 		auto_install = true,
 		sync_install = false,

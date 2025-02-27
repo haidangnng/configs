@@ -60,4 +60,5 @@ return {
 	},
 	prismals = {},
 	yamlls = {},
+	volar = {},
 }

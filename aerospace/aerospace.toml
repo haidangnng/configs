@@ -9,7 +9,9 @@ after-login-command = []
 # You can use it to add commands that run after AeroSpace startup.
 # 'after-startup-command' is run after 'after-login-command'
 # Available commands : https://nikitabobko.github.io/AeroSpace/commands
-after-startup-command = []
+after-startup-command = [
+  'exec-and-forget borders active_color=0xff4bebcd inactive_color=0xffc4c2c2 width=5.0'
+]
 
 # Start AeroSpace at login
 start-at-login = true
@@ -56,13 +58,14 @@ automatically-unhide-macos-hidden-apps = false
 #                 Monitor pattern is the same as for 'workspace-to-monitor-force-assignment'.
 #                 See:
 #                 https://nikitabobko.github.io/AeroSpace/guide#assign-workspaces-to-monitors
+
 [gaps]
-    inner.horizontal = 0
-    inner.vertical =   0
-    outer.left =       0
-    outer.bottom =     0
-    outer.top =        0
-    outer.right =      0
+    inner.horizontal = 5
+    inner.vertical =   5
+    outer.left =       2
+    outer.bottom =     2
+    outer.top =        2
+    outer.right =      2
 
 # 'main' binding mode declaration
 # See: https://nikitabobko.github.io/AeroSpace/guide#binding-modes
@@ -121,22 +124,23 @@ automatically-unhide-macos-hidden-apps = false
     alt-2 = 'workspace 2'
     alt-3 = 'workspace 3'
     alt-4 = 'workspace 4'
-    alt-5 = 'workspace 5'
-    alt-6 = 'workspace 6'
-    alt-7 = 'workspace 7'
-    alt-8 = 'workspace 8'
-    alt-9 = 'workspace 9'
-
+    alt-b = 'workspace B' # for Browser
+    alt-s = 'workspace S' # for Social
+    alt-t = 'workspace T' # for Terminal
+    alt-m = 'workspace M' # for Mail
+    alt-p = 'workspace P' # for Preview
+    
     # See: https://nikitabobko.github.io/AeroSpace/commands#move-node-to-workspace
     alt-shift-1 = 'move-node-to-workspace 1'
     alt-shift-2 = 'move-node-to-workspace 2'
     alt-shift-3 = 'move-node-to-workspace 3'
     alt-shift-4 = 'move-node-to-workspace 4'
-    alt-shift-5 = 'move-node-to-workspace 5'
-    alt-shift-6 = 'move-node-to-workspace 6'
-    alt-shift-7 = 'move-node-to-workspace 7'
-    alt-shift-8 = 'move-node-to-workspace 8'
-    alt-shift-9 = 'move-node-to-workspace 9'
+
+    alt-shift-b = 'move-node-to-workspace B'
+    alt-shift-s = 'move-node-to-workspace S'
+    alt-shift-m = 'move-node-to-workspace M'
+    alt-shift-t = 'move-node-to-workspace T'
+    alt-shift-p = 'move-node-to-workspace P'
 
     # See: https://nikitabobko.github.io/AeroSpace/commands#workspace-back-and-forth
     alt-tab = 'workspace-back-and-forth'
@@ -164,3 +168,61 @@ automatically-unhide-macos-hidden-apps = false
     down = 'volume down'
     up = 'volume up'
     shift-down = ['volume set 0', 'mode main']
+
+[workspace-to-monitor-force-assignment]
+1 = 'main'
+2 = 'main'
+3 = ['secondary', 'main']
+4 = ['secondary', 'main']
+
+B = 'main'
+T = 'main'
+S = ['secondary', 'main']
+M = ['secondary', 'main']
+P = ['secondary', 'main']
+
+
+[[on-window-detected]]
+  if.app-name-regex-substring = 'python'
+  if.window-title-regex-substring = 'Figure'
+  run = 'layout floating'
+
+[[on-window-detected]]
+  if.app-id = 'com.apple.finder'
+  run = 'layout floating'
+
+[[on-window-detected]]
+  if.app-id = 'net.whatsapp.WhatsApp'
+  run = ['layout floating', 'move-node-to-workspace S']
+
+[[on-window-detected]]
+  if.app-id = 'com.github.wez.wezterm'
+  run = "move-node-to-workspace T"
+
+[[on-window-detected]]
+  if.app-id = 'com.google.Chrome'
+  run = "move-node-to-workspace B"
+
+[[on-window-detected]]
+  if.app-id = 'org.mozilla.firefox'
+  run = "move-node-to-workspace B"
+
+[[on-window-detected]]
+  if.app-id = 'com.spotify.client'
+  run = ["layout floating", "move-node-to-workspace S"]
+
+[[on-window-detected]]
+  if.app-id = 'com.microsoft.Outlook'
+  run = "move-node-to-workspace S"
+
+[[on-window-detected]]
+  if.app-id = 'com.cisco.secureclient.gui'
+  run = ["layout floating", "move-node-to-workspace S"]
+
+[[on-window-detected]]
+  if.app-id = 'com.apple.Preview'
+  run = "move-node-to-workspace P"
+
+[[on-window-detected]]
+  if.app-id = 'com.electron.dockerdesktop'
+  run = 'layout floating'
