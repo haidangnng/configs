@@ -112,6 +112,8 @@ local options = {
 			"%.epub",
 			"%.flac",
 			"%.tar.gz",
+			"%__virtual.cs$",
+			"pnpm%-lock%.yaml",
 		},
 		borderchars = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
 		layout_config = {

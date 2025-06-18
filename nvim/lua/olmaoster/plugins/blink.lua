@@ -41,7 +41,22 @@ return {
 			},
 
 			sources = {
-				min_keyword_length = 2,
+				default = { "lsp", "path", "buffer", "snippets" },
+				providers = {
+					lsp = {
+						min_keyword_length = 2, -- Number of characters to trigger porvider
+						score_offset = 0, -- Boost/penalize the score of the items
+					},
+					path = {
+						min_keyword_length = 0,
+					},
+					snippets = {
+						min_keyword_length = 2,
+					},
+					buffer = {
+						min_keyword_length = 2,
+					},
+				},
 			},
 
 			completion = {
@@ -53,9 +68,10 @@ return {
 				documentation = { auto_show = true, auto_show_delay_ms = 1000 },
 
 				list = {
-					selection = function(ctx)
-						return ctx.mode == "cmdline" and "auto_insert" or "preselect"
-					end,
+					selection = {
+						auto_insert = true,
+						preselect = true,
+					},
 					cycle = {
 						from_bottom = true,
 						from_top = true,

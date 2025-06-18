@@ -129,6 +129,8 @@ automatically-unhide-macos-hidden-apps = false
     alt-t = 'workspace T' # for Terminal
     alt-m = 'workspace M' # for Mail
     alt-p = 'workspace P' # for Preview
+    alt-n = 'workspace N' # for Note
+    alt-v = 'workspace V' # for VSCode
     
     # See: https://nikitabobko.github.io/AeroSpace/commands#move-node-to-workspace
     alt-shift-1 = 'move-node-to-workspace 1'
@@ -141,6 +143,8 @@ automatically-unhide-macos-hidden-apps = false
     alt-shift-m = 'move-node-to-workspace M'
     alt-shift-t = 'move-node-to-workspace T'
     alt-shift-p = 'move-node-to-workspace P'
+    alt-shift-n = 'move-node-to-workspace N'
+    alt-shift-v = 'move-node-to-workspace V'
 
     # See: https://nikitabobko.github.io/AeroSpace/commands#workspace-back-and-forth
     alt-tab = 'workspace-back-and-forth'
@@ -177,6 +181,8 @@ automatically-unhide-macos-hidden-apps = false
 
 B = 'main'
 T = 'main'
+V = 'main'
+N = ['secondary', 'main']
 S = ['secondary', 'main']
 M = ['secondary', 'main']
 P = ['secondary', 'main']
@@ -225,4 +231,28 @@ P = ['secondary', 'main']
 
 [[on-window-detected]]
   if.app-id = 'com.electron.dockerdesktop'
+  run = 'layout floating'
+
+[[on-window-detected]]
+  if.app-id = 'com.microsoft.teams2'
+  run = 'layout floating'
+
+[[on-window-detected]]
+  if.app-id = 'com.apple.ActivityMonitor'
+  run = 'layout floating'
+
+[[on-window-detected]]
+  if.app-id = 'com.hnc.Discord'
+  run = 'layout floating'
+
+[[on-window-detected]]
+  if.app-id = 'md.obsidian'
+  run = 'move-node-to-workspace N'
+
+[[on-window-detected]]
+  if.app-id = 'com.microsoft.VSCode'
+  run = 'move-node-to-workspace V'
+
+[[on-window-detected]]
+  if.app-id = 'com.vmware.fusion'
   run = 'layout floating'
