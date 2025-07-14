@@ -2,21 +2,21 @@ local util = require("lspconfig/util")
 
 return {
 	-- PYTHON
-	ruff = {},
-	pylsp = {
-		settings = {
-			plugins = {
-				pyflakes = { enabled = false },
-				pycodestyle = { enabled = false },
-				autopep8 = { enabled = false },
-				yapf = { enabled = false },
-				mccabe = { enabled = false },
-				pylsp_mypy = { enabled = false },
-				pylsp_black = { enabled = false },
-				pylsp_isort = { enabled = false },
-			},
-		},
-	},
+	-- ruff = {},
+	-- pylsp = {
+	-- 	settings = {
+	-- 		plugins = {
+	-- 			pyflakes = { enabled = false },
+	-- 			pycodestyle = { enabled = false },
+	-- 			autopep8 = { enabled = false },
+	-- 			yapf = { enabled = false },
+	-- 			mccabe = { enabled = false },
+	-- 			pylsp_mypy = { enabled = false },
+	-- 			pylsp_black = { enabled = false },
+	-- 			pylsp_isort = { enabled = false },
+	-- 		},
+	-- 	},
+	-- },
 	-- LUA
 	lua_ls = {},
 	-- FRONTEND
@@ -107,4 +107,12 @@ return {
 		},
 		filetypes = { "vue" },
 	},
+	-- ESLINT/PRETTIER Alternative
+	biome = {},
+	angularls = {},
+	-- GOLANG
+	gopls = {},
+	golines = {},
+	-- -- DART
+	-- dartls = {},
 }

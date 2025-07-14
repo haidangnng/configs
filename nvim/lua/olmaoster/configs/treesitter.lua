@@ -17,6 +17,7 @@ else
 			"css",
 			"prisma",
 			"yaml",
+			"go",
 			"vue",
 		},
 		auto_install = true,

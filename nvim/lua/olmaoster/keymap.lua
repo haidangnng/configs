@@ -9,7 +9,7 @@ mappings.bbye = {
 	n = {
 		["<leader>qc"] = { "<cmd>lua MiniBufremove.delete()<cr>", "Close buffer", opts },
 		["<leader>qa"] = { "<cmd>BufRemoveAll all<cr>", "Close all buffer", opts },
-		["<leader>qx"] = { "<cmd>BufRemoveAll others<cr>", "Close all buffer except current", opts },
+		["<leader>qq"] = { "<cmd>BufRemoveAll others<cr>", "Close all buffer except current", opts },
 	},
 }
 

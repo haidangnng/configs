@@ -26,6 +26,7 @@ local opts = {
 		python = { "pylsp" },
 		-- latex = { "latexindent" },
 		-- svelte = { "prettierd", "prettier" },
+		go = { "gofmt" },
 		json = { "jq" },
 		typescript = { "prettierd", "prettier" },
 		typescriptreact = { "prettierd", "prettier" },
