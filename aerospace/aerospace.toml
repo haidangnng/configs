@@ -10,7 +10,12 @@ after-login-command = []
 # 'after-startup-command' is run after 'after-login-command'
 # Available commands : https://nikitabobko.github.io/AeroSpace/commands
 after-startup-command = [
-  'exec-and-forget borders active_color=0xff4bebcd inactive_color=0xffc4c2c2 width=5.0'
+  'exec-and-forget borders active_color=0xff4bebcd inactive_color=0xffc4c2c2 width=5.0',
+  'exec-and-forget sketchybar'
+]
+
+exec-on-workspace-change = ['/bin/bash', '-c',
+    'sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE=$AEROSPACE_FOCUSED_WORKSPACE'
 ]
 
 # Start AeroSpace at login
@@ -64,7 +69,7 @@ automatically-unhide-macos-hidden-apps = false
     inner.vertical =   5
     outer.left =       2
     outer.bottom =     2
-    outer.top =        2
+    outer.top =        5
     outer.right =      2
 
 # 'main' binding mode declaration
@@ -122,8 +127,6 @@ automatically-unhide-macos-hidden-apps = false
     # See: https://nikitabobko.github.io/AeroSpace/commands#workspace
     alt-1 = 'workspace 1'
     alt-2 = 'workspace 2'
-    alt-3 = 'workspace 3'
-    alt-4 = 'workspace 4'
     alt-b = 'workspace B' # for Browser
     alt-s = 'workspace S' # for Social
     alt-t = 'workspace T' # for Terminal
@@ -135,8 +138,6 @@ automatically-unhide-macos-hidden-apps = false
     # See: https://nikitabobko.github.io/AeroSpace/commands#move-node-to-workspace
     alt-shift-1 = 'move-node-to-workspace 1'
     alt-shift-2 = 'move-node-to-workspace 2'
-    alt-shift-3 = 'move-node-to-workspace 3'
-    alt-shift-4 = 'move-node-to-workspace 4'
 
     alt-shift-b = 'move-node-to-workspace B'
     alt-shift-s = 'move-node-to-workspace S'
@@ -175,9 +176,7 @@ automatically-unhide-macos-hidden-apps = false
 
 [workspace-to-monitor-force-assignment]
 1 = 'main'
-2 = 'main'
-3 = ['secondary', 'main']
-4 = ['secondary', 'main']
+2 = ['secondary', 'main']
 
 B = 'main'
 T = 'main'
@@ -252,7 +251,3 @@ P = ['secondary', 'main']
 [[on-window-detected]]
   if.app-id = 'com.microsoft.VSCode'
   run = 'move-node-to-workspace V'
-
-[[on-window-detected]]
-  if.app-id = 'com.vmware.fusion'
-  run = 'layout floating'
