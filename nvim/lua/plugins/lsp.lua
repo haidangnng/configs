@@ -49,7 +49,7 @@ return {
 			"saghen/blink.cmp",
 			{ "j-hui/fidget.nvim", opts = {} },
 		},
-		event = "VeryLazy",
+		-- event = "VeryLazy",
 		config = function()
 			require("config.lsp.lspconfig")
 		end,

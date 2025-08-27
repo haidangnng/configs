@@ -1,3 +1,5 @@
+require("helpers")
+
 local wezterm = require("wezterm")
 local keybinding = require("keybindings")
 local utils = require("utils")

@@ -16,6 +16,7 @@ vim.list_extend(ensure_installed, {
 	"stylua", -- Used to format Lua code
 	"prettier",
 })
+
 require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 
 local default_setup = function(server_name)

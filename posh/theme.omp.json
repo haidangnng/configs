@@ -34,6 +34,7 @@
             "fetch_version": true
           },
           "style": "plain",
+          "fetch_package_manager": true,
           "template": "<#ffffff>via</> \ue781 {{ if .PackageManagerIcon }}{{ .PackageManagerIcon }} {{ end }}{{ .Full }} ",
           "type": "node"
         }
@@ -55,12 +56,6 @@
             ".env",
             "env"
           ]
-        },
-        {
-          "foreground": "#6CA35E",
-          "style": "diamond",
-          "template": "| \ue718 {{ if .PackageManagerIcon }}{{ .PackageManagerIcon }} {{ end }}{{ .Full }} ",
-          "type": "node"
         },
         {
           "foreground": "#85C980",
