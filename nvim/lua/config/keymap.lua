@@ -25,41 +25,41 @@ mappings.oil = {
 ----- LSP -----
 mappings.lsp = {
 	n = {
-		["gr"] = { "<cmd>Telescope lsp_references<CR>", "Show LSP references", mapping_opt },
-		-- ["gD"] = { vim.lsp.buf.declaration, "Go to declaration", mapping_opt }, -- go to declaration
+		["gR"] = { "<cmd>Telescope lsp_references<CR>", "Show LSP references", mapping_opt },
+		["gD"] = { vim.lsp.buf.declaration, "Go to declaration", mapping_opt }, -- go to declaration
 		["gi"] = { "<cmd>Telescope lsp_implementations<CR>", "Show LSP implementations", mapping_opt }, -- show lsp implementations
 		["<leader>ca"] = { vim.lsp.buf.code_action, "See available code actions", mapping_opt }, -- see available code actions, in visual mode will apply to selection
 		["<leader>rn"] = { vim.lsp.buf.rename, "Smart rename", mapping_opt }, -- smart rename
 		["<leader>D"] = { "<cmd>Telescope diagnostics bufnr=0<CR>", "Show buffer diagnostics", mapping_opt }, -- show  diagnostics for file
 		["<leader>d"] = { vim.diagnostic.open_float, "Show line diagnostics", mapping_opt }, -- show diagnostics for line
 		["<leader>rs"] = { ":LspRestart<CR>", "Restart LSP", mapping_opt },
-		-- ["gp"] = { "<cmd>Lspsaga peek_definition<CR>", "LSP Peek definition", opts },
-		["gd"] = { "<cmd>Telescope lsp_definitions<CR>", "LSP Go to definition", mapping_opt },
-		["gt"] = { "<cmd>Telescope lsp_type_definitions<CR>", "LSP Peek type definition", mapping_opt },
-		-- ["<leader>pd"] = { "<cmd>Lspsaga show_workspace_diagnostics<CR>", "LSP Show workspace diagnostics", opts },
+		["gf"] = { "<cmd>Lspsaga finder<CR>", "LSP Finder", mapping_opt },
+		["gr"] = { "<cmd>Lspsaga rename<CR>", "LSP rename", mapping_opt },
+		["gp"] = { "<cmd>Lspsaga peek_definition<CR>", "LSP Peek definition", mapping_opt },
+		["gd"] = { "<cmd>Lspsaga goto_definition<CR>", "LSP Go to definition", mapping_opt },
+		["gt"] = { "<cmd>Lspsaga peek_type_definition<CR>", "LSP Peek type definition", mapping_opt },
+		["<leader>pd"] = {
+			"<cmd>Lspsaga show_workspace_diagnostics<CR>",
+			"LSP Show workspace diagnostics",
+			mapping_opt,
+		},
+		["]d"] = { "<cmd>Lspsaga diagnostic_jump_next<CR>", "LSP jump next diagnostics", mapping_opt },
+		["[d"] = { "<cmd>Lspsaga diagnostic_jump_prev<CR>", "LSP jump prev diagnostics", mapping_opt },
 		["[D"] = {
 			function()
-				vim.diagnostic.jump({ count = -1, severity = vim.diagnostic.severity.ERROR })
+				require("lspsaga.diagnostic"):goto_prev({ severity = vim.diagnostic.severity.ERROR })
 			end,
 			"go to prev error",
 			mapping_opt,
 		},
 		["]D"] = {
 			function()
-				vim.diagnostic.jump({ count = 1, severity = vim.diagnostic.severity.ERROR })
+				require("lspsaga.diagnostic"):goto_next({ severity = vim.diagnostic.severity.ERROR })
 			end,
-			"go to prev error",
+			"go to next error",
 			mapping_opt,
 		},
-		["K"] = {
-			function()
-				vim.lsp.buf.hover({
-					border = "rounded",
-				})
-			end,
-			"Hover docs",
-			mapping_opt,
-		},
+		["K"] = { "<cmd>Lspsaga hover_doc<CR>", "Hover docs", mapping_opt },
 	},
 }
 

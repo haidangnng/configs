@@ -33,6 +33,7 @@ return {
 	----- LSP -----
 	{
 		"neovim/nvim-lspconfig",
+		event = "InsertEnter",
 		dependencies = {
 			{ "williamboman/mason.nvim", config = true },
 			"williamboman/mason-lspconfig.nvim",
@@ -46,6 +47,7 @@ return {
 					},
 				},
 			},
+			"onsails/lspkind.nvim",
 			"saghen/blink.cmp",
 			{ "j-hui/fidget.nvim", opts = {} },
 		},
@@ -64,6 +66,37 @@ return {
 		config = function()
 			require("config.editor.conform")
 		end,
+	},
+	----- LSP SAGA -----
+	{
+		"nvimdev/lspsaga.nvim",
+		event = "LspAttach",
+		config = function()
+			require("lspsaga").setup({
+				-- symbol_in_winbar = { enable = false },
+				lightbulb = { enable = false },
+				ui = {
+					border = "rounded",
+					lines = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
+				},
+			})
+
+			-- LSP SAGA highlight
+			vim.cmd("highlight HoverBorder guibg=NONE ctermbg=NONE")
+			vim.cmd("highlight HoverNormal guibg=NONE ctermbg=NONE")
+			vim.cmd("highlight ActionPreviewBorder guibg=NONE ctermbg=NONE")
+			vim.cmd("highlight ActionPreviewNormal guibg=NONE ctermbg=NONE")
+			vim.cmd("highlight DiagnosticBorder guibg=NONE ctermbg=NONE")
+			vim.cmd("highlight DiagnosticNormal guibg=NONE ctermbg=NONE")
+			vim.cmd("highlight RenameBorder guibg=NONE ctermbg=NONE")
+			vim.cmd("highlight RenameNormal guibg=NONE ctermbg=NONE")
+			vim.cmd("highlight SagaBorder guibg=NONE ctermbg=NONE")
+			vim.cmd("highlight SagaNormal guibg=NONE ctermbg=NONE")
+		end,
+		dependencies = {
+			"nvim-treesitter/nvim-treesitter", -- optional
+			"nvim-tree/nvim-web-devicons", -- optional
+		},
 	},
 	----- TROUBLE - LSP DIAGNOGSTICS -----
 	-- {
