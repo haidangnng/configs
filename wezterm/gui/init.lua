@@ -67,8 +67,8 @@ return {
 	-- General
 	automatically_reload_config = true,
 	inactive_pane_hsb = { saturation = 0.9, brightness = 0.4 },
-	window_background_opacity = 0.95,
-	macos_window_background_blur = 50,
+	window_background_opacity = 0.80,
+	macos_window_background_blur = 20,
 	window_decorations = "RESIZE",
 
 	mouse_wheel_scrolls_tabs = false,

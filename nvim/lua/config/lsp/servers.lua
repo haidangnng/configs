@@ -3,6 +3,7 @@ return {
 	-- LUA
 	lua_ls = {},
 	-- FRONTEND
+	svelte = {},
 	ts_ls = {
 		init_options = {
 			plugins = {
@@ -12,12 +13,12 @@ return {
 						.. "/mason/packages/vue-language-server/node_modules/@vue/language-server/node_modules/@vue/typescript-plugin",
 					languages = { "typescript", "javascript", "vue" },
 				},
-				-- {
-				-- 	name = "typescript-svelte-plugin",
-				-- 	location = vim.fn.stdpath("data")
-				-- 		.. "/mason/packages/svelte-language-server/node_modules/typescript-svelte-plugin",
-				-- 	languages = { "typescript", "javascript", "svelte" },
-				-- },
+				{
+					name = "typescript-svelte-plugin",
+					location = vim.fn.stdpath("data")
+						.. "/mason/packages/svelte-language-server/node_modules/typescript-svelte-plugin",
+					languages = { "typescript", "javascript", "svelte" },
+				},
 			},
 		},
 		filetypes = {
@@ -83,4 +84,5 @@ return {
 	-- biome = {},
 	-- gopls = {},
 	-- golines = {},
+	---- SWIFT ----
 }

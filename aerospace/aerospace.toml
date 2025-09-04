@@ -134,6 +134,7 @@ automatically-unhide-macos-hidden-apps = false
     alt-p = 'workspace P' # for Preview
     alt-n = 'workspace N' # for Note
     alt-v = 'workspace V' # for VSCode
+    alt-x = 'workspace X' # for XCode
     
     # See: https://nikitabobko.github.io/AeroSpace/commands#move-node-to-workspace
     alt-shift-1 = 'move-node-to-workspace 1'
@@ -181,6 +182,7 @@ automatically-unhide-macos-hidden-apps = false
 B = 'main'
 T = 'main'
 V = 'main'
+X = 'main'
 N = ['secondary', 'main']
 S = ['secondary', 'main']
 M = ['secondary', 'main']
@@ -251,3 +253,8 @@ P = ['secondary', 'main']
 [[on-window-detected]]
   if.app-id = 'com.microsoft.VSCode'
   run = 'move-node-to-workspace V'
+
+[[on-window-detected]]
+  if.app-id = 'com.apple.dt.Xcode'
+  run = 'move-node-to-workspace X'
+

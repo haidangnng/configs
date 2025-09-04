@@ -1,6 +1,7 @@
 #!/bin/bash
+
 # ==========================
-# GENERATED FROM GPT - 27/08/2025
+# GENERATED FROM GPT - 28/08/2025
 # ==========================
 
 # ==========================
@@ -20,34 +21,86 @@ error() {
 failed_installs=()
 
 # ==========================
-# Parse packages.sh
+# Install prerequisites
 # ==========================
-log "Processing packages.sh..."
+log "Checking for Homebrew..."
 
-# Collapse backslash-continued lines into full commands
+if ! command -v brew &>/dev/null; then
+  log "Homebrew not found. Installing Homebrew..."
+  if ! /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"; then
+    error "Failed to install Homebrew"
+    failed_installs+=("Homebrew")
+  fi
+else
+  log "Homebrew already installed. Skipping."
+fi
+
+log "Checking for Oh My Zsh..."
+
+if [ ! -d "$HOME/.oh-my-zsh" ]; then
+  log "Installing Oh My Zsh..."
+  if ! sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"; then
+    error "Failed to install Oh My Zsh"
+    failed_installs+=("Oh My Zsh")
+  fi
+else
+  log "Oh My Zsh already installed. Skipping."
+fi
+
+# ==========================
+# Embedded Brew Package List
+# ==========================
+read -r -d '' PACKAGE_LIST <<'EOF'
+brew install \
+  yazi \
+  nvm \
+  pnpm \
+  neovim \
+  ripgrep \
+  eza \
+  atuin \
+  zoxide \
+  jandedobbeleer/oh-my-posh/oh-my-posh
+
+brew install --cask \
+  raycast \
+  bitwarden \
+  google-chrome  \
+  firefox \
+  wezterm \
+  visual-studio-code \
+  docker \
+  discord \
+  keycastr \
+  notunes \
+  mos \
+  spotify \
+  nikitabobko/tab/aerospace
+EOF
+
+# ==========================
+# Parse and Collapse Commands
+# ==========================
+log "Processing embedded package list..."
+
 collapsed_commands=()
 current_line=""
 
 while IFS= read -r line || [ -n "$line" ]; do
-  # Remove leading/trailing whitespace
   line="$(echo "$line" | sed 's/^[[:space:]]*//;s/[[:space:]]*$//')"
-
-  # Skip comments or empty lines
   [[ "$line" =~ ^#.*$ || -z "$line" ]] && continue
 
   if [[ "$line" == *\\ ]]; then
-    # Line ends with backslash – append without it
     current_line+="${line%\\} "
   else
-    # Final line of the command
     current_line+="$line"
     collapsed_commands+=("$current_line")
     current_line=""
   fi
-done < packages.sh
+done <<< "$PACKAGE_LIST"
 
 # ==========================
-# Process each command
+# Process Each Command
 # ==========================
 for full_cmd in "${collapsed_commands[@]}"; do
   if [[ "$full_cmd" =~ ^brew\ install\ --cask ]]; then
@@ -110,7 +163,6 @@ apply_default "remove dock icons" defaults write com.apple.dock persistent-apps 
 apply_default "restart Finder" killall Finder
 apply_default "restart Dock" killall Dock
 
-
 # ==========================
 # Summary
 # ==========================
@@ -123,4 +175,3 @@ if [ ${#failed_installs[@]} -ne 0 ]; then
 else
   echo -e "\033[1;32m[SUCCESS] All packages and settings applied successfully.\033[0m"
 fi
-
