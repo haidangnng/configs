@@ -22,6 +22,22 @@ mappings.oil = {
 	},
 }
 
+----- LEET CODE -----
+mappings.leet = {
+	n = {
+		["<leader>lc"] = { "<cmd>Leet<cr>", "Leetcode run testcases", mapping_opt },
+		["<leader>lcr"] = { "<cmd>Leet run<cr>", "Leetcode run testcases", mapping_opt },
+		["<leader>lcs"] = { "<cmd>Leet submit<cr>", "Leetcode submit", mapping_opt },
+	},
+}
+
+----- ZEN MODE -----
+mappings.zen = {
+	n = {
+		["<leader>z"] = { "<CMD>ZenMode<CR>", "Zen mode toggle" },
+	},
+}
+
 ----- LSP -----
 mappings.lsp = {
 	n = {

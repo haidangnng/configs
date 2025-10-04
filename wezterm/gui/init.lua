@@ -4,11 +4,8 @@ local function font_with_fallback(name, params)
 	local names = {
 		name,
 		"Iosevka Nerd Font Mono",
-		"Space Nerd Font Mono",
 		"SF Pro",
-		"Hack Nerd Font Mono",
 		"Apple Color Emoji",
-		"azuki_font",
 	}
 	return wezterm.font_with_fallback(names, params)
 end
@@ -52,8 +49,8 @@ return {
 	window_padding = {
 		left = "1cell",
 		right = "1cell",
-		top = "0.5cell",
-		bottom = "0.25cell",
+		top = "0cell",
+		bottom = "0cell",
 	},
 
 	-- Tab Bar
@@ -68,7 +65,7 @@ return {
 	automatically_reload_config = true,
 	inactive_pane_hsb = { saturation = 0.9, brightness = 0.4 },
 	window_background_opacity = 0.80,
-	macos_window_background_blur = 20,
+	macos_window_background_blur = 8,
 	window_decorations = "RESIZE",
 
 	mouse_wheel_scrolls_tabs = false,

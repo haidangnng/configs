@@ -60,7 +60,8 @@ brew install \
   eza \
   atuin \
   zoxide \
-  jandedobbeleer/oh-my-posh/oh-my-posh
+  jandedobbeleer/oh-my-posh/oh-my-posh \
+  pyenv
 
 brew install --cask \
   raycast \
@@ -160,6 +161,7 @@ apply_default "show path bar in Finder" defaults write com.apple.finder ShowPath
 apply_default "show status bar in Finder" defaults write com.apple.finder ShowStatusBar -bool true
 apply_default "hide desktop icons" defaults write com.apple.finder CreateDesktop false
 apply_default "remove dock icons" defaults write com.apple.dock persistent-apps -array
+apply_default "disable press and hold for vscode vim" defaults write com.microsoft.VSCode ApplePressAndHoldEnabled -bool false 
 apply_default "restart Finder" killall Finder
 apply_default "restart Dock" killall Dock
 

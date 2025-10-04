@@ -158,4 +158,20 @@ return {
 			vim.g.db_ui_use_nerd_fonts = 1
 		end,
 	},
+	----- ZEN MODE -----
+	{
+		"folke/zen-mode.nvim",
+		opts = {
+			windows = {
+				width = 150,
+			},
+			plugins = {
+				wezterm = {
+					enabled = false,
+					-- can be either an absolute font size or the number of incremental steps
+					font = "+4", -- (10% increase per step)
+				},
+			},
+		},
+	},
 }
