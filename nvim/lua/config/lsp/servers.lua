@@ -80,9 +80,13 @@ return {
 	},
 	prismals = {},
 	yamlls = {},
+	----- CPP -----
+	clangd = {},
+	clang_format = {},
+	codelldb = {},
 	-- ESLINT/PRETTIER Alternative
 	-- biome = {},
-	-- gopls = {},
-	-- golines = {},
+	gopls = {},
+	golines = {},
 	---- SWIFT ----
 }

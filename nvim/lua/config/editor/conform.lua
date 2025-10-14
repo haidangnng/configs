@@ -32,6 +32,7 @@ local options = {
 		-- rust = { "rustfmt", lsp_format = "fallback" },
 		lua = { "stylua" },
 		python = { "pylsp" },
+		cpp = { "clang-format" },
 		-- latex = { "latexindent" },
 		-- svelte = { "prettierd", "prettier" },
 		go = { "gofmt" },

@@ -33,7 +33,8 @@ return {
 	----- LSP -----
 	{
 		"neovim/nvim-lspconfig",
-		event = "InsertEnter",
+		-- event = "InsertEnter",
+		event = "VeryLazy",
 		dependencies = {
 			{ "williamboman/mason.nvim", config = true },
 			"williamboman/mason-lspconfig.nvim",

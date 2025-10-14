@@ -8,10 +8,20 @@ local mappings = {}
 ----- TERMINAL -----
 mappings.terminal = {
 	t = {
-		["<C-t>"] = { "<Cmd>:ToggleTerm direction=float<CR>", "Toggle floating [T]erminal", mapping_opt },
+		["<C-t>"] = { "<Cmd>:ToggleTerm<CR>", "Toggle floating [T]erminal", mapping_opt },
 	},
 	n = {
 		["<C-t>"] = { "<Cmd>:ToggleTerm direction=float<CR>", "Toggle floating [T]erminal", mapping_opt },
+		["<leader>tj"] = {
+			"<Cmd>:ToggleTerm direction=horizontal<CR>",
+			"Toggle horizontal [T]erminal",
+			mapping_opt,
+		},
+		["<leader>tl"] = {
+			"<Cmd>:ToggleTerm direction=vertical<CR>",
+			"Toggle vertical [T]erminal",
+			mapping_opt,
+		},
 	},
 }
 
@@ -25,9 +35,35 @@ mappings.oil = {
 ----- LEET CODE -----
 mappings.leet = {
 	n = {
-		["<leader>lc"] = { "<cmd>Leet<cr>", "Leetcode run testcases", mapping_opt },
+		["<leader>lc"] = { "<cmd>Leet<cr>", "Leetcode", mapping_opt },
 		["<leader>lcr"] = { "<cmd>Leet run<cr>", "Leetcode run testcases", mapping_opt },
 		["<leader>lcs"] = { "<cmd>Leet submit<cr>", "Leetcode submit", mapping_opt },
+	},
+}
+
+----- OVERSEER -----
+mappings.overseer = {
+	n = {
+		["<leader>or"] = {
+			"<cmd>OverseerRun <CR>",
+			"Run build template",
+			mapping_opt,
+		},
+	},
+}
+
+mappings.dap = {
+	n = {
+		["<leader>db"] = {
+			"<cmd> DapToggleBreakpoint <CR>",
+			"Add breakpoint at line",
+			mapping_opt,
+		},
+		["<leader>dr"] = {
+			"<cmd> DapContinue <CR>",
+			"Start or continue the debugger",
+			mapping_opt,
+		},
 	},
 }
 

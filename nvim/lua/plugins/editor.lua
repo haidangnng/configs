@@ -62,7 +62,7 @@ return {
 		event = "VeryLazy",
 		version = "*",
 		config = function()
-			require("toggleterm").setup({})
+			require("config.editor.toggleterm")
 		end,
 	},
 	----- SPLIT VIEW -----
