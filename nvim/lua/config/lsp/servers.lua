@@ -3,7 +3,6 @@ return {
 	-- LUA
 	lua_ls = {},
 	-- FRONTEND
-	svelte = {},
 	ts_ls = {
 		init_options = {
 			plugins = {
@@ -45,7 +44,6 @@ return {
 			"htmlangular",
 		},
 	},
-	-- prettier = {},
 	jsonls = {
 		init_options = {
 			provideFormatter = false,
@@ -78,24 +76,5 @@ return {
 			"vue",
 		},
 	},
-	prismals = {},
-	yamlls = {},
-	----- CPP -----
-	clangd = {},
-	-- clang_format = {},
-	codelldb = {},
-	-- ESLINT/PRETTIER Alternative
-	-- biome = {},
-	gopls = {},
-	golines = {},
-	---- GODOT ----
-	-- gdtoolkit = {
-	-- 	name = "godot",
-	-- 	cmd = vim.lsp.rpc.connect("127.0.0.1", 6005),
-	-- },
-	ocamllsp = {
-		cmd = { "ocamllsp" },
-		filetypes = { "ocaml", "menhir", "ocamlinterface", "ocamllex", "reason", "dune" },
-		root_markers = { "*.opam", "esy.json", "package.json", ".git", "dune-project", "dune-workspace" },
-	},
+	lemminx = {},
 }

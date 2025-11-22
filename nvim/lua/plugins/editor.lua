@@ -76,37 +76,10 @@ return {
 		event = "InsertEnter",
 		opts = {},
 	},
-	----- COMMENTS -----
-	-- {
-	-- 	"echasnovski/mini.comment",
-	-- 	event = "BufEnter",
-	-- 	version = "*",
-	-- 	dependencies = {
-	-- 		"JoosepAlviste/nvim-ts-context-commentstring",
-	-- 	},
-	-- 	config = function()
-	-- 		require("mini.comment").setup({
-	-- 			options = {
-	-- 				custom_commentstring = function()
-	-- 					return require("ts_context_commentstring").calculate_commentstring() or vim.bo.commentstring
-	-- 				end,
-	-- 			},
-	-- 		})
-	-- 	end,
-	-- },
 	{
 		"folke/ts-comments.nvim",
 		opts = {},
 		event = "VeryLazy",
-	},
-	----- REMOVE BUFFER -----
-	{
-		"echasnovski/mini.bufremove",
-		event = "VeryLazy",
-		version = "*",
-		config = function()
-			require("mini.bufremove").setup()
-		end,
 	},
 	----- JUMP -----
 	{
@@ -114,14 +87,14 @@ return {
 		event = "VeryLazy",
 		---@type Flash.Config
 		opts = {},
-	 -- stylua: ignore
-	 keys = {
-	   { "s", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
-	   { "S", mode = { "n", "x", "o" }, function() require("flash").treesitter() end, desc = "Flash Treesitter" },
-	   { "r", mode = "o", function() require("flash").remote() end, desc = "Remote Flash" },
-	   { "R", mode = { "o", "x" }, function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
-	   { "<c-s>", mode = { "c" }, function() require("flash").toggle() end, desc = "Toggle Flash Search" },
-	 },
+    -- stylua: ignore
+    keys = {
+      { "s",     mode = { "n", "x", "o" }, function() require("flash").jump() end,              desc = "Flash" },
+      { "S",     mode = { "n", "x", "o" }, function() require("flash").treesitter() end,        desc = "Flash Treesitter" },
+      { "r",     mode = "o",               function() require("flash").remote() end,            desc = "Remote Flash" },
+      { "R",     mode = { "o", "x" },      function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
+      { "<c-s>", mode = { "c" },           function() require("flash").toggle() end,            desc = "Toggle Flash Search" },
+    },
 	},
 	----- SURROUND -----
 	{
@@ -140,24 +113,6 @@ return {
 		event = "InsertEnter",
 		opts = {},
 	},
-	----- POSTGRESQL CLIENT -----
-	{
-		"kristijanhusak/vim-dadbod-ui",
-		dependencies = {
-			{ "tpope/vim-dadbod", lazy = true },
-			{ "kristijanhusak/vim-dadbod-completion", ft = { "sql", "mysql" }, lazy = true }, -- Optional
-		},
-		cmd = {
-			"DBUI",
-			"DBUIToggle",
-			"DBUIAddConnection",
-			"DBUIFindBuffer",
-		},
-		init = function()
-			-- Your DBUI configuration
-			vim.g.db_ui_use_nerd_fonts = 1
-		end,
-	},
 	----- ZEN MODE -----
 	{
 		"folke/zen-mode.nvim",
@@ -173,5 +128,18 @@ return {
 				},
 			},
 		},
+	},
+	----- CENTERED CURSOR ------
+	{
+		"arnamak/stay-centered.nvim",
+	},
+	----- indent line -----
+	{
+		"lukas-reineke/indent-blankline.nvim",
+		main = "ibl",
+		opts = {},
+		config = function()
+			require("config.editor.ibl")
+		end,
 	},
 }

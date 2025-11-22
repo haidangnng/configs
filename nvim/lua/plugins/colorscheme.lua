@@ -1,9 +1,17 @@
 return {
+	-- {
+	--   "EdenEast/nightfox.nvim",
+	--   priority = 1000,
+	--   config = function()
+	--     require("config.colorscheme.nightfox")
+	--   end,
+	-- },
 	{
-		"EdenEast/nightfox.nvim",
+		"uhs-robert/oasis.nvim",
+		lazy = false,
 		priority = 1000,
 		config = function()
-			require("config.colorscheme.nightfox")
+			require("config.colorscheme.oasis")
 		end,
 	},
 }

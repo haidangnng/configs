@@ -99,7 +99,7 @@ require("lualine").setup({
 		icons_enabled = true,
 		component_separators = {},
 		section_separators = {},
-		theme = "onedark",
+		theme = "ayu_dark",
 		disabled_filetypes = {
 			statusline = {
 				"dashboard",

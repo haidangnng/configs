@@ -5,6 +5,22 @@ local merge_tb = vim.tbl_deep_extend
 
 local mappings = {}
 
+----- BUFREMOVE -----
+mappings.bufremove = {
+	n = {
+		["<leader>qa"] = {
+			":%bd|e#|bd#<CR>",
+			"Remove all buffer except current",
+			mapping_opt,
+		},
+		["<leader>qc"] = {
+			":bd<CR>",
+			"Remove current buffer",
+			mapping_opt,
+		},
+	},
+}
+
 ----- TERMINAL -----
 mappings.terminal = {
 	t = {
