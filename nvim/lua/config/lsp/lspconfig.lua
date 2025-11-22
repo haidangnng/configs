@@ -21,12 +21,21 @@ require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 
 local default_setup = function(server_name)
 	local server = servers[server_name] or {}
+
 	server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
 	-- if server_name == "volar" then
 	-- 	server.filetypes = { "vue", "typescript", "javascript" }
 	-- end
 	require("lspconfig")[server_name].setup(server)
+	vim.lsp.config(server_name, server)
+	vim.lsp.enable({ server })
 end
+
+vim.lsp.config("gdscript", {
+	name = "godot",
+	cmd = vim.lsp.rpc.connect("127.0.0.1", 6005),
+})
+vim.lsp.enable({ "gdscript" })
 
 require("mason-lspconfig").setup({
 	auto_installation = true,

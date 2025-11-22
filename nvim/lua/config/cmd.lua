@@ -74,3 +74,43 @@ end
 
 -- if you only want these mappings for toggle term use term://*toggleterm#* instead
 vim.cmd("autocmd! TermOpen term://* lua set_terminal_keymaps()")
+---
+----- GODOT SERVER LISTENING -----
+-- Check if the current directory is a Godot project
+local project_file = vim.fn.getcwd() .. "/project.godot"
+
+if vim.fn.filereadable(project_file) == 1 then
+	-- The Godot editor needs Neovim to start a server and listen on a pipe.
+	-- This command starts the server for the *current* Neovim instance.
+	-- We'll use the specific pipe Godot expects: /tmp/godot.pipe
+
+	-- The godothost name is irrelevant here; the key is the pipe path.
+	local pipe_path = "/tmp/godot.pipe"
+
+	-- Check if a server is already listening on this pipe to avoid errors
+	local current_servers = vim.fn.serverlist()
+	local is_listening = false
+	for _, server in ipairs(current_servers) do
+		if server == pipe_path then
+			is_listening = true
+			break
+		end
+	end
+
+	if not is_listening then
+		-- Start the Neovim server listening on the specified pipe
+		local status = vim.fn.serverstart(pipe_path)
+
+		if status == 0 then
+			print("Godot Neovim server started on: " .. pipe_path)
+		else
+			-- status < 0 indicates an error (e.g., file permissions, pipe busy)
+			vim.notify(
+				"Error starting Godot Neovim server on " .. pipe_path .. ". Status: " .. status,
+				vim.log.levels.WARN
+			)
+		end
+	else
+		print("Godot Neovim server already running on: " .. pipe_path)
+	end
+end ----- GODOT SERVER LISTENING -----

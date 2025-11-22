@@ -41,6 +41,20 @@ local options = {
 		typescriptreact = { "prettierd", "prettier", stop_after_first = true },
 		javascript = { "prettierd", "prettier", stop_after_first = true },
 		javascriptreact = { "prettierd", "prettier", stop_after_first = true },
+		gdscript = { "gdformat" },
+		ocaml = { "ocamlformat" },
+	},
+	formatters = {
+		ocamlformat = {
+			prepend_args = {
+				"--if-then-else",
+				"vertical",
+				"--break-cases",
+				"fit-or-vertical",
+				"--type-decl",
+				"sparse",
+			},
+		},
 	},
 }
 

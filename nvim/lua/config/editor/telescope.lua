@@ -70,6 +70,10 @@ local options = {
 		selection_caret = " ❯ ",
 		sorting_strategy = "ascending",
 		file_ignore_patterns = {
+			"assets/",
+			"%.tscn",
+			"%.gd.uid",
+			".godot/",
 			"env/",
 			".mypy_cache",
 			".next/",

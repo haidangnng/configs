@@ -82,11 +82,20 @@ return {
 	yamlls = {},
 	----- CPP -----
 	clangd = {},
-	clang_format = {},
+	-- clang_format = {},
 	codelldb = {},
 	-- ESLINT/PRETTIER Alternative
 	-- biome = {},
 	gopls = {},
 	golines = {},
-	---- SWIFT ----
+	---- GODOT ----
+	-- gdtoolkit = {
+	-- 	name = "godot",
+	-- 	cmd = vim.lsp.rpc.connect("127.0.0.1", 6005),
+	-- },
+	ocamllsp = {
+		cmd = { "ocamllsp" },
+		filetypes = { "ocaml", "menhir", "ocamlinterface", "ocamllex", "reason", "dune" },
+		root_markers = { "*.opam", "esy.json", "package.json", ".git", "dune-project", "dune-workspace" },
+	},
 }

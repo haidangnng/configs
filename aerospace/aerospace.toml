@@ -135,12 +135,14 @@ automatically-unhide-macos-hidden-apps = false
     alt-n = 'workspace N' # for Note
     alt-v = 'workspace V' # for VSCode
     alt-x = 'workspace X' # for XCode
+    alt-g = 'workspace G' # for Godot
     
     # See: https://nikitabobko.github.io/AeroSpace/commands#move-node-to-workspace
     alt-shift-1 = 'move-node-to-workspace 1'
     alt-shift-2 = 'move-node-to-workspace 2'
 
     alt-shift-b = 'move-node-to-workspace B'
+    alt-shift-g = 'move-node-to-workspace G'
     alt-shift-s = 'move-node-to-workspace S'
     alt-shift-m = 'move-node-to-workspace M'
     alt-shift-t = 'move-node-to-workspace T'
@@ -183,6 +185,7 @@ B = 'main'
 T = 'main'
 V = 'main'
 X = 'main'
+G = 'main'
 N = ['secondary', 'main']
 S = ['secondary', 'main']
 M = ['secondary', 'main']
@@ -261,4 +264,8 @@ P = ['secondary', 'main']
 [[on-window-detected]]
   if.app-id = 'com.apple.dt.Xcode'
   run = 'move-node-to-workspace X'
+
+[[on-window-detected]]
+  if.app-id = 'org.godotengine.godot'
+  run = ['layout floating','move-node-to-workspace G']
 

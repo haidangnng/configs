@@ -30,4 +30,6 @@ return {
 			},
 		},
 	},
+	----- GODOT -----
+	{ "habamax/vim-godot", event = "VeryLazy" },
 }
