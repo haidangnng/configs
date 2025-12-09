@@ -11,7 +11,7 @@ local function font_with_fallback(name, params)
 end
 
 -- local font_name = "Iosevka Nerd Font Mono"
-local font_name = "Monaspace Neon"
+-- local font_name = "Monaspace Neon"
 
 return {
 	-- OpenGL for GPU acceleration, Software for CPU
@@ -64,8 +64,8 @@ return {
 	-- General
 	automatically_reload_config = true,
 	inactive_pane_hsb = { saturation = 0.9, brightness = 0.4 },
-	-- window_background_opacity = 0.90,
-	-- macos_window_background_blur = 10,
+	window_background_opacity = 0.90,
+	macos_window_background_blur = 10,
 	window_decorations = "RESIZE",
 
 	mouse_wheel_scrolls_tabs = false,

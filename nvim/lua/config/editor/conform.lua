@@ -31,7 +31,7 @@ local options = {
 		-- You can customize some of the format options for the filetype (:help conform.format)
 		-- rust = { "rustfmt", lsp_format = "fallback" },
 		lua = { "stylua" },
-		python = { "pylsp" },
+		python = { "ruff", "pylsp" },
 		cpp = { "clang-format" },
 		-- latex = { "latexindent" },
 		-- svelte = { "prettierd", "prettier" },

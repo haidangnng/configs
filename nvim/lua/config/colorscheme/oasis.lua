@@ -1,2 +1,17 @@
-require("oasis").setup() -- (see Configuration below for all customization options)
-vim.cmd.colorscheme("oasis-starlight") -- After setup, apply theme (or a any style like "oasis-night")
+require("oasis").setup({
+	style = "lagoon",
+	light_intensity = 5,
+
+	transparent = true,
+	terminal_colors = true,
+
+	contrast = {
+		min_ratio = 5.8,
+		force_aaa = false,
+	},
+
+	palette_overrides = {},
+	highlight_overrides = {},
+})
+
+vim.cmd.colorscheme("oasis-starlight")

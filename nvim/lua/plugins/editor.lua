@@ -133,7 +133,7 @@ return {
 	{
 		"arnamak/stay-centered.nvim",
 	},
-	----- indent line -----
+	----- INDENT LINE -----
 	{
 		"lukas-reineke/indent-blankline.nvim",
 		main = "ibl",
@@ -141,5 +141,10 @@ return {
 		config = function()
 			require("config.editor.ibl")
 		end,
+	},
+	----- GITHUB COPILOT ------
+	{
+		"github/copilot.vim",
+		event = "VeryLazy",
 	},
 }

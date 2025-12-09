@@ -76,5 +76,5 @@ return {
 			"vue",
 		},
 	},
-	lemminx = {},
+	pylsp = {},
 }
