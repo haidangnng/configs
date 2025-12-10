@@ -1,0 +1,20 @@
+{
+  "$schema": "https://opencode.ai/theme.json",
+  "theme": {
+    "primary": "#399EE6",
+    "secondary": "#55B4D4",
+    "accent": "#E6B450",
+    "error": "#F07178",
+    "warning": "#E6B450",
+    "success": "#7FD962",
+    "info": "#399EE6",
+    "text": "#BAC5D0",
+    "textMuted": "#73B8C8",
+    "background": "none",
+    "backgroundPanel": "none",
+    "backgroundElement": "none",
+    "border": "#399EE6",
+    "borderActive": "#55B4D4",
+    "borderSubtle": "#517F8D"
+  }
+}
