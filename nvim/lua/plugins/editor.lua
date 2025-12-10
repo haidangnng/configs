@@ -8,21 +8,6 @@ return {
 			require("config.editor.oil")
 		end,
 	},
-	----- TELESCOPE -----
-	{
-		"nvim-telescope/telescope.nvim",
-		dependencies = {
-			{ "nvim-lua/plenary.nvim" },
-			{ "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
-			{ "nvim-telescope/telescope-media-files.nvim" },
-			"nvim-telescope/telescope-ui-select.nvim",
-			{ "nvim-tree/nvim-web-devicons", enabled = vim.g.have_nerd_font },
-		},
-		cmd = "Telescope",
-		config = function()
-			require("config.editor.telescope")
-		end,
-	},
 	----- STATUSLINE - LUALINE -----
 	{
 		"nvim-lualine/lualine.nvim",
@@ -132,15 +117,6 @@ return {
 	----- CENTERED CURSOR ------
 	{
 		"arnamak/stay-centered.nvim",
-	},
-	----- INDENT LINE -----
-	{
-		"lukas-reineke/indent-blankline.nvim",
-		main = "ibl",
-		opts = {},
-		config = function()
-			require("config.editor.ibl")
-		end,
 	},
 	----- GITHUB COPILOT ------
 	{
