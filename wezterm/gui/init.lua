@@ -17,7 +17,7 @@ return {
 	-- OpenGL for GPU acceleration, Software for CPU
 	front_end = "OpenGL",
 	font = font_with_fallback(font_name),
-	font_size = 14,
+	font_size = 16,
 	line_height = 1.2,
 	-- use_ime = true,
 	-- enable_wayland = false, -- if you're using X11, or set accordingly
@@ -63,7 +63,7 @@ return {
 
 	-- General
 	automatically_reload_config = true,
-	inactive_pane_hsb = { saturation = 0.9, brightness = 0.4 },
+	inactive_pane_hsb = { saturation = 0.9, brightness = 0.9 },
 	window_background_opacity = 0.90,
 	macos_window_background_blur = 10,
 	window_decorations = "RESIZE",
