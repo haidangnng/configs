@@ -11,7 +11,9 @@ require("oasis").setup({
 	},
 
 	palette_overrides = {},
-	highlight_overrides = {},
+	highlight_overrides = {
+		CursorLineNr = { bg = "NONE" },
+	},
 })
 
 vim.cmd.colorscheme("oasis-starlight")

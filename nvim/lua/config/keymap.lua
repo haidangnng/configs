@@ -129,7 +129,7 @@ end, desc("Search in current buffer"))
 map("n", "<leader>fh", function()
 	Snacks.picker.help()
 end, desc("Search help tags"))
-map("n", "<leader>fk", function()
+map("n", "<leader>sk", function()
 	Snacks.picker.keymaps({
 		layout = {
 			layout = {

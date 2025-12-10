@@ -71,6 +71,8 @@ return {
 				["<C-u>"] = { "preview_scroll_up", mode = { "i", "n" } },
 				["<leader>pf"] = { "switch_files", mode = { "i", "n" } },
 				["<leader>ps"] = { "switch_grep", mode = { "i", "n" } },
+				["<Tab>"] = { "list_down", mode = { "i", "n" } },
+				["<S-Tab>"] = { "list_up", mode = { "i", "n" } },
 			},
 		},
 	},

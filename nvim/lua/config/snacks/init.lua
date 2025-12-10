@@ -12,9 +12,9 @@ M.opts = {
 	scope = { enabled = true },
 	statuscolumn = { enabled = true },
 	words = { enabled = true },
-	lazygit = require("config.snacks.lazygit"),
+	lazygit = { enabled = true },
 	picker = require("config.snacks.picker"),
-	zen = require("config.snacks.zen"),
+	zen = { enabled = true },
 }
 
 M.config = function(_, opts)
