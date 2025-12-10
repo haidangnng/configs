@@ -9,22 +9,141 @@
       "enabled": true
     }
   },
-  "share": "disabled",
   "permission": {
     "edit": "ask",
     "bash": "ask",
-    "webfetch": "ask",
+    "webfetch": "ask", // Global setting, overridden per agent below
     "doom_loop": "ask",
     "external_directory": "deny"
   },
   "tools": {
     "edit": true,
     "bash": true,
-    "write": true,
+    "write": true
   },
   "instructions": [
     "CONTRIBUTING.md",
     "docs/guidelines.md",
-    "CLAUDE.md"
+    "CLAUDE.md",
+    "AGENTS.md"
   ],
+  // 🤖 AGENT CONFIGURATION
+  "agent": {
+    // 🎨 Frontend Specialist
+    "frontend": {
+      "description": "Expert React/Next.js developer. Handles UI, State (Jotai), and Forms.",
+      "model": "github-copilot/claude-sonnet-4.5",
+      "mode": "subagent",
+      "temperature": 0.2, // Slight flex for UI logic
+      "tools": {
+        "webfetch": false
+      }
+    },
+    // ☁️ AWS Backend Specialist
+    "backend": {
+      "description": "AWS Cloud Architect. Handles CDK, Lambda, Docker, and Infrastructure.",
+      "model": "github-copilot/claude-sonnet-4.5",
+      "mode": "subagent",
+      "temperature": 0.0, // STRICT: No hallucination allowed on Infra
+      "tools": {
+        "webfetch": false
+      }
+    },
+    // 🔐 Azure Identity Specialist
+    "azure": {
+      "description": "Identity Security Expert. Handles Azure AD, B2C, and Auth Flows.",
+      "model": "github-copilot/claude-sonnet-4.5",
+      "mode": "subagent",
+      "temperature": 0.0, // STRICT: Security requires precision
+      "tools": {
+        "webfetch": false
+      }
+    },
+    // 🧠 1. Planning (Local) - High reasoning, no code editing
+    "planning": {
+      "description": "Architectural planner. Analyzes files and creates step-by-step specs.",
+      "model": "github-copilot/claude-sonnet-4.5",
+      "mode": "subagent",
+      "temperature": 0.1,
+      "tools": {
+        "edit": false,
+        "write": false,
+        "webfetch": false
+      }
+    },
+    // 🔨 2. Build (Local) - The standard coder, but focused purely on implementation
+    "build": {
+      "description": "Implementation specialist. Focuses on writing code and refactoring.",
+      "model": "github-copilot/claude-sonnet-4.5",
+      "mode": "subagent",
+      "temperature": 0.0, // Strict coding
+      "tools": {
+        "webfetch": false
+      }
+    },
+    // 🧐 3. Code Review (Local) - Critical analysis
+    "review": {
+      "description": "Code reviewer. Analyses changes for patterns, smells, and security.",
+      "model": "github-copilot/claude-sonnet-4.5",
+      "mode": "subagent",
+      "temperature": 0.1,
+      "tools": {
+        "edit": false, // Reviewers shouldn't edit silently
+        "webfetch": false
+      }
+    },
+    // 📚 4. Docs (Local) - Fast updates
+    "docs": {
+      "description": "Documentation writer. Updates JSDoc/Docstrings and Readmes.",
+      "model": "github-copilot/claude-haiku-4.5", // Haiku is great for text gen
+      "mode": "subagent",
+      "temperature": 0.2,
+      "tools": {
+        "webfetch": false
+      }
+    },
+    // 🧪 5. QA (Local) - Plan test cases only
+    "qa": {
+      "description": "QA Engineer. Generates test plans and identifies edge cases.",
+      "model": "github-copilot/claude-sonnet-4.5", // Needs logic to find edge cases
+      "mode": "subagent",
+      "temperature": 0.2,
+      "tools": {
+        "edit": false,
+        "webfetch": false
+      }
+    },
+    // 🎨 6. Creative Thinker (Local) - Brainstorming
+    "creative": {
+      "description": "Out-of-the-box thinker for brainstorming solutions.",
+      "model": "github-copilot/claude-sonnet-4.5",
+      "mode": "subagent",
+      "temperature": 0.7, // Higher temp for creativity
+      "tools": {
+        "webfetch": false
+      }
+    },
+    // 🐛 7. Debugging (Local) - Root cause analysis
+    "debug": {
+      "description": "Debugger. Analyzes logs and code to find root causes.",
+      "model": "github-copilot/claude-sonnet-4.5",
+      "mode": "subagent",
+      "temperature": 0.1,
+      "tools": {
+        "webfetch": false
+      }
+    },
+    // 🌐 8. Researcher (Web) - The ONLY one with internet access
+    "research": {
+      "description": "Web researcher. Finds documentation, libraries, and solutions.",
+      "model": "github-copilot/claude-sonnet-4.5",
+      "mode": "subagent",
+      "temperature": 0.3,
+      "tools": {
+        "webfetch": true, // Enabled
+        "edit": false, // Should not edit code, only report findings
+        "bash": false
+      }
+    }
+  }
 }
