@@ -18,8 +18,12 @@ return {
 	},
 	----- SOME UI SHITE -----
 	{
-		"stevearc/dressing.nvim",
+		"ibhagwan/fzf-lua",
 		event = "VeryLazy",
+		dependencies = { "nvim-tree/nvim-web-devicons" },
+		config = function()
+			require("config.editor.fzf")
+		end,
 	},
 	{
 		"folke/noice.nvim",
