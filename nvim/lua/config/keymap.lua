@@ -46,19 +46,12 @@ map("n", "<leader>rl", [[:s/\<<C-r><C-w>\>//gI<Left><Left><Left>]], desc("Replac
 --------------------------------------------------------------------------------
 -- WINDOW/SPLIT MANAGEMENT
 --------------------------------------------------------------------------------
--- Navigate between splits (requires smart-splits plugin)
-map("n", "<C-h>", function()
-	require("smart-splits").move_cursor_left()
-end, desc("Move to left window"))
-map("n", "<C-j>", function()
-	require("smart-splits").move_cursor_down()
-end, desc("Move to bottom window"))
-map("n", "<C-k>", function()
-	require("smart-splits").move_cursor_up()
-end, desc("Move to top window"))
-map("n", "<C-l>", function()
-	require("smart-splits").move_cursor_right()
-end, desc("Move to right window"))
+-- Navigate between splits (cache smart-splits)
+local smart_splits = require("smart-splits")
+map("n", "<C-h>", smart_splits.move_cursor_left, desc("Move to left window"))
+map("n", "<C-j>", smart_splits.move_cursor_down, desc("Move to bottom window"))
+map("n", "<C-k>", smart_splits.move_cursor_up, desc("Move to top window"))
+map("n", "<C-l>", smart_splits.move_cursor_right, desc("Move to right window"))
 
 -- Split windows
 map("n", "<leader>sj", ":split<CR><C-w>j", desc("Split window horizontal"))
@@ -68,6 +61,16 @@ map("n", "<leader>sq", ":close<CR>", desc("Close current window"))
 --------------------------------------------------------------------------------
 -- BUFFER MANAGEMENT
 --------------------------------------------------------------------------------
+-- Helper function to delete buffers
+local function delete_buffers(filter_fn)
+	local bufdelete = require("snacks.bufdelete")
+	for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+		if vim.api.nvim_buf_is_loaded(buf) and filter_fn(buf) then
+			bufdelete.delete(buf)
+		end
+	end
+end
+
 map("n", "<leader>qc", function()
 	local bufs = vim.fn.getbufinfo({ buflisted = 1 })
 	if #bufs <= 1 then
@@ -79,21 +82,15 @@ end, desc("Close current buffer"))
 
 map("n", "<leader>qa", function()
 	local current_buf = vim.api.nvim_get_current_buf()
-	local all_bufs = vim.api.nvim_list_bufs()
-	for _, buf in ipairs(all_bufs) do
-		if buf ~= current_buf and vim.api.nvim_buf_is_loaded(buf) then
-			require("snacks.bufdelete").delete(buf)
-		end
-	end
+	delete_buffers(function(buf)
+		return buf ~= current_buf
+	end)
 end, desc("Close all buffers except current"))
 
 map("n", "<leader>qq", function()
-	local all_bufs = vim.api.nvim_list_bufs()
-	for _, buf in ipairs(all_bufs) do
-		if vim.api.nvim_buf_is_loaded(buf) then
-			require("snacks.bufdelete").delete(buf)
-		end
-	end
+	delete_buffers(function()
+		return true
+	end)
 	vim.cmd("Oil " .. vim.fn.getcwd())
 end, desc("Close all buffers"))
 
@@ -103,12 +100,12 @@ end, desc("Close all buffers"))
 map("n", "-", "<CMD>Oil<CR>", desc("Open parent directory"))
 
 --------------------------------------------------------------------------------
--- TERMINAL (ToggleTerm)
+-- TERMINAL (Snacks)
 --------------------------------------------------------------------------------
-map("n", "<C-t>", "<Cmd>ToggleTerm direction=float<CR>", desc("Toggle floating terminal"))
-map("t", "<C-t>", "<Cmd>ToggleTerm<CR>", desc("Toggle floating terminal"))
-map("n", "<leader>tj", "<Cmd>ToggleTerm direction=horizontal<CR>", desc("Toggle horizontal terminal"))
-map("n", "<leader>tl", "<Cmd>ToggleTerm direction=vertical<CR>", desc("Toggle vertical terminal"))
+map("n", "<C-t>", function()
+	Snacks.terminal(nil, { win = { position = "float" } })
+end, desc("Toggle floating terminal"))
+map("t", "<C-t>", "<Cmd>close<CR>", desc("Close terminal"))
 
 --------------------------------------------------------------------------------
 -- PICKER (Snacks)
@@ -207,7 +204,7 @@ map("n", "gi", function()
 end, desc("List implementations (picker)"))
 
 -- Actions
-map("n", "<leader>ca", vim.lsp.buf.code_action, desc("Code actions"))
+map("n", "<leader>ca", "<cmd>Lspsaga code_action<CR>", desc("Code actions"))
 map("n", "<leader>rn", vim.lsp.buf.rename, desc("Rename symbol"))
 map("n", "<leader>rs", ":LspRestart<CR>", desc("Restart LSP"))
 map("n", "K", "<cmd>Lspsaga hover_doc<CR>", desc("Hover documentation"))
@@ -238,13 +235,13 @@ end, desc("Previous word reference"))
 --------------------------------------------------------------------------------
 -- DEBUGGER (DAP)
 --------------------------------------------------------------------------------
-map("n", "<leader>db", "<cmd>DapToggleBreakpoint<CR>", desc("Toggle breakpoint"))
-map("n", "<leader>dr", "<cmd>DapContinue<CR>", desc("Start/Continue debugger"))
+-- map("n", "<leader>db", "<cmd>DapToggleBreakpoint<CR>", desc("Toggle breakpoint"))
+-- map("n", "<leader>dr", "<cmd>DapContinue<CR>", desc("Start/Continue debugger"))
 
 --------------------------------------------------------------------------------
 -- TASK RUNNER (Overseer)
 --------------------------------------------------------------------------------
-map("n", "<leader>or", "<cmd>OverseerRun<CR>", desc("Run build task"))
+-- map("n", "<leader>or", "<cmd>OverseerRun<CR>", desc("Run build task"))
 
 --------------------------------------------------------------------------------
 -- ZEN MODE

@@ -3,9 +3,13 @@ return {
 	{
 		"saghen/blink.cmp",
 		event = "InsertEnter",
-		-- dependencies = "rafamadriz/friendly-snippets",
 		dependencies = {
-			{ "rafamadriz/friendly-snippets" },
+			{
+				"rafamadriz/friendly-snippets",
+				config = function()
+					require("luasnip.loaders.from_vscode").lazy_load()
+				end,
+			},
 			{
 				"L3MON4D3/LuaSnip",
 				build = (function()
@@ -14,29 +18,6 @@ return {
 					end
 					return "make install_jsregexp"
 				end)(),
-				dependencies = {
-					{
-						"rafamadriz/friendly-snippets",
-						config = function()
-							require("luasnip.loaders.from_vscode").lazy_load()
-						end,
-					},
-				},
-			},
-			{
-				"giuxtaposition/blink-cmp-copilot",
-				dependencies = {
-					{
-						"zbirenbaum/copilot.lua",
-						cmd = "Copilot",
-						config = function()
-							require("copilot").setup({
-								suggestion = { enabled = false },
-								panel = { enabled = false },
-							})
-						end,
-					},
-				},
 			},
 		},
 		version = "*",
@@ -48,8 +29,7 @@ return {
 	----- LSP -----
 	{
 		"neovim/nvim-lspconfig",
-		-- event = "InsertEnter",
-		-- event = "VeryLazy",
+		event = { "BufReadPre", "BufNewFile" },
 		dependencies = {
 			{ "williamboman/mason.nvim", config = true },
 			"williamboman/mason-lspconfig.nvim",
@@ -67,7 +47,6 @@ return {
 			"saghen/blink.cmp",
 			{ "j-hui/fidget.nvim", opts = {} },
 		},
-		-- event = "VeryLazy",
 		config = function()
 			require("config.lsp.lspconfig")
 		end,
@@ -89,11 +68,19 @@ return {
 		event = "LspAttach",
 		config = function()
 			require("lspsaga").setup({
-				-- symbol_in_winbar = { enable = false },
 				lightbulb = { enable = false },
 				ui = {
 					border = "rounded",
 					lines = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
+				},
+				code_action = {
+					num_shortcut = true,
+					show_server_name = false,
+					extend_gitsigns = false,
+					keys = {
+						quit = { "q", "<ESC>" },
+						exec = "<CR>",
+					},
 				},
 			})
 
@@ -110,46 +97,8 @@ return {
 			vim.cmd("highlight SagaNormal guibg=NONE ctermbg=NONE")
 		end,
 		dependencies = {
-			"nvim-treesitter/nvim-treesitter", -- optional
-			"nvim-tree/nvim-web-devicons", -- optional
+			"nvim-treesitter/nvim-treesitter",
+			"nvim-tree/nvim-web-devicons",
 		},
 	},
-	----- TROUBLE - LSP DIAGNOGSTICS -----
-	-- {
-	-- 	"folke/trouble.nvim",
-	-- 	opts = {}, -- for default options, refer to the configuration section for custom setup.
-	-- 	cmd = "Trouble",
-	-- 	keys = {
-	-- 		{
-	-- 			"<leader>xx",
-	-- 			"<cmd>Trouble diagnostics toggle<cr>",
-	-- 			desc = "Diagnostics (Trouble)",
-	-- 		},
-	-- 		{
-	-- 			"<leader>xX",
-	-- 			"<cmd>Trouble diagnostics toggle filter.buf=0<cr>",
-	-- 			desc = "Buffer Diagnostics (Trouble)",
-	-- 		},
-	-- 		{
-	-- 			"<leader>cs",
-	-- 			"<cmd>Trouble symbols toggle focus=false<cr>",
-	-- 			desc = "Symbols (Trouble)",
-	-- 		},
-	-- 		{
-	-- 			"<leader>cl",
-	-- 			"<cmd>Trouble lsp toggle focus=false win.position=right<cr>",
-	-- 			desc = "LSP Definitions / references / ... (Trouble)",
-	-- 		},
-	-- 		{
-	-- 			"<leader>xL",
-	-- 			"<cmd>Trouble loclist toggle<cr>",
-	-- 			desc = "Location List (Trouble)",
-	-- 		},
-	-- 		{
-	-- 			"<leader>xQ",
-	-- 			"<cmd>Trouble qflist toggle<cr>",
-	-- 			desc = "Quickfix List (Trouble)",
-	-- 		},
-	-- 	},
-	-- },
 }

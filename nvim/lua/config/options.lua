@@ -10,7 +10,7 @@ end
 local opts = {
 	backup = false,
 	clipboard = "unnamedplus",
-	cmdheight = 1,
+	cmdheight = 0,
 	completeopt = { "menuone", "noselect", "menu" },
 	conceallevel = 0,
 	fileencoding = "utf-8",
@@ -18,7 +18,7 @@ local opts = {
 	ignorecase = true,
 	mouse = "a",
 	pumheight = 10,
-	showmode = true,
+	showmode = false,
 	showtabline = 1,
 	smartcase = true,
 	smartindent = true,
@@ -36,11 +36,10 @@ local opts = {
 	cursorline = true,
 	number = true,
 	relativenumber = true,
-	numberwidth = 2, -- set number column width to 2 {default 4}
+	numberwidth = 2,
 	signcolumn = "yes",
 	wrap = true,
 	scrolloff = 10,
-	formatoptions = vim.o.formatoptions .. "orj",
 	list = true,
 	listchars = { tab = "» ", trail = "·", nbsp = "␣" },
 }
@@ -49,10 +48,16 @@ for k, v in pairs(opts) do
 	vim.opt[k] = v
 end
 
+-- Set formatoptions separately to avoid concatenation issues
+vim.opt.formatoptions:append("orj")
+
+-- Global border style for all floating windows
+vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" })
+vim.lsp.handlers["textDocument/signatureHelp"] =
+	vim.lsp.with(vim.lsp.handlers.signature_help, { border = "rounded" })
+
 vim.diagnostic.config({
-	-- severity_sort = true,
-	-- float = { border = "rounded", source = "if_many" },
-	-- underline = { severity = vim.diagnostic.severity.ERROR },
+	float = { border = "rounded" },
 	signs = vim.g.have_nerd_font and {
 		text = {
 			[vim.diagnostic.severity.ERROR] = "󰅚 ",
@@ -64,14 +69,5 @@ vim.diagnostic.config({
 	virtual_text = {
 		source = "if_many",
 		spacing = 2,
-		format = function(diagnostic)
-			local diagnostic_message = {
-				[vim.diagnostic.severity.ERROR] = diagnostic.message,
-				[vim.diagnostic.severity.WARN] = diagnostic.message,
-				[vim.diagnostic.severity.INFO] = diagnostic.message,
-				[vim.diagnostic.severity.HINT] = diagnostic.message,
-			}
-			return diagnostic_message[diagnostic.severity]
-		end,
 	},
 })

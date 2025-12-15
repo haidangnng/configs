@@ -16,44 +16,17 @@ return {
 			require("config.editor.lualine")
 		end,
 	},
-	----- SOME UI SHITE -----
-	{
-		"ibhagwan/fzf-lua",
-		event = "VeryLazy",
-		dependencies = { "nvim-tree/nvim-web-devicons" },
-		config = function()
-			require("config.editor.fzf")
-		end,
-	},
-	{
-		"folke/noice.nvim",
-		event = "VeryLazy",
-		dependencies = {
-			"MunifTanjim/nui.nvim",
-		},
-		config = function()
-			require("config.editor.noice")
-		end,
-	},
+
 	----- TREESITTER - SYNTAX HIGHLIGHTING -----
 	{
 		"nvim-treesitter/nvim-treesitter",
-		event = "UIEnter",
+		event = { "BufReadPost", "BufNewFile" },
 		build = ":TSUpdate",
-		lazy = true,
 		config = function()
 			require("config.editor.treesitter")
 		end,
 	},
-	------ TERMINAL ------
-	{
-		"akinsho/toggleterm.nvim",
-		event = "VeryLazy",
-		version = "*",
-		config = function()
-			require("config.editor.toggleterm")
-		end,
-	},
+
 	----- SPLIT VIEW -----
 	{
 		"mrjones2014/smart-splits.nvim",
@@ -73,17 +46,45 @@ return {
 	----- JUMP -----
 	{
 		"folke/flash.nvim",
-		event = "VeryLazy",
-		---@type Flash.Config
-		opts = {},
-    -- stylua: ignore
-    keys = {
-      { "s",     mode = { "n", "x", "o" }, function() require("flash").jump() end,              desc = "Flash" },
-      { "S",     mode = { "n", "x", "o" }, function() require("flash").treesitter() end,        desc = "Flash Treesitter" },
-      { "r",     mode = "o",               function() require("flash").remote() end,            desc = "Remote Flash" },
-      { "R",     mode = { "o", "x" },      function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
-      { "<c-s>", mode = { "c" },           function() require("flash").toggle() end,            desc = "Toggle Flash Search" },
-    },
+		optional = true,
+		specs = {
+			{
+				"folke/snacks.nvim",
+				opts = {
+					picker = {
+						win = {
+							input = {
+								keys = {
+									["<a-s>"] = { "flash", mode = { "n", "i" } },
+									["s"] = { "flash" },
+								},
+							},
+						},
+						actions = {
+							flash = function(picker)
+								require("flash").jump({
+									pattern = "^",
+									label = { after = { 0, 0 } },
+									search = {
+										mode = "search",
+										exclude = {
+											function(win)
+												return vim.bo[vim.api.nvim_win_get_buf(win)].filetype
+													~= "snacks_picker_list"
+											end,
+										},
+									},
+									action = function(match)
+										local idx = picker.list:row2idx(match.pos[1])
+										picker.list:_move(idx, true, true)
+									end,
+								})
+							end,
+						},
+					},
+				},
+			},
+		},
 	},
 	----- SURROUND -----
 	{
@@ -101,25 +102,5 @@ return {
 		"windwp/nvim-ts-autotag",
 		event = "InsertEnter",
 		opts = {},
-	},
-	----- ZEN MODE -----
-	{
-		"folke/zen-mode.nvim",
-		opts = {
-			windows = {
-				width = 150,
-			},
-			plugins = {
-				wezterm = {
-					enabled = false,
-					-- can be either an absolute font size or the number of incremental steps
-					font = "+4", -- (10% increase per step)
-				},
-			},
-		},
-	},
-	----- CENTERED CURSOR ------
-	{
-		"arnamak/stay-centered.nvim",
 	},
 }

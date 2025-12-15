@@ -62,6 +62,12 @@ vim.api.nvim_create_autocmd("LspAttach", {
 })
 
 function _G.set_terminal_keymaps()
+	-- Don't set keymaps for lazygit terminals
+	local bufname = vim.api.nvim_buf_get_name(0)
+	if bufname:match("lazygit") then
+		return
+	end
+
 	local opts = { buffer = 0 }
 	vim.keymap.set("t", "<esc>", [[<C-\><C-n>]], opts)
 	vim.keymap.set("t", "jk", [[<C-\><C-n>]], opts)
@@ -72,45 +78,16 @@ function _G.set_terminal_keymaps()
 	vim.keymap.set("t", "<C-w>", [[<C-\><C-n><C-w>]], opts)
 end
 
--- if you only want these mappings for toggle term use term://*toggleterm#* instead
+-- Apply terminal keymaps to all terminals except lazygit
 vim.cmd("autocmd! TermOpen term://* lua set_terminal_keymaps()")
----
------ GODOT SERVER LISTENING -----
--- Check if the current directory is a Godot project
-local project_file = vim.fn.getcwd() .. "/project.godot"
 
-if vim.fn.filereadable(project_file) == 1 then
-	-- The Godot editor needs Neovim to start a server and listen on a pipe.
-	-- This command starts the server for the *current* Neovim instance.
-	-- We'll use the specific pipe Godot expects: /tmp/godot.pipe
-
-	-- The godothost name is irrelevant here; the key is the pipe path.
-	local pipe_path = "/tmp/godot.pipe"
-
-	-- Check if a server is already listening on this pipe to avoid errors
-	local current_servers = vim.fn.serverlist()
-	local is_listening = false
-	for _, server in ipairs(current_servers) do
-		if server == pipe_path then
-			is_listening = true
-			break
+-- Auto enter insert mode when opening terminal
+vim.api.nvim_create_autocmd("TermOpen", {
+	group = vim.api.nvim_create_augroup("terminal-insert-mode", { clear = true }),
+	callback = function()
+		local bufname = vim.api.nvim_buf_get_name(0)
+		if not bufname:match("lazygit") then
+			vim.cmd("startinsert")
 		end
-	end
-
-	if not is_listening then
-		-- Start the Neovim server listening on the specified pipe
-		local status = vim.fn.serverstart(pipe_path)
-
-		if status == 0 then
-			print("Godot Neovim server started on: " .. pipe_path)
-		else
-			-- status < 0 indicates an error (e.g., file permissions, pipe busy)
-			vim.notify(
-				"Error starting Godot Neovim server on " .. pipe_path .. ". Status: " .. status,
-				vim.log.levels.WARN
-			)
-		end
-	else
-		print("Godot Neovim server already running on: " .. pipe_path)
-	end
-end ----- GODOT SERVER LISTENING -----
+	end,
+})

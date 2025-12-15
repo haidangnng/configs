@@ -20,23 +20,16 @@ local options = {
 	},
 
 	sources = {
-		default = { "lazydev", "lsp", "path", "copilot", "buffer", "snippets" },
+		default = { "lazydev", "lsp", "path", "buffer", "snippets" },
 		providers = {
 			lazydev = {
 				name = "LazyDev",
 				module = "lazydev.integrations.blink",
-				-- make lazydev completions top priority (see `:h blink.cmp`)
 				score_offset = 100,
 			},
-			copilot = {
-				name = "copilot",
-				module = "blink-cmp-copilot",
-				score_offset = 80, -- High priority, but below lazydev
-				async = true,
-			},
 			lsp = {
-				min_keyword_length = 2, -- Number of characters to trigger porvider
-				score_offset = 0, -- Boost/penalize the score of the items
+				min_keyword_length = 2,
+				score_offset = 0,
 			},
 			path = {
 				min_keyword_length = 0,

@@ -6,5 +6,4 @@ return {
 	lazy = false,
 	opts = snacks_config.opts,
 	config = snacks_config.config,
-	-- Keymaps are now centralized in config/keymap.lua
 }
