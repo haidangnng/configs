@@ -61,8 +61,8 @@ map("n", "<C-l>", function()
 end, desc("Move to right window"))
 
 -- Split windows
-map("n", "<leader>sj", ":split<CR><C-w>w", desc("Split window horizontal"))
-map("n", "<leader>sl", ":vsplit<CR><C-w>w", desc("Split window vertical"))
+map("n", "<leader>sj", ":split<CR><C-w>j", desc("Split window horizontal"))
+map("n", "<leader>sl", ":vsplit<CR><C-w>l", desc("Split window vertical"))
 map("n", "<leader>sq", ":close<CR>", desc("Close current window"))
 
 --------------------------------------------------------------------------------

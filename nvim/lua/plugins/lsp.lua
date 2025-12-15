@@ -23,6 +23,21 @@ return {
 					},
 				},
 			},
+			{
+				"giuxtaposition/blink-cmp-copilot",
+				dependencies = {
+					{
+						"zbirenbaum/copilot.lua",
+						cmd = "Copilot",
+						config = function()
+							require("copilot").setup({
+								suggestion = { enabled = false },
+								panel = { enabled = false },
+							})
+						end,
+					},
+				},
+			},
 		},
 		version = "*",
 		opts_extend = { "sources.default" },

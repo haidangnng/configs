@@ -118,9 +118,4 @@ return {
 	{
 		"arnamak/stay-centered.nvim",
 	},
-	----- GITHUB COPILOT ------
-	{
-		"github/copilot.vim",
-		event = "VeryLazy",
-	},
 }

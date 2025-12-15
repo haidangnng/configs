@@ -54,6 +54,9 @@ local exclude_patterns = {
 	"pnpm%-lock%.yaml",
 }
 
+-- Store the original window ID before opening picker
+local source_win = nil
+
 return {
 	enabled = true,
 	sources = {
@@ -76,7 +79,29 @@ return {
 			},
 		},
 	},
+	-- Capture source window when picker opens
+	on_show = function(picker)
+		if not source_win or not vim.api.nvim_win_is_valid(source_win) then
+			source_win = picker.win_source or vim.api.nvim_get_current_win()
+		end
+	end,
 	actions = {
+		-- Override default select action to use source window
+		select = function(picker)
+			local item = picker:current()
+			if item and item.file then
+				picker:close()
+				-- Switch to source window before opening file
+				if source_win and vim.api.nvim_win_is_valid(source_win) then
+					vim.api.nvim_set_current_win(source_win)
+				end
+				vim.cmd("edit " .. vim.fn.fnameescape(item.file))
+				if item.pos then
+					vim.api.nvim_win_set_cursor(0, { item.pos[1], item.pos[2] - 1 })
+				end
+				source_win = nil
+			end
+		end,
 		switch_files = function(picker)
 			picker:close()
 			vim.defer_fn(function()
@@ -93,20 +118,30 @@ return {
 			local item = picker:current()
 			if item and item.file then
 				picker:close()
+				-- Switch to source window before splitting
+				if source_win and vim.api.nvim_win_is_valid(source_win) then
+					vim.api.nvim_set_current_win(source_win)
+				end
 				vim.cmd("vsplit " .. vim.fn.fnameescape(item.file))
 				if item.pos then
 					vim.api.nvim_win_set_cursor(0, { item.pos[1], item.pos[2] - 1 })
 				end
+				source_win = nil
 			end
 		end,
 		my_split = function(picker)
 			local item = picker:current()
 			if item and item.file then
 				picker:close()
+				-- Switch to source window before splitting
+				if source_win and vim.api.nvim_win_is_valid(source_win) then
+					vim.api.nvim_set_current_win(source_win)
+				end
 				vim.cmd("split " .. vim.fn.fnameescape(item.file))
 				if item.pos then
 					vim.api.nvim_win_set_cursor(0, { item.pos[1], item.pos[2] - 1 })
 				end
+				source_win = nil
 			end
 		end,
 	},

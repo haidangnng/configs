@@ -33,7 +33,7 @@
     "frontend": {
       "description": "Expert React/Next.js developer. Handles UI, State (Jotai), and Forms.",
       "model": "github-copilot/claude-sonnet-4.5",
-      "prompt": "{file:./agents/frontend.md}",
+      "prompt": "{file:./agent/frontend.md}",
       "mode": "subagent",
       "temperature": 0.2, // Slight flex for UI logic
       "tools": {
@@ -43,7 +43,7 @@
     // ☁️ AWS Backend Specialist
     "aws": {
       "description": "AWS Cloud Architect. Handles CDK, Lambda, Docker, and Infrastructure.",
-      "prompt": "{file:./agents/aws.md}",
+      "prompt": "{file:./agent/aws.md}",
       "model": "github-copilot/claude-sonnet-4.5",
       "mode": "subagent",
       "temperature": 0.0, // STRICT: No hallucination allowed on Infra
@@ -59,7 +59,7 @@
     "azure": {
       "description": "Identity Security Expert. Handles Azure AD, B2C, and Auth Flows.",
       "model": "github-copilot/claude-sonnet-4.5",
-      "prompt": "{file:./agents/azure.md}",
+      "prompt": "{file:./agent/azure.md}",
       "mode": "subagent",
       "temperature": 0.0, // STRICT: Security requires precision
       "tools": {
@@ -71,7 +71,7 @@
       "description": "Architectural planner. Analyzes files and creates step-by-step specs.",
       "model": "github-copilot/claude-sonnet-4.5",
       "mode": "subagent",
-      "prompt": "{file:./agents/planning.md}",
+      "prompt": "{file:./agent/planning.md}",
       "temperature": 0.1,
       "tools": {
         "edit": false,
@@ -84,7 +84,7 @@
       "description": "Code reviewer. Analyses changes for patterns, smells, and security.",
       "model": "github-copilot/claude-sonnet-4.5",
       "mode": "subagent",
-      "prompt": "{file:./agents/reviewer.md}",
+      "prompt": "{file:./agent/reviewer.md}",
       "temperature": 0.1,
       "tools": {
         "edit": false, // Reviewers shouldn't edit silently
@@ -117,7 +117,7 @@
       "description": "Out-of-the-box thinker for brainstorming solutions.",
       "model": "github-copilot/claude-sonnet-4.5",
       "mode": "subagent",
-      "prompt": "{file:./agents/creative.md}",
+      "prompt": "{file:./agent/creative.md}",
       "temperature": 0.7, // Higher temp for creativity
       "tools": {
         "webfetch": false
@@ -127,7 +127,7 @@
     "debug": {
       "description": "Debugger. Analyzes logs and code to find root causes.",
       "model": "github-copilot/claude-sonnet-4.5",
-      "prompt": "{file:./agents/debugs.md}",
+      "prompt": "{file:./agent/debugs.md}",
       "mode": "subagent",
       "temperature": 0.1,
       "tools": {
@@ -139,7 +139,7 @@
       "description": "Web researcher. Finds documentation, libraries, and solutions.",
       "model": "github-copilot/claude-sonnet-4.5",
       "mode": "subagent",
-      "prompt": "{file:./agents/researcher.md}",
+      "prompt": "{file:./agent/researcher.md}",
       "temperature": 0.3,
       "tools": {
         "webfetch": true, // Enabled
