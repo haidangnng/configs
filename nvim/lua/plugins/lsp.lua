@@ -4,12 +4,7 @@ return {
 		"saghen/blink.cmp",
 		event = "InsertEnter",
 		dependencies = {
-			{
-				"rafamadriz/friendly-snippets",
-				config = function()
-					require("luasnip.loaders.from_vscode").lazy_load()
-				end,
-			},
+			"rafamadriz/friendly-snippets",
 			{
 				"L3MON4D3/LuaSnip",
 				build = (function()
@@ -18,6 +13,10 @@ return {
 					end
 					return "make install_jsregexp"
 				end)(),
+				init = function()
+					-- Only load snippets when LuaSnip is actually loaded
+					require("luasnip.loaders.from_vscode").lazy_load()
+				end,
 			},
 		},
 		version = "*",
@@ -85,16 +84,18 @@ return {
 			})
 
 			-- LSP SAGA highlight
-			vim.cmd("highlight HoverBorder guibg=NONE ctermbg=NONE")
-			vim.cmd("highlight HoverNormal guibg=NONE ctermbg=NONE")
-			vim.cmd("highlight ActionPreviewBorder guibg=NONE ctermbg=NONE")
-			vim.cmd("highlight ActionPreviewNormal guibg=NONE ctermbg=NONE")
-			vim.cmd("highlight DiagnosticBorder guibg=NONE ctermbg=NONE")
-			vim.cmd("highlight DiagnosticNormal guibg=NONE ctermbg=NONE")
-			vim.cmd("highlight RenameBorder guibg=NONE ctermbg=NONE")
-			vim.cmd("highlight RenameNormal guibg=NONE ctermbg=NONE")
-			vim.cmd("highlight SagaBorder guibg=NONE ctermbg=NONE")
-			vim.cmd("highlight SagaNormal guibg=NONE ctermbg=NONE")
+			vim.cmd([[
+				highlight HoverBorder guibg=NONE ctermbg=NONE
+				highlight HoverNormal guibg=NONE ctermbg=NONE
+				highlight ActionPreviewBorder guibg=NONE ctermbg=NONE
+				highlight ActionPreviewNormal guibg=NONE ctermbg=NONE
+				highlight DiagnosticBorder guibg=NONE ctermbg=NONE
+				highlight DiagnosticNormal guibg=NONE ctermbg=NONE
+				highlight RenameBorder guibg=NONE ctermbg=NONE
+				highlight RenameNormal guibg=NONE ctermbg=NONE
+				highlight SagaBorder guibg=NONE ctermbg=NONE
+				highlight SagaNormal guibg=NONE ctermbg=NONE
+			]])
 		end,
 		dependencies = {
 			"nvim-treesitter/nvim-treesitter",
