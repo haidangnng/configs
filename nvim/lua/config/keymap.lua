@@ -43,15 +43,29 @@ map("x", "K", ":move '<-2<CR>gv-gv", desc("Move selection up"))
 map("n", "<leader>rf", [[:%s/\<<C-r><C-w>\>//gI<Left><Left><Left>]], desc("Replace word in file"))
 map("n", "<leader>rl", [[:s/\<<C-r><C-w>\>//gI<Left><Left><Left>]], desc("Replace word in line"))
 
+-- Copy current file path
+map("n", "<leader>cp", function()
+	local path = vim.fn.expand("%:.")
+	vim.fn.setreg("+", path)
+	vim.notify("Copied: " .. path, vim.log.levels.INFO)
+end, desc("Copy current file path (relative)"))
+
 --------------------------------------------------------------------------------
 -- WINDOW/SPLIT MANAGEMENT
 --------------------------------------------------------------------------------
--- Navigate between splits (cache smart-splits)
-local smart_splits = require("smart-splits")
-map("n", "<C-h>", smart_splits.move_cursor_left, desc("Move to left window"))
-map("n", "<C-j>", smart_splits.move_cursor_down, desc("Move to bottom window"))
-map("n", "<C-k>", smart_splits.move_cursor_up, desc("Move to top window"))
-map("n", "<C-l>", smart_splits.move_cursor_right, desc("Move to right window"))
+-- Navigate between splits (lazy load smart-splits)
+map("n", "<C-h>", function()
+	require("smart-splits").move_cursor_left()
+end, desc("Move to left window"))
+map("n", "<C-j>", function()
+	require("smart-splits").move_cursor_down()
+end, desc("Move to bottom window"))
+map("n", "<C-k>", function()
+	require("smart-splits").move_cursor_up()
+end, desc("Move to top window"))
+map("n", "<C-l>", function()
+	require("smart-splits").move_cursor_right()
+end, desc("Move to right window"))
 
 -- Split windows
 map("n", "<leader>sj", ":split<CR><C-w>j", desc("Split window horizontal"))
@@ -61,12 +75,21 @@ map("n", "<leader>sq", ":close<CR>", desc("Close current window"))
 --------------------------------------------------------------------------------
 -- BUFFER MANAGEMENT
 --------------------------------------------------------------------------------
+-- Cache bufdelete module
+local bufdelete
+local function get_bufdelete()
+	if not bufdelete then
+		bufdelete = require("snacks.bufdelete")
+	end
+	return bufdelete
+end
+
 -- Helper function to delete buffers
 local function delete_buffers(filter_fn)
-	local bufdelete = require("snacks.bufdelete")
+	local bd = get_bufdelete()
 	for _, buf in ipairs(vim.api.nvim_list_bufs()) do
 		if vim.api.nvim_buf_is_loaded(buf) and filter_fn(buf) then
-			bufdelete.delete(buf)
+			bd.delete(buf)
 		end
 	end
 end

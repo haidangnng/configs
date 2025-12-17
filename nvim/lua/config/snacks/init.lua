@@ -18,7 +18,7 @@ M.opts = {
 	input = require("config.snacks.input"),
 	lazygit = require("config.snacks.lazygit"),
 	picker = require("config.snacks.picker"),
-	zen = { enabled = true },
+	zen = require("config.snacks.zen"),
 }
 
 M.config = function(_, opts)
