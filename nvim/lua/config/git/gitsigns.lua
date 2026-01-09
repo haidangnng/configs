@@ -1,7 +1,9 @@
 local status, gitsigns = pcall(require, 'gitsigns')
 
 local opts = {
-  numhl = true,
+  signcolumn = true,   -- Show signs in the sign column
+  numhl = true,        -- Highlight line numbers
+  linehl = false,      -- Don't highlight the entire line
   current_line_blame = true,
   current_line_blame_opts = {
     virt_text = true,
@@ -14,10 +16,10 @@ local opts = {
     border = { "▄", "▄", "▄", "█", "▀", "▀", "▀", "█" }, -- [ top top top - right - bottom bottom bottom - left ]
   },
   signs = {
-    add          = { text = '┃' },
-    change       = { text = '┋' },
-    delete       = { text = '' },
-    topdelete    = { text = '' },
+    add          = { text = '│' },
+    change       = { text = '│' },
+    delete       = { text = '_' },
+    topdelete    = { text = '‾' },
     changedelete = { text = '~' },
     untracked    = { text = '┆' },
   },
@@ -36,4 +38,12 @@ if not status then
   print('Something went wrong:', gitsigns)
 else
   gitsigns.setup(opts)
+  
+  -- Set explicit highlight colors for git signs
+  vim.api.nvim_set_hl(0, 'GitSignsAdd', { fg = '#a6e3a1', bold = true })
+  vim.api.nvim_set_hl(0, 'GitSignsChange', { fg = '#f9e2af', bold = true })
+  vim.api.nvim_set_hl(0, 'GitSignsDelete', { fg = '#f38ba8', bold = true })
+  vim.api.nvim_set_hl(0, 'GitSignsTopdelete', { fg = '#f38ba8', bold = true })
+  vim.api.nvim_set_hl(0, 'GitSignsChangedelete', { fg = '#fab387', bold = true })
+  vim.api.nvim_set_hl(0, 'GitSignsUntracked', { fg = '#94e2d5', bold = true })
 end

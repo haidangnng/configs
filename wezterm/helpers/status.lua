@@ -4,6 +4,10 @@ wezterm.on("update-right-status", function(window)
 	-- "Wed Mar 3 08:14"
 	local date = wezterm.strftime("%a-%b-%-d %H:%M ")
 
+	-- Get workspace name
+	local workspace = window:active_workspace()
+	local workspace_text = workspace ~= "default" and workspace .. "  " or ""
+
 	local bat = ""
 	for _, b in ipairs(wezterm.battery_info()) do
 		local bat_icon = "󱊣"
@@ -25,6 +29,6 @@ wezterm.on("update-right-status", function(window)
 	end
 
 	window:set_right_status(wezterm.format({
-		{ Text = bat .. "  " .. "" .. " " .. date },
+		{ Text = workspace_text .. bat .. "  " .. "" .. " " .. date },
 	}))
 end)

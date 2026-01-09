@@ -70,6 +70,16 @@ return {
 	-- { key = 't', mods = 'LEADER', action = act({ SpawnTab = "CurrentPaneDomain"}) },
 	{ key = "l", mods = "LEADER", action = act({ ActivateTabRelative = 1 }) },
 	{ key = "h", mods = "LEADER", action = act({ ActivateTabRelative = -1 }) },
+	-- Switch to tabs by number (Ctrl+1 through Ctrl+9)
+	{ key = "1", mods = "CTRL", action = act.ActivateTab(0) },
+	{ key = "2", mods = "CTRL", action = act.ActivateTab(1) },
+	{ key = "3", mods = "CTRL", action = act.ActivateTab(2) },
+	{ key = "4", mods = "CTRL", action = act.ActivateTab(3) },
+	{ key = "5", mods = "CTRL", action = act.ActivateTab(4) },
+	{ key = "6", mods = "CTRL", action = act.ActivateTab(5) },
+	{ key = "7", mods = "CTRL", action = act.ActivateTab(6) },
+	{ key = "8", mods = "CTRL", action = act.ActivateTab(7) },
+	{ key = "9", mods = "CTRL", action = act.ActivateTab(8) },
 	{
 		key = "e",
 		mods = "LEADER",
@@ -101,12 +111,78 @@ return {
 			one_shot = false,
 		}),
 	},
+	-- WORKSPACE
 	{
-		key = "a",
+		key = "s",
 		mods = "LEADER",
-		action = act.ActivateKeyTable({
-			name = "workspace",
-			one_shot = true,
+		action = act.ShowLauncherArgs({
+			flags = "FUZZY|WORKSPACES",
+		}),
+	},
+	{
+		key = "n",
+		mods = "LEADER",
+		action = act.PromptInputLine({
+			description = wezterm.format({
+				{ Attribute = { Intensity = "Bold" } },
+				{ Foreground = { AnsiColor = "Fuchsia" } },
+				{ Text = "Enter name for new workspace" },
+			}),
+			action = wezterm.action_callback(function(window, pane, line)
+				if line then
+					window:perform_action(
+						act.SwitchToWorkspace({
+							name = line,
+						}),
+						pane
+					)
+				end
+			end),
+		}),
+	},
+	{
+		key = "k",
+		mods = "LEADER",
+		action = wezterm.action_callback(function(window)
+			local w = window:active_workspace()
+			local util = require("utils")
+			local success, stdout = wezterm.run_child_process({ "/opt/homebrew/bin/wezterm", "cli", "list", "--format=json" })
+
+			if success then
+				local json = wezterm.json_parse(stdout)
+				if not json then
+					return
+				end
+
+				local workspace_panes = util.filter(json, function(p)
+					return p.workspace == w
+				end)
+
+				for _, p in ipairs(workspace_panes) do
+					wezterm.run_child_process({
+						"/opt/homebrew/bin/wezterm",
+						"cli",
+						"kill-pane",
+						"--pane-id=" .. p.pane_id,
+					})
+				end
+			end
+		end),
+	},
+	{
+		key = "c",
+		mods = "LEADER",
+		action = act.PromptInputLine({
+			description = wezterm.format({
+				{ Attribute = { Intensity = "Bold" } },
+				{ Foreground = { AnsiColor = "Fuchsia" } },
+				{ Text = "Enter new name for workspace" },
+			}),
+			action = wezterm.action_callback(function(window, pane, line)
+				if line then
+					wezterm.mux.rename_workspace(window:active_workspace(), line)
+				end
+			end),
 		}),
 	},
 }

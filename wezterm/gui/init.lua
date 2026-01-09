@@ -3,26 +3,26 @@ local wezterm = require("wezterm")
 local function font_with_fallback(name, params)
 	local names = {
 		name,
-		"Iosevka Nerd Font Mono",
 		"SF Pro",
 		"Apple Color Emoji",
 	}
 	return wezterm.font_with_fallback(names, params)
 end
 
+local font_name = "Monaspace Neon"
+-- local font_name = "Inconsolata Nerd Font Mono"
 -- local font_name = "Iosevka Nerd Font Mono"
--- local font_name = "Monaspace Neon"
 
 return {
 	-- OpenGL for GPU acceleration, Software for CPU
 	front_end = "OpenGL",
 	font = font_with_fallback(font_name),
-	font_size = 16,
-	line_height = 1.2,
-	-- use_ime = true,
-	-- enable_wayland = false, -- if you're using X11, or set accordingly
-	-- adjust_window_size_when_changing_font_size = false,
+	font_size = 14,
+	-- Font consistency settings
+	line_height = 1.3,
 	cell_width = 1,
+	adjust_window_size_when_changing_font_size = false,
+	use_ime = true,
 	font_rules = {
 		{
 			italic = true,
