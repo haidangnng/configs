@@ -32,6 +32,13 @@ return {
 	{
 		"mrjones2014/smart-splits.nvim",
 		event = "VeryLazy",
+		opts = {
+			ignored_filetypes = { "nofile", "quickfix", "prompt" },
+			ignored_buftypes = { "nofile" },
+			default_amount = 3,
+			at_edge = "stop", -- Don't wrap around at edges
+			move_cursor_same_row = false,
+		},
 	},
 	----- AUTOPAIRS -----
 	{
