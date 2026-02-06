@@ -1,0 +1,14 @@
+require("tokyonight").setup({
+	style = "night", -- The theme comes in three styles, `storm`, a darker variant `night` and `day`
+	transparent = false, -- Enable this to disable setting the background color
+	terminal_colors = true, -- Configure the colors used when opening a `:terminal` in Neovim
+	styles = {
+		sidebars = "dark", -- style for sidebars, see below
+		floats = "dark", -- style for floating windows
+	},
+	day_brightness = 0.3, -- Adjusts the brightness of the colors of the **Day** style. Number between 0 and 1, from dull to vibrant colors
+	dim_inactive = true, -- dims inactive windows
+	lualine_bold = false, -- When `true`, section headers in the lualine theme will be bold
+})
+
+vim.cmd.colorscheme("tokyonight")

@@ -75,6 +75,12 @@ return {
 				["<S-Tab>"] = { "list_up", mode = { "i", "n" } },
 			},
 		},
+		list = {
+			wo = { winhighlight = "Normal:Normal,NormalNC:Normal" },
+		},
+		preview = {
+			wo = { winhighlight = "Normal:Normal,NormalNC:Normal" },
+		},
 	},
 	layout = {
 		layout = {

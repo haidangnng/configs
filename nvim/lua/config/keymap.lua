@@ -293,6 +293,7 @@ end, desc("List implementations (picker)"))
 map("n", "<leader>ca", "<cmd>Lspsaga code_action<CR>", desc("Code actions"))
 map("n", "<leader>rn", vim.lsp.buf.rename, desc("Rename symbol"))
 map("n", "<leader>rs", ":LspRestart<CR>", desc("Restart LSP"))
+map("n", "<leader>rc", "<cmd>CompletionReset<CR>", desc("Reset completion (blink + autopairs + LSP)"))
 map("n", "K", "<cmd>Lspsaga hover_doc<CR>", desc("Hover documentation"))
 
 -- Diagnostics
