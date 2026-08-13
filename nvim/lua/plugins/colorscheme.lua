@@ -15,12 +15,19 @@ return {
 	-- 		require("config.colorscheme.tokyonight")
 	-- 	end,
 	-- },
+	-- {
+	-- 	"rebelot/kanagawa.nvim",
+	-- 	lazy = false,
+	-- 	priority = 1000,
+	-- 	config = function()
+	-- 		require("config.colorscheme.kanagawa")
+	-- 	end,
+	-- },
 	{
-		"rebelot/kanagawa.nvim",
-		lazy = false,
+		"ellisonleao/gruvbox.nvim",
 		priority = 1000,
 		config = function()
-			require("config.colorscheme.kanagawa")
+			require("config.colorscheme.gruvbox")
 		end,
 	},
 	-- {

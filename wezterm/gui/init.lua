@@ -13,11 +13,27 @@ local font_name = "Monaspace Neon"
 -- local font_name = "Inconsolata Nerd Font Mono"
 -- local font_name = "Iosevka Nerd Font Mono"
 
+-- Monaspace-specific harfbuzz features to fix character display issues
+-- Disable ligatures that cause "-" and "=" to render incorrectly
+local monaspace_features = {
+	"calt=1", -- Enable contextual alternates (texture healing)
+	"liga=1", -- Disable standard ligatures (fixes -= == etc.)
+	"ss01=1", -- Disable ligature variants
+	"ss02=0",
+	"ss03=0",
+	"ss04=0",
+	"ss05=0",
+	"ss06=0",
+	"ss07=0",
+	"ss08=0",
+}
+
 return {
 	-- OpenGL for GPU acceleration, Software for CPU
 	front_end = "OpenGL",
 	font = font_with_fallback(font_name),
 	font_size = 14,
+	harfbuzz_features = monaspace_features,
 	-- Font consistency settings
 	line_height = 1.3,
 	cell_width = 1,
@@ -41,7 +57,9 @@ return {
 
 	-- color_scheme = "Kasugano (terminal.sexy)",
 	-- color_scheme = "carbonfox",
-	color_scheme = "Jellybeans (Gogh)",
+	-- color_scheme = "Jellybeans (Gogh)",
+	-- color_scheme = "Kanagawa Dragon (Gogh)",
+	color_scheme = "GruvboxDarkHard",
 
 	bold_brightens_ansi_colors = true,
 
@@ -64,8 +82,8 @@ return {
 	-- General
 	automatically_reload_config = true,
 	inactive_pane_hsb = { saturation = 0.9, brightness = 0.9 },
-	window_background_opacity = 0.90,
-	macos_window_background_blur = 10,
+	-- window_background_opacity = 0.90,
+	macos_window_background_blur = 20,
 	window_decorations = "RESIZE",
 
 	mouse_wheel_scrolls_tabs = false,
