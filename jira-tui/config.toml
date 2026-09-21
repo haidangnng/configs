@@ -1,0 +1,14 @@
+[jira]
+url = "https://efcloud.atlassian.net"
+email = "ngoc.hai.dang.nguyen@ef.com"
+api_token = "ATATT3xFfGF07s_IOU-W3ZwsnBH4s4nS522WZsxVlgphK_NE6BWW_NWea00LhuOM_aQbXqFEXR6m6NAnHtEe1VCYpSZIXg_I9ZI06t-wQjn0dn2fvPrbup1rhDsJyCgRaXEAAK33rcB03m__vgBOcQGOQcv5x4jX7kWaoKPFyYq-rjfLFbHCqNQ=C3932DB6"
+project_keys = ["EFD"]
+
+[claude]
+model = "claude-sonnet-4-6"
+
+[codebase_context]
+mcp_server = "houston"
+
+[storage]
+plans_dir = "~/.config/jira-tui/plans"  # optional override
