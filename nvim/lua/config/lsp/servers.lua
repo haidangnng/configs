@@ -48,9 +48,15 @@ return {
 		init_options = {
 			provideFormatter = false,
 		},
+		-- Defer schemastore's catalog require until a JSON buffer is actually
+		-- opened, instead of loading it for every filetype at plugin setup time.
+		on_new_config = function(config)
+			config.settings.json = config.settings.json or {}
+			config.settings.json.schemas = config.settings.json.schemas or {}
+			vim.list_extend(config.settings.json.schemas, require("schemastore").json.schemas())
+		end,
 		settings = {
 			json = {
-				schemas = require("schemastore").json.schemas(),
 				validate = { enable = true },
 			},
 		},

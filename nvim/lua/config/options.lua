@@ -51,23 +51,28 @@ end
 -- Set formatoptions separately to avoid concatenation issues
 vim.opt.formatoptions:append("orj")
 
--- Global border style for all floating windows
-vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" })
-vim.lsp.handlers["textDocument/signatureHelp"] =
-	vim.lsp.with(vim.lsp.handlers.signature_help, { border = "rounded" })
+-- Global border style for all floating windows.
+-- Deferred via vim.schedule: these force-load the built-in vim.lsp module
+-- tree (~5-7ms) that isn't needed before the first LSP interaction, so
+-- keep it off the synchronous startup path.
+vim.schedule(function()
+	vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" })
+	vim.lsp.handlers["textDocument/signatureHelp"] =
+		vim.lsp.with(vim.lsp.handlers.signature_help, { border = "rounded" })
 
-vim.diagnostic.config({
-	float = { border = "rounded" },
-	signs = vim.g.have_nerd_font and {
-		text = {
-			[vim.diagnostic.severity.ERROR] = "󰅚 ",
-			[vim.diagnostic.severity.WARN] = "󰀪 ",
-			[vim.diagnostic.severity.INFO] = "󰋽 ",
-			[vim.diagnostic.severity.HINT] = "󰌶 ",
+	vim.diagnostic.config({
+		float = { border = "rounded" },
+		signs = vim.g.have_nerd_font and {
+			text = {
+				[vim.diagnostic.severity.ERROR] = "󰅚 ",
+				[vim.diagnostic.severity.WARN] = "󰀪 ",
+				[vim.diagnostic.severity.INFO] = "󰋽 ",
+				[vim.diagnostic.severity.HINT] = "󰌶 ",
+			},
+		} or {},
+		virtual_text = {
+			source = "if_many",
+			spacing = 2,
 		},
-	} or {},
-	virtual_text = {
-		source = "if_many",
-		spacing = 2,
-	},
-})
+	})
+end)

@@ -7,14 +7,16 @@ return {
 			"rafamadriz/friendly-snippets",
 			{
 				"L3MON4D3/LuaSnip",
+				event = "InsertEnter",
 				build = (function()
 					if vim.fn.has("win32") == 1 or vim.fn.executable("make") == 0 then
 						return
 					end
 					return "make install_jsregexp"
 				end)(),
-				init = function()
-					-- Only load snippets when LuaSnip is actually loaded
+				config = function()
+					-- `init` runs unconditionally at startup regardless of lazy triggers,
+					-- so load snippets here (config, on InsertEnter) instead to keep this deferred.
 					require("luasnip.loaders.from_vscode").lazy_load()
 				end,
 			},
@@ -55,51 +57,21 @@ return {
 	------ CONFORM - FORMATTER ------
 	{
 		"stevearc/conform.nvim",
-		opts = {},
 		event = "VeryLazy",
 		config = function()
-			require("config.editor.conform")
+			require("config.lsp.conform")
 		end,
 	},
 	----- LSP SAGA -----
 	{
 		"nvimdev/lspsaga.nvim",
 		event = "LspAttach",
-		config = function()
-			require("lspsaga").setup({
-				lightbulb = { enable = false },
-				ui = {
-					border = "rounded",
-					lines = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
-				},
-				code_action = {
-					num_shortcut = true,
-					show_server_name = false,
-					extend_gitsigns = false,
-					keys = {
-						quit = { "q", "<ESC>" },
-						exec = "<CR>",
-					},
-				},
-			})
-
-			-- LSP SAGA highlight
-			vim.cmd([[
-				highlight HoverBorder guibg=NONE ctermbg=NONE
-				highlight HoverNormal guibg=NONE ctermbg=NONE
-				highlight ActionPreviewBorder guibg=NONE ctermbg=NONE
-				highlight ActionPreviewNormal guibg=NONE ctermbg=NONE
-				highlight DiagnosticBorder guibg=NONE ctermbg=NONE
-				highlight DiagnosticNormal guibg=NONE ctermbg=NONE
-				highlight RenameBorder guibg=NONE ctermbg=NONE
-				highlight RenameNormal guibg=NONE ctermbg=NONE
-				highlight SagaBorder guibg=NONE ctermbg=NONE
-				highlight SagaNormal guibg=NONE ctermbg=NONE
-			]])
-		end,
 		dependencies = {
 			"nvim-treesitter/nvim-treesitter",
 			"nvim-tree/nvim-web-devicons",
 		},
+		config = function()
+			require("config.lsp.lspsaga")
+		end,
 	},
 }
