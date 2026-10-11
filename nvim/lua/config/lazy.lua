@@ -21,8 +21,23 @@ require("lazy").setup({
 	spec = {
 		{ import = "plugins" },
 	},
-	checker = { enabled = true },
+	install = { colorscheme = { "kanagawa", "habamax" } },
+	checker = { enabled = true, notify = false },
+	change_detection = { notify = false },
 	ui = {
 		border = "rounded",
+	},
+	performance = {
+		rtp = {
+			disabled_plugins = {
+				"gzip",
+				"netrwPlugin", -- replaced by oil
+				"rplugin",
+				"tarPlugin",
+				"tohtml",
+				"tutor",
+				"zipPlugin",
+			},
+		},
 	},
 })

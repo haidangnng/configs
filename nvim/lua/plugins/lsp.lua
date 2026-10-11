@@ -2,27 +2,13 @@ return {
 	----- BLINK - COMPLETION -----
 	{
 		"saghen/blink.cmp",
-		event = "InsertEnter",
+		event = { "InsertEnter", "CmdlineEnter" },
+		version = "1.*", -- prebuilt fuzzy matcher binary
 		dependencies = {
 			"rafamadriz/friendly-snippets",
-			{
-				"L3MON4D3/LuaSnip",
-				event = "InsertEnter",
-				build = (function()
-					if vim.fn.has("win32") == 1 or vim.fn.executable("make") == 0 then
-						return
-					end
-					return "make install_jsregexp"
-				end)(),
-				config = function()
-					-- `init` runs unconditionally at startup regardless of lazy triggers,
-					-- so load snippets here (config, on InsertEnter) instead to keep this deferred.
-					require("luasnip.loaders.from_vscode").lazy_load()
-				end,
-			},
+			"onsails/lspkind.nvim",
+			"nvim-tree/nvim-web-devicons",
 		},
-		version = "*",
-		opts_extend = { "sources.default" },
 		config = function()
 			require("config.lsp.blink")
 		end,
@@ -32,46 +18,81 @@ return {
 		"neovim/nvim-lspconfig",
 		event = { "BufReadPre", "BufNewFile" },
 		dependencies = {
-			{ "williamboman/mason.nvim", config = true },
-			"williamboman/mason-lspconfig.nvim",
+			"mason-org/mason.nvim",
+			"mason-org/mason-lspconfig.nvim",
 			"WhoIsSethDaniel/mason-tool-installer.nvim",
-			{
-				"folke/lazydev.nvim",
-				ft = "lua",
-				opts = {
-					library = {
-						{ path = "${3rd}/luv/library", words = { "vim%.uv" } },
-					},
-				},
-			},
-			"onsails/lspkind.nvim",
 			"saghen/blink.cmp",
+			"b0o/schemastore.nvim",
 			{ "j-hui/fidget.nvim", opts = {} },
 		},
 		config = function()
 			require("config.lsp.lspconfig")
 		end,
 	},
+	{
+		"mason-org/mason.nvim",
+		cmd = { "Mason", "MasonInstall", "MasonUpdate" },
+	},
+	{
+		"folke/lazydev.nvim",
+		ft = "lua",
+		opts = {
+			library = {
+				{ path = "${3rd}/luv/library", words = { "vim%.uv" } },
+				{ path = "snacks.nvim", words = { "Snacks" } },
+			},
+		},
+	},
 	----- JSON SCHEMA -----
-	{ "b0o/schemastore.nvim" },
+	{ "b0o/schemastore.nvim", lazy = true },
 	------ CONFORM - FORMATTER ------
 	{
 		"stevearc/conform.nvim",
-		event = "VeryLazy",
+		event = "BufWritePre",
+		cmd = "ConformInfo",
 		config = function()
-			require("config.lsp.conform")
+			require("config.editor.conform")
 		end,
 	},
 	----- LSP SAGA -----
 	{
 		"nvimdev/lspsaga.nvim",
 		event = "LspAttach",
+		config = function()
+			require("lspsaga").setup({
+				lightbulb = { enable = false },
+				ui = {
+					border = "rounded",
+					lines = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
+				},
+				code_action = {
+					num_shortcut = true,
+					show_server_name = false,
+					extend_gitsigns = false,
+					keys = {
+						quit = { "q", "<ESC>" },
+						exec = "<CR>",
+					},
+				},
+			})
+
+			-- LSP SAGA highlight
+			vim.cmd([[
+				highlight HoverBorder guibg=NONE ctermbg=NONE
+				highlight HoverNormal guibg=NONE ctermbg=NONE
+				highlight ActionPreviewBorder guibg=NONE ctermbg=NONE
+				highlight ActionPreviewNormal guibg=NONE ctermbg=NONE
+				highlight DiagnosticBorder guibg=NONE ctermbg=NONE
+				highlight DiagnosticNormal guibg=NONE ctermbg=NONE
+				highlight RenameBorder guibg=NONE ctermbg=NONE
+				highlight RenameNormal guibg=NONE ctermbg=NONE
+				highlight SagaBorder guibg=NONE ctermbg=NONE
+				highlight SagaNormal guibg=NONE ctermbg=NONE
+			]])
+		end,
 		dependencies = {
 			"nvim-treesitter/nvim-treesitter",
 			"nvim-tree/nvim-web-devicons",
 		},
-		config = function()
-			require("config.lsp.lspsaga")
-		end,
 	},
 }

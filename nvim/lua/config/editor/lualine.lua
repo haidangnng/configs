@@ -47,35 +47,7 @@ components.gitchanges = function()
 	return (added .. changed .. removed) ~= "" and (added .. changed .. removed .. " | ") or ""
 end
 
--- LSP STUFF
-components.LSP_progress = function()
-	if not rawget(vim, "lsp") or vim.lsp.status then
-		return ""
-	end
-
-	local Lsp = vim.lsp.util.get_progress_messages()[1]
-
-	if vim.o.columns < 120 or not Lsp then
-		return ""
-	end
-
-	if Lsp.done then
-		vim.defer_fn(function()
-			vim.cmd.redrawstatus()
-		end, 1000)
-	end
-
-	local msg = Lsp.message or ""
-	local percentage = Lsp.percentage or 0
-	local title = Lsp.title or ""
-	local spinners = { "", "󰪞", "󰪟", "󰪠", "󰪢", "󰪣", "󰪤", "󰪥" }
-	local ms = vim.loop.hrtime() / 1000000
-	local frame = math.floor(ms / 120) % #spinners
-	local content = string.format(" %%<%s %s %s (%s%%%%) ", spinners[frame + 1], title, msg, percentage)
-
-	return ("%#St_LspProgress#" .. content) or ""
-end
-
+-- LSP STUFF (progress is shown by fidget)
 components.LSP_Diagnostics = function()
 	if not rawget(vim, "lsp") then
 		return "%#St_lspError# 󰅚 0 %#St_lspWarning# 0"
@@ -135,10 +107,7 @@ require("lualine").setup({
 		},
 		lualine_x = {
 			components.LSP_Diagnostics,
-			components.LSP_progress,
 		},
-		lualine_z = {
-			components.LSP_status,
-		},
+		lualine_z = {},
 	},
 })
