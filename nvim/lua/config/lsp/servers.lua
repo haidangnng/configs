@@ -28,7 +28,9 @@ return {
 	},
 	eslint = {},
 	cssls = {},
-	html = {},
+	html = {
+		filetypes = { "html", "templ", "handlebars" },
+	},
 	tailwindcss = {
 		filetypes = {
 			"templ",
@@ -70,6 +72,7 @@ return {
 			"sass",
 			"less",
 			"vue",
+			"handlebars",
 		},
 	},
 	pylsp = {},

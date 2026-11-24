@@ -34,11 +34,28 @@ return {
 		"mrjones2014/smart-splits.nvim",
 		event = "VeryLazy",
 		opts = {
-			ignored_filetypes = { "nofile", "quickfix", "prompt" },
-			ignored_buftypes = { "nofile" },
-			default_amount = 3,
-			at_edge = "stop", -- Don't wrap around at edges
-			move_cursor_same_row = false,
+			ignored_buftypes = { "nofile", "quickfix", "prompt" },
+			resize = { amount = 3 },
+			move = {
+				-- At the edge of nvim: hand off to wezterm/aerospace (async)
+				at_edge = function(ctx)
+					if vim.env.TERM_PROGRAM == "ghostty" then
+						vim.fn.jobstart({ "/opt/homebrew/bin/aerospace", "focus", ctx.direction }, { detach = true })
+						return
+					end
+					if not vim.env.WEZTERM_PANE then
+						return
+					end
+					local keys = { left = "h", down = "j", up = "k", right = "l" }
+					vim.fn.jobstart({
+						"bash",
+						vim.env.HOME .. "/.config/wezterm/navigate.sh",
+						vim.env.WEZTERM_PANE,
+						keys[ctx.direction],
+					}, { detach = true })
+				end,
+				same_row = false,
+			},
 		},
 	},
 	----- AUTOPAIRS -----

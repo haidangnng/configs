@@ -27,6 +27,9 @@ ts.install({
 	"cpp",
 })
 
+-- glimmer (default for handlebars) chokes on <br>, unclosed void tags and {{{ }}}; html parses these templates fine
+vim.treesitter.language.register("html", "handlebars")
+
 local available = {}
 for _, lang in ipairs(ts.get_available()) do
 	available[lang] = true

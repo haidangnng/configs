@@ -53,22 +53,10 @@ end, desc("Copy current file path (relative)"))
 --------------------------------------------------------------------------------
 -- WINDOW/SPLIT MANAGEMENT
 --------------------------------------------------------------------------------
--- Navigate between splits with fallback to wezterm/aerospace
-local wezterm_keys = { left = "h", down = "j", up = "k", right = "l" }
+-- Navigate between splits (edge fallback to wezterm/aerospace lives in smart-splits' move.at_edge)
 local function smart_move(direction)
 	return function()
-		local current_win = vim.api.nvim_get_current_win()
 		require("smart-splits")["move_cursor_" .. direction]()
-
-		-- At the edge of nvim: hand off to wezterm/aerospace (async)
-		if current_win == vim.api.nvim_get_current_win() and vim.env.WEZTERM_PANE then
-			vim.fn.jobstart({
-				"bash",
-				vim.env.HOME .. "/.config/wezterm/navigate.sh",
-				vim.env.WEZTERM_PANE,
-				wezterm_keys[direction],
-			}, { detach = true })
-		end
 	end
 end
 
