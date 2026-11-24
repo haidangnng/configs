@@ -1,6 +1,7 @@
 local global = {
 	mapleader = " ",
 	maplocalleader = " ",
+	have_nerd_font = true,
 }
 
 for k, v in pairs(global) do
@@ -10,15 +11,15 @@ end
 local opts = {
 	backup = false,
 	clipboard = "unnamedplus",
-	cmdheight = 1,
-	completeopt = { "menuone", "noselect", "menu" },
+	cmdheight = 0,
+	completeopt = { "menu", "menuone", "noinsert" },
 	conceallevel = 0,
 	fileencoding = "utf-8",
 	hlsearch = true,
 	ignorecase = true,
 	mouse = "a",
 	pumheight = 10,
-	showmode = true,
+	showmode = false,
 	showtabline = 1,
 	smartcase = true,
 	smartindent = true,
@@ -28,7 +29,7 @@ local opts = {
 	termguicolors = true,
 	timeoutlen = 1000,
 	undofile = true,
-	updatetime = 300,
+	updatetime = 250,
 	writebackup = false,
 	expandtab = true,
 	shiftwidth = 2,
@@ -36,23 +37,26 @@ local opts = {
 	cursorline = true,
 	number = true,
 	relativenumber = true,
-	numberwidth = 2, -- set number column width to 2 {default 4}
+	numberwidth = 2,
 	signcolumn = "yes",
 	wrap = true,
 	scrolloff = 10,
-	formatoptions = vim.o.formatoptions .. "orj",
 	list = true,
 	listchars = { tab = "» ", trail = "·", nbsp = "␣" },
+	winborder = "rounded", -- default border for all floating windows (hover, signature, etc.)
 }
 
 for k, v in pairs(opts) do
 	vim.opt[k] = v
 end
 
+-- Set formatoptions separately to avoid concatenation issues
+vim.opt.formatoptions:append("orj")
+
 vim.diagnostic.config({
-	-- severity_sort = true,
-	-- float = { border = "rounded", source = "if_many" },
-	-- underline = { severity = vim.diagnostic.severity.ERROR },
+	severity_sort = true,
+	update_in_insert = false,
+	float = { border = "rounded", source = "if_many" },
 	signs = vim.g.have_nerd_font and {
 		text = {
 			[vim.diagnostic.severity.ERROR] = "󰅚 ",
@@ -64,14 +68,5 @@ vim.diagnostic.config({
 	virtual_text = {
 		source = "if_many",
 		spacing = 2,
-		format = function(diagnostic)
-			local diagnostic_message = {
-				[vim.diagnostic.severity.ERROR] = diagnostic.message,
-				[vim.diagnostic.severity.WARN] = diagnostic.message,
-				[vim.diagnostic.severity.INFO] = diagnostic.message,
-				[vim.diagnostic.severity.HINT] = diagnostic.message,
-			}
-			return diagnostic_message[diagnostic.severity]
-		end,
 	},
 })

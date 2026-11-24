@@ -1,6 +1,21 @@
 local options = {
 	default_file_explorer = true,
 	columns = { "icon" },
+	win_options = {
+		wrap = false,
+	},
+	float = {
+		padding = 2,
+		max_width = 90,
+		max_height = 0,
+		border = "rounded",
+		win_options = {
+			winblend = 0,
+		},
+	},
+	confirmation = {
+		border = "rounded",
+	},
 	view_options = {
 		show_hidden = true,
 		skip_confirm_for_simple_edits = true,

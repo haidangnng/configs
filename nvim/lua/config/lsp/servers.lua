@@ -1,4 +1,3 @@
-local util = require("lspconfig/util")
 return {
 	-- LUA
 	lua_ls = {},
@@ -29,7 +28,9 @@ return {
 	},
 	eslint = {},
 	cssls = {},
-	html = {},
+	html = {
+		filetypes = { "html", "templ", "handlebars" },
+	},
 	tailwindcss = {
 		filetypes = {
 			"templ",
@@ -54,14 +55,11 @@ return {
 				validate = { enable = true },
 			},
 		},
-		setup = {
-			commands = {},
-		},
 	},
 	emmet_ls = {
 		init_options = { userLanguages = { templ = "html" } },
 		cmd = { "emmet-ls", "--stdio" },
-		root_dir = util.root_pattern(".git"),
+		root_markers = { ".git" },
 		filetypes = {
 			"html",
 			"css",
@@ -74,6 +72,7 @@ return {
 			"sass",
 			"less",
 			"vue",
+			"handlebars",
 		},
 	},
 	pylsp = {},

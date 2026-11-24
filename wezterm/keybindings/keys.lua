@@ -3,7 +3,25 @@ local act = wezterm.action
 local w = require("wezterm")
 
 local function is_vim(pane)
-	return pane:get_user_vars().IS_NVIM == "true"
+	-- Check if nvim or vim is running in the pane
+	local process_name = pane:get_foreground_process_name()
+	
+	-- Debug log
+	local debug_file = io.open("/tmp/wezterm_process_check.txt", "a")
+	if debug_file then
+		local is_match = false
+		if process_name then
+			is_match = (process_name:find("vim") ~= nil) or (process_name:find("nvim") ~= nil)
+		end
+		debug_file:write(os.date("%Y-%m-%d %H:%M:%S") .. " - process: " .. tostring(process_name) .. " is_vim: " .. tostring(is_match) .. "\n")
+		debug_file:close()
+	end
+	
+	if process_name then
+		-- Match vim or nvim specifically
+		return (process_name:find("vim") ~= nil) or (process_name:find("nvim") ~= nil)
+	end
+	return false
 end
 
 local direction_keys = {
@@ -18,7 +36,16 @@ local function split_nav(resize_or_move, key)
 		key = key,
 		mods = resize_or_move == "resize" and "META" or "CTRL",
 		action = w.action_callback(function(win, pane)
-			if is_vim(pane) then
+			local vim_check = is_vim(pane)
+			
+			-- Debug: write to file to verify this is being called
+			local debug_file = io.open("/tmp/wezterm_lua_debug.txt", "a")
+			if debug_file then
+				debug_file:write(os.date("%Y-%m-%d %H:%M:%S") .. " - key=" .. key .. " is_vim=" .. tostring(vim_check) .. "\n")
+				debug_file:close()
+			end
+			
+			if vim_check then
 				-- pass the keys through to vim/nvim
 				win:perform_action({
 					SendKey = { key = key, mods = resize_or_move == "resize" and "META" or "CTRL" },
@@ -27,7 +54,17 @@ local function split_nav(resize_or_move, key)
 				if resize_or_move == "resize" then
 					win:perform_action({ AdjustPaneSize = { direction_keys[key], 3 } }, pane)
 				else
-					win:perform_action({ ActivatePaneDirection = direction_keys[key] }, pane)
+					-- Use the navigate script for wezterm -> aerospace fallback
+					local home = os.getenv("HOME")
+					local script = home .. "/.config/wezterm/navigate.sh"
+					local pane_id = pane:pane_id()
+					
+					wezterm.run_child_process({
+						"bash",
+						script,
+						tostring(pane_id),
+						key
+					})
 				end
 			end
 		end),
@@ -70,6 +107,16 @@ return {
 	-- { key = 't', mods = 'LEADER', action = act({ SpawnTab = "CurrentPaneDomain"}) },
 	{ key = "l", mods = "LEADER", action = act({ ActivateTabRelative = 1 }) },
 	{ key = "h", mods = "LEADER", action = act({ ActivateTabRelative = -1 }) },
+	-- Switch to tabs by number (Ctrl+1 through Ctrl+9)
+	{ key = "1", mods = "CTRL", action = act.ActivateTab(0) },
+	{ key = "2", mods = "CTRL", action = act.ActivateTab(1) },
+	{ key = "3", mods = "CTRL", action = act.ActivateTab(2) },
+	{ key = "4", mods = "CTRL", action = act.ActivateTab(3) },
+	{ key = "5", mods = "CTRL", action = act.ActivateTab(4) },
+	{ key = "6", mods = "CTRL", action = act.ActivateTab(5) },
+	{ key = "7", mods = "CTRL", action = act.ActivateTab(6) },
+	{ key = "8", mods = "CTRL", action = act.ActivateTab(7) },
+	{ key = "9", mods = "CTRL", action = act.ActivateTab(8) },
 	{
 		key = "e",
 		mods = "LEADER",
@@ -101,12 +148,78 @@ return {
 			one_shot = false,
 		}),
 	},
+	-- WORKSPACE
 	{
-		key = "a",
+		key = "s",
 		mods = "LEADER",
-		action = act.ActivateKeyTable({
-			name = "workspace",
-			one_shot = true,
+		action = act.ShowLauncherArgs({
+			flags = "FUZZY|WORKSPACES",
+		}),
+	},
+	{
+		key = "n",
+		mods = "LEADER",
+		action = act.PromptInputLine({
+			description = wezterm.format({
+				{ Attribute = { Intensity = "Bold" } },
+				{ Foreground = { AnsiColor = "Fuchsia" } },
+				{ Text = "Enter name for new workspace" },
+			}),
+			action = wezterm.action_callback(function(window, pane, line)
+				if line then
+					window:perform_action(
+						act.SwitchToWorkspace({
+							name = line,
+						}),
+						pane
+					)
+				end
+			end),
+		}),
+	},
+	{
+		key = "k",
+		mods = "LEADER",
+		action = wezterm.action_callback(function(window)
+			local w = window:active_workspace()
+			local util = require("utils")
+			local success, stdout = wezterm.run_child_process({ "/opt/homebrew/bin/wezterm", "cli", "list", "--format=json" })
+
+			if success then
+				local json = wezterm.json_parse(stdout)
+				if not json then
+					return
+				end
+
+				local workspace_panes = util.filter(json, function(p)
+					return p.workspace == w
+				end)
+
+				for _, p in ipairs(workspace_panes) do
+					wezterm.run_child_process({
+						"/opt/homebrew/bin/wezterm",
+						"cli",
+						"kill-pane",
+						"--pane-id=" .. p.pane_id,
+					})
+				end
+			end
+		end),
+	},
+	{
+		key = "c",
+		mods = "LEADER",
+		action = act.PromptInputLine({
+			description = wezterm.format({
+				{ Attribute = { Intensity = "Bold" } },
+				{ Foreground = { AnsiColor = "Fuchsia" } },
+				{ Text = "Enter new name for workspace" },
+			}),
+			action = wezterm.action_callback(function(window, pane, line)
+				if line then
+					wezterm.mux.rename_workspace(window:active_workspace(), line)
+				end
+			end),
 		}),
 	},
 }

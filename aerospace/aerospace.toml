@@ -17,6 +17,9 @@ after-startup-command = [
 exec-on-workspace-change = ['/bin/bash', '-c',
     'sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE=$AEROSPACE_FOCUSED_WORKSPACE'
 ]
+# exec-on-workspace-change = ['/bin/bash', '-c',
+#     'sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE=$AEROSPACE_FOCUSED_WORKSPACE'
+# ]
 
 # Start AeroSpace at login
 start-at-login = true
@@ -177,19 +180,24 @@ automatically-unhide-macos-hidden-apps = false
     up = 'volume up'
     shift-down = ['volume set 0', 'mode main']
 
+# Monitors: built-in (main) + DELL P2723D (landscape) + DELL P2723DE (portrait).
+# Patterns are case-insensitive regex; anchor P2723D so it doesn't also match P2723DE.
+# Each list falls back left-to-right when a monitor is unplugged.
 [workspace-to-monitor-force-assignment]
 1 = 'main'
-2 = ['secondary', 'main']
-
 B = 'main'
-T = 'main'
-V = 'main'
-X = 'main'
-G = 'main'
-N = ['secondary', 'main']
-S = ['secondary', 'main']
-M = ['secondary', 'main']
-P = ['secondary', 'main']
+2 = ['p2723de', 'secondary', 'main']
+
+# Landscape external: main work
+T = ['^dell p2723d$', 'main']
+V = ['^dell p2723d$', 'main']
+X = ['^dell p2723d$', 'main']
+
+# Portrait external: comms / reading
+N = ['p2723de', 'secondary', 'main']
+S = ['p2723de', 'secondary', 'main']
+M = ['p2723de', 'secondary', 'main']
+P = ['p2723de', 'secondary', 'main']
 
 
 [[on-window-detected]]
@@ -210,11 +218,19 @@ P = ['secondary', 'main']
   run = "move-node-to-workspace T"
 
 [[on-window-detected]]
+  if.app-id = 'com.mitchellh.ghostty'
+  run = "move-node-to-workspace T"
+
+[[on-window-detected]]
   if.app-id = 'com.google.Chrome'
   run = "move-node-to-workspace B"
 
 [[on-window-detected]]
   if.app-id = 'org.mozilla.firefox'
+  run = "move-node-to-workspace B"
+
+[[on-window-detected]]
+  if.app-id = 'company.thebrowser.dia'
   run = "move-node-to-workspace B"
 
 [[on-window-detected]]
@@ -235,10 +251,6 @@ P = ['secondary', 'main']
 
 [[on-window-detected]]
   if.app-id = 'com.electron.dockerdesktop'
-  run = 'layout floating'
-
-[[on-window-detected]]
-  if.app-id = 'com.microsoft.teams2'
   run = 'layout floating'
 
 [[on-window-detected]]

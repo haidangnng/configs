@@ -1,246 +1,290 @@
-local mapping_opt = { noremap = true, silent = true }
-vim.api.nvim_set_keymap("", "<Space>", "<Nop>", mapping_opt)
+-- Centralized keymaps configuration
+-- All keymaps are organized by category for easy lookup
 
-local merge_tb = vim.tbl_deep_extend
+local map = vim.keymap.set
+local opts = { noremap = true, silent = true }
 
-local mappings = {}
-
------ BUFREMOVE -----
-mappings.bufremove = {
-	n = {
-		["<leader>qa"] = {
-			":%bd|e#|bd#<CR>",
-			"Remove all buffer except current",
-			mapping_opt,
-		},
-		["<leader>qc"] = {
-			":bd<CR>",
-			"Remove current buffer",
-			mapping_opt,
-		},
-	},
-}
-
------ TERMINAL -----
-mappings.terminal = {
-	t = {
-		["<C-t>"] = { "<Cmd>:ToggleTerm<CR>", "Toggle floating [T]erminal", mapping_opt },
-	},
-	n = {
-		["<C-t>"] = { "<Cmd>:ToggleTerm direction=float<CR>", "Toggle floating [T]erminal", mapping_opt },
-		["<leader>tj"] = {
-			"<Cmd>:ToggleTerm direction=horizontal<CR>",
-			"Toggle horizontal [T]erminal",
-			mapping_opt,
-		},
-		["<leader>tl"] = {
-			"<Cmd>:ToggleTerm direction=vertical<CR>",
-			"Toggle vertical [T]erminal",
-			mapping_opt,
-		},
-	},
-}
-
------ OIL - FE -----
-mappings.oil = {
-	n = {
-		["-"] = { "<CMD>Oil<CR>", "Open parent directory" },
-	},
-}
-
------ LEET CODE -----
-mappings.leet = {
-	n = {
-		["<leader>lc"] = { "<cmd>Leet<cr>", "Leetcode", mapping_opt },
-		["<leader>lcr"] = { "<cmd>Leet run<cr>", "Leetcode run testcases", mapping_opt },
-		["<leader>lcs"] = { "<cmd>Leet submit<cr>", "Leetcode submit", mapping_opt },
-	},
-}
-
------ OVERSEER -----
-mappings.overseer = {
-	n = {
-		["<leader>or"] = {
-			"<cmd>OverseerRun <CR>",
-			"Run build template",
-			mapping_opt,
-		},
-	},
-}
-
-mappings.dap = {
-	n = {
-		["<leader>db"] = {
-			"<cmd> DapToggleBreakpoint <CR>",
-			"Add breakpoint at line",
-			mapping_opt,
-		},
-		["<leader>dr"] = {
-			"<cmd> DapContinue <CR>",
-			"Start or continue the debugger",
-			mapping_opt,
-		},
-	},
-}
-
------ ZEN MODE -----
-mappings.zen = {
-	n = {
-		["<leader>z"] = { "<CMD>ZenMode<CR>", "Zen mode toggle" },
-	},
-}
-
------ LSP -----
-mappings.lsp = {
-	n = {
-		["gR"] = { "<cmd>Telescope lsp_references<CR>", "Show LSP references", mapping_opt },
-		["gD"] = { vim.lsp.buf.declaration, "Go to declaration", mapping_opt }, -- go to declaration
-		["gi"] = { "<cmd>Telescope lsp_implementations<CR>", "Show LSP implementations", mapping_opt }, -- show lsp implementations
-		["<leader>ca"] = { vim.lsp.buf.code_action, "See available code actions", mapping_opt }, -- see available code actions, in visual mode will apply to selection
-		["<leader>rn"] = { vim.lsp.buf.rename, "Smart rename", mapping_opt }, -- smart rename
-		["<leader>D"] = { "<cmd>Telescope diagnostics bufnr=0<CR>", "Show buffer diagnostics", mapping_opt }, -- show  diagnostics for file
-		["<leader>d"] = { vim.diagnostic.open_float, "Show line diagnostics", mapping_opt }, -- show diagnostics for line
-		["<leader>rs"] = { ":LspRestart<CR>", "Restart LSP", mapping_opt },
-		["gf"] = { "<cmd>Lspsaga finder<CR>", "LSP Finder", mapping_opt },
-		["gr"] = { "<cmd>Lspsaga rename<CR>", "LSP rename", mapping_opt },
-		["gp"] = { "<cmd>Lspsaga peek_definition<CR>", "LSP Peek definition", mapping_opt },
-		["gd"] = { "<cmd>Lspsaga goto_definition<CR>", "LSP Go to definition", mapping_opt },
-		["gt"] = { "<cmd>Lspsaga peek_type_definition<CR>", "LSP Peek type definition", mapping_opt },
-		["<leader>pd"] = {
-			"<cmd>Lspsaga show_workspace_diagnostics<CR>",
-			"LSP Show workspace diagnostics",
-			mapping_opt,
-		},
-		["]d"] = { "<cmd>Lspsaga diagnostic_jump_next<CR>", "LSP jump next diagnostics", mapping_opt },
-		["[d"] = { "<cmd>Lspsaga diagnostic_jump_prev<CR>", "LSP jump prev diagnostics", mapping_opt },
-		["[D"] = {
-			function()
-				require("lspsaga.diagnostic"):goto_prev({ severity = vim.diagnostic.severity.ERROR })
-			end,
-			"go to prev error",
-			mapping_opt,
-		},
-		["]D"] = {
-			function()
-				require("lspsaga.diagnostic"):goto_next({ severity = vim.diagnostic.severity.ERROR })
-			end,
-			"go to next error",
-			mapping_opt,
-		},
-		["K"] = { "<cmd>Lspsaga hover_doc<CR>", "Hover docs", mapping_opt },
-	},
-}
-
------ TELESCOPE -----
-mappings.telescope = {
-	n = {
-		-- find
-		["<leader>ff"] = {
-			"<cmd> Telescope current_buffer_fuzzy_find fuzzy=false case_mode=ignore_case <CR>",
-			"Find current buffer",
-		},
-		["<leader>pf"] = { "<cmd> Telescope find_files <CR>", "Find all" },
-		["<leader>ps"] = { "<cmd> Telescope live_grep <CR>", "Live grep" },
-		["<leader>pb"] = { "<cmd> Telescope buffers <CR>", "Find buffers" },
-		["<leader>fh"] = { "<cmd> Telescope help_tags <CR>", "Help page" },
-		-- git
-		["<leader>cm"] = { "<cmd> Telescope git_commits <CR>", "Git commits" },
-		["<leader>gs"] = { "<cmd> Telescope git_status <CR>", "Git status" },
-	},
-}
------ SPLIT VIEW -----
-mappings.splits = {
-	n = {
-		["<C-h>"] = {
-			function()
-				require("smart-splits").move_cursor_left()
-			end,
-			"Navigate window Left",
-			mapping_opt,
-		},
-		["<C-j>"] = {
-			function()
-				require("smart-splits").move_cursor_down()
-			end,
-			"Navigate window Down",
-			mapping_opt,
-		},
-		["<C-k>"] = {
-			function()
-				require("smart-splits").move_cursor_up()
-			end,
-			"Navigate window Up",
-			mapping_opt,
-		},
-		["<C-l>"] = {
-			function()
-				require("smart-splits").move_cursor_right()
-			end,
-			"Navigate window Right",
-			mapping_opt,
-		},
-		["<leader>sj"] = { ":split<Return><C-w>w", "Split window down", mapping_opt },
-		["<leader>sl"] = { ":vsplit<Return><C-w>w", "Split window right", mapping_opt },
-		["<leader>sq"] = { ":close<CR>", "Delete window", mapping_opt },
-	},
-}
-
------ GENERAL -----
-mappings.general = {
-	n = {
-		["<leader>rf"] = { [[:%s/\<<C-r><C-w>\>//gI<Left><Left><Left>]], "Replacing word in file", mapping_opt },
-		["<leader>rl"] = { [[:s/\<<C-r><C-w>\>//gI<Left><Left><Left>]], "Replacing word line", mapping_opt },
-		["<ESC>"] = { ":nohl <CR>", "Remove words highlight", mapping_opt },
-		["<C-d>"] = { "<C-d>zz", "Page down centered cursor", mapping_opt },
-		["<C-u>"] = { "<C-u>zz", "Page up centered cursor", mapping_opt },
-	},
-	i = {
-		["jk"] = { "<ESC>", "escape insert mode", opts = { nowait = true } },
-		["jK"] = { "<ESC>", "escape insert mode", opts = { nowait = true } },
-		["Jk"] = { "<ESC>", "escape insert mode", opts = { nowait = true } },
-		["JK"] = { "<ESC>", "escape insert mode", opts = { nowait = true } },
-	},
-
-	v = {
-		[">"] = { ">gv", "Stay indent mode", mapping_opt },
-		["<"] = { "<gv", "Stay indent mode", mapping_opt },
-		["p"] = { '"_dP', "paste without yanking", mapping_opt },
-		["q"] = { "<ESC>", "escape insert mode", opts = { nowait = true } },
-	},
-
-	x = {
-		["p"] = { '"_dP', "paste without yanking", mapping_opt },
-		["J"] = { ":move '>+1<CR>gv-gv", "Move line block", mapping_opt },
-		["K"] = { ":move '<-2<CR>gv-gv", "Move line block", mapping_opt },
-	},
-}
-
-local load_mappings = function(_, opt)
-	vim.schedule(function()
-		local function set_section_map(section_values)
-			if section_values.plugin then
-				return
-			end
-
-			section_values.plugin = nil
-
-			for mode, mode_values in pairs(section_values) do
-				local default_opts = merge_tb("force", { mode = mode }, opt or {})
-				for keybind, mapping_info in pairs(mode_values) do
-					local opts = merge_tb("force", default_opts, mapping_info.opts or {})
-
-					mapping_info.opts, opts.mode = nil, nil
-					opts.desc = mapping_info[2]
-
-					vim.keymap.set(mode, keybind, mapping_info[1], opts)
-				end
-			end
-		end
-
-		for _, sect in pairs(mappings) do
-			set_section_map(sect)
-		end
-	end)
+-- Helper function to create options with description
+local function desc(description)
+	return vim.tbl_extend("force", opts, { desc = description })
 end
 
-return load_mappings()
+-- Disable space key in normal mode (leader key)
+vim.api.nvim_set_keymap("", "<Space>", "<Nop>", opts)
+
+--------------------------------------------------------------------------------
+-- GENERAL
+--------------------------------------------------------------------------------
+-- Escape and clear
+map("n", "<ESC>", "<cmd>nohlsearch<CR>", desc("Clear search highlight"))
+map("i", "jk", "<ESC>", { noremap = true, desc = "Exit insert mode", nowait = true })
+map("i", "jK", "<ESC>", { noremap = true, desc = "Exit insert mode", nowait = true })
+map("i", "Jk", "<ESC>", { noremap = true, desc = "Exit insert mode", nowait = true })
+map("i", "JK", "<ESC>", { noremap = true, desc = "Exit insert mode", nowait = true })
+map("v", "q", "<ESC>", { noremap = true, desc = "Exit visual mode", nowait = true })
+
+-- Navigation with centered cursor
+map("n", "<C-d>", "<C-d>zz", desc("Page down (centered)"))
+map("n", "<C-u>", "<C-u>zz", desc("Page up (centered)"))
+
+-- Better indenting (stay in visual mode)
+map("v", ">", ">gv", desc("Indent right"))
+map("v", "<", "<gv", desc("Indent left"))
+
+-- Paste without yanking in visual mode
+map("v", "p", '"_dP', desc("Paste without yanking"))
+map("x", "p", '"_dP', desc("Paste without yanking"))
+
+-- Move lines in visual mode
+map("x", "J", ":move '>+1<CR>gv-gv", desc("Move selection down"))
+map("x", "K", ":move '<-2<CR>gv-gv", desc("Move selection up"))
+
+-- Search and replace
+map("n", "<leader>rf", [[:%s/\<<C-r><C-w>\>//gI<Left><Left><Left>]], desc("Replace word in file"))
+map("n", "<leader>rl", [[:s/\<<C-r><C-w>\>//gI<Left><Left><Left>]], desc("Replace word in line"))
+
+-- Copy current file path
+map("n", "<leader>cp", function()
+	local path = vim.fn.expand("%:.")
+	vim.fn.setreg("+", path)
+	vim.notify("Copied: " .. path, vim.log.levels.INFO)
+end, desc("Copy current file path (relative)"))
+
+--------------------------------------------------------------------------------
+-- WINDOW/SPLIT MANAGEMENT
+--------------------------------------------------------------------------------
+-- Navigate between splits (edge fallback to wezterm/aerospace lives in smart-splits' move.at_edge)
+local function smart_move(direction)
+	return function()
+		require("smart-splits")["move_cursor_" .. direction]()
+	end
+end
+
+map("n", "<C-h>", smart_move("left"), desc("Move to left window"))
+map("n", "<C-j>", smart_move("down"), desc("Move to bottom window"))
+map("n", "<C-k>", smart_move("up"), desc("Move to top window"))
+map("n", "<C-l>", smart_move("right"), desc("Move to right window"))
+
+-- Resize splits (smart-splits)
+map("n", "<C-Left>", function()
+	require("smart-splits").resize_left()
+end, desc("Resize split left"))
+map("n", "<C-Down>", function()
+	require("smart-splits").resize_down()
+end, desc("Resize split down"))
+map("n", "<C-Up>", function()
+	require("smart-splits").resize_up()
+end, desc("Resize split up"))
+map("n", "<C-Right>", function()
+	require("smart-splits").resize_right()
+end, desc("Resize split right"))
+
+-- Split windows
+map("n", "<leader>sj", ":split<CR><C-w>j", desc("Split window horizontal"))
+map("n", "<leader>sl", ":vsplit<CR><C-w>l", desc("Split window vertical"))
+map("n", "<leader>sq", ":close<CR>", desc("Close current window"))
+
+--------------------------------------------------------------------------------
+-- BUFFER MANAGEMENT
+--------------------------------------------------------------------------------
+-- Cache bufdelete module
+local bufdelete
+local function get_bufdelete()
+	if not bufdelete then
+		bufdelete = require("snacks.bufdelete")
+	end
+	return bufdelete
+end
+
+-- Helper function to delete buffers
+local function delete_buffers(filter_fn)
+	local bd = get_bufdelete()
+	for _, buf in ipairs(vim.api.nvim_list_bufs()) do
+		if vim.api.nvim_buf_is_loaded(buf) and filter_fn(buf) then
+			bd.delete(buf)
+		end
+	end
+end
+
+map("n", "<leader>qc", function()
+	local bufs = vim.fn.getbufinfo({ buflisted = 1 })
+	if #bufs <= 1 then
+		vim.cmd("Oil " .. vim.fn.getcwd())
+	else
+		Snacks.bufdelete()
+	end
+end, desc("Close current buffer"))
+
+map("n", "<leader>qa", function()
+	local current_buf = vim.api.nvim_get_current_buf()
+	delete_buffers(function(buf)
+		return buf ~= current_buf
+	end)
+end, desc("Close all buffers except current"))
+
+map("n", "<leader>qq", function()
+	delete_buffers(function()
+		return true
+	end)
+	vim.cmd("Oil " .. vim.fn.getcwd())
+end, desc("Close all buffers"))
+
+--------------------------------------------------------------------------------
+-- FILE EXPLORER (Oil)
+--------------------------------------------------------------------------------
+map("n", "-", "<CMD>Oil<CR>", desc("Open parent directory"))
+
+--------------------------------------------------------------------------------
+-- TERMINAL (Snacks)
+--------------------------------------------------------------------------------
+map("n", "<C-t>", function()
+	Snacks.terminal(nil, { win = { position = "float" } })
+end, desc("Toggle floating terminal"))
+map("t", "<C-t>", "<Cmd>close<CR>", desc("Close terminal"))
+
+--------------------------------------------------------------------------------
+-- PICKER (Snacks)
+--------------------------------------------------------------------------------
+-- File/Search pickers
+map("n", "<leader>pf", function()
+	Snacks.picker.files()
+end, desc("Find files"))
+map("n", "<leader>ps", function()
+	Snacks.picker.grep()
+end, desc("Search in files (grep)"))
+map("n", "<leader>pb", function()
+	Snacks.picker.buffers()
+end, desc("Find open buffers"))
+map("n", "<leader>ff", function()
+	Snacks.picker.lines()
+end, desc("Search in current buffer"))
+map("n", "<leader>fh", function()
+	Snacks.picker.help()
+end, desc("Search help tags"))
+map("n", "<leader>sk", function()
+	Snacks.picker.keymaps({
+		layout = {
+			layout = {
+				backdrop = false,
+				width = 0.4,
+				height = 0.5,
+				box = "vertical",
+				border = "rounded",
+				title = "{title}",
+				title_pos = "center",
+				{ win = "input", height = 1, border = "bottom" },
+				{ win = "list", border = "none" },
+			},
+		},
+		win = {
+			input = {
+				keys = {
+					["<C-d>"] = { "list_scroll_down", mode = { "i", "n" } },
+					["<C-u>"] = { "list_scroll_up", mode = { "i", "n" } },
+				},
+			},
+			list = {
+				wo = {
+					wrap = true,
+					linebreak = true,
+				},
+			},
+		},
+		format = function(item, picker)
+			local k = item.item
+			local lhs = Snacks.util.normkey(k.lhs)
+			local desc = k.desc or ""
+			local align = Snacks.picker.util.align
+			return {
+				{ align(lhs, 20), "SnacksPickerKeymapLhs" },
+				{ "  " },
+				{ desc, "Comment" },
+			}
+		end,
+	})
+end, desc("Search keymaps"))
+
+-- Git pickers
+map("n", "<leader>cm", function()
+	Snacks.picker.git_log()
+end, desc("Git commits log"))
+map("n", "<leader>gs", function()
+	Snacks.picker.git_status()
+end, desc("Git status"))
+
+--------------------------------------------------------------------------------
+-- GIT
+--------------------------------------------------------------------------------
+map("n", "<leader>gg", function()
+	Snacks.lazygit()
+end, desc("Open Lazygit"))
+map({ "n", "v" }, "<leader>gb", function()
+	Snacks.gitbrowse()
+end, desc("Open in GitHub"))
+
+--------------------------------------------------------------------------------
+-- LSP
+--------------------------------------------------------------------------------
+-- Navigation
+map("n", "gD", vim.lsp.buf.declaration, desc("Go to declaration"))
+map("n", "gd", "<cmd>Lspsaga goto_definition<CR>", desc("Go to definition"))
+map("n", "gp", "<cmd>Lspsaga peek_definition<CR>", desc("Peek definition"))
+map("n", "gt", "<cmd>Lspsaga peek_type_definition<CR>", desc("Peek type definition"))
+map("n", "gf", "<cmd>Lspsaga finder<CR>", desc("Find references & implementations"))
+map("n", "gR", function()
+	Snacks.picker.lsp_references()
+end, desc("List references (picker)"))
+map("n", "gi", function()
+	Snacks.picker.lsp_implementations()
+end, desc("List implementations (picker)"))
+
+-- Actions
+map("n", "<leader>ca", "<cmd>Lspsaga code_action<CR>", desc("Code actions"))
+map("n", "<leader>rn", vim.lsp.buf.rename, desc("Rename symbol"))
+map("n", "<leader>rs", ":LspRestart<CR>", desc("Restart LSP"))
+map("n", "<leader>rc", "<cmd>CompletionReset<CR>", desc("Reset completion (blink + autopairs + LSP)"))
+map("n", "K", "<cmd>Lspsaga hover_doc<CR>", desc("Hover documentation"))
+
+-- Diagnostics
+map("n", "<leader>d", vim.diagnostic.open_float, desc("Show line diagnostics"))
+map("n", "<leader>D", function()
+	Snacks.picker.diagnostics_buffer()
+end, desc("List buffer diagnostics"))
+map("n", "<leader>pd", "<cmd>Lspsaga show_workspace_diagnostics<CR>", desc("List workspace diagnostics"))
+map("n", "]d", "<cmd>Lspsaga diagnostic_jump_next<CR>", desc("Next diagnostic"))
+map("n", "[d", "<cmd>Lspsaga diagnostic_jump_prev<CR>", desc("Previous diagnostic"))
+map("n", "]D", function()
+	require("lspsaga.diagnostic"):goto_next({ severity = vim.diagnostic.severity.ERROR })
+end, desc("Next error"))
+map("n", "[D", function()
+	require("lspsaga.diagnostic"):goto_prev({ severity = vim.diagnostic.severity.ERROR })
+end, desc("Previous error"))
+
+-- Word navigation (LSP references under cursor)
+map("n", "]]", function()
+	Snacks.words.jump(vim.v.count1)
+end, desc("Next word reference"))
+map("n", "[[", function()
+	Snacks.words.jump(-vim.v.count1)
+end, desc("Previous word reference"))
+
+--------------------------------------------------------------------------------
+-- DEBUGGER (DAP)
+--------------------------------------------------------------------------------
+-- map("n", "<leader>db", "<cmd>DapToggleBreakpoint<CR>", desc("Toggle breakpoint"))
+-- map("n", "<leader>dr", "<cmd>DapContinue<CR>", desc("Start/Continue debugger"))
+
+--------------------------------------------------------------------------------
+-- TASK RUNNER (Overseer)
+--------------------------------------------------------------------------------
+-- map("n", "<leader>or", "<cmd>OverseerRun<CR>", desc("Run build task"))
+
+--------------------------------------------------------------------------------
+-- ZEN MODE
+--------------------------------------------------------------------------------
+map("n", "<leader>z", function()
+	Snacks.zen()
+end, desc("Toggle zen mode"))
+map("n", "<leader>Z", function()
+	Snacks.zen.zoom()
+end, desc("Toggle zoom"))

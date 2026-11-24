@@ -2,73 +2,61 @@ return {
 	----- OIL - FILE EXPLORER -----
 	{
 		"stevearc/oil.nvim",
-		opts = {},
+		lazy = false, -- needed to replace netrw when opening a directory
 		dependencies = { "nvim-tree/nvim-web-devicons" },
 		config = function()
 			require("config.editor.oil")
 		end,
 	},
-	----- TELESCOPE -----
-	{
-		"nvim-telescope/telescope.nvim",
-		dependencies = {
-			{ "nvim-lua/plenary.nvim" },
-			{ "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
-			{ "nvim-telescope/telescope-media-files.nvim" },
-			"nvim-telescope/telescope-ui-select.nvim",
-			{ "nvim-tree/nvim-web-devicons", enabled = vim.g.have_nerd_font },
-		},
-		cmd = "Telescope",
-		config = function()
-			require("config.editor.telescope")
-		end,
-	},
 	----- STATUSLINE - LUALINE -----
 	{
 		"nvim-lualine/lualine.nvim",
-		dependencies = { "nvim-tree/nvim-web-devicons", opt = true },
+		event = "VeryLazy",
+		dependencies = { "nvim-tree/nvim-web-devicons" },
 		config = function()
 			require("config.editor.lualine")
 		end,
 	},
-	----- SOME UI SHITE -----
-	{
-		"stevearc/dressing.nvim",
-		event = "VeryLazy",
-	},
-	{
-		"folke/noice.nvim",
-		event = "VeryLazy",
-		dependencies = {
-			"MunifTanjim/nui.nvim",
-		},
-		config = function()
-			require("config.editor.noice")
-		end,
-	},
+
 	----- TREESITTER - SYNTAX HIGHLIGHTING -----
 	{
 		"nvim-treesitter/nvim-treesitter",
-		event = "UIEnter",
+		branch = "main",
+		lazy = false, -- main branch does not support lazy-loading
 		build = ":TSUpdate",
-		lazy = true,
 		config = function()
 			require("config.editor.treesitter")
 		end,
 	},
-	------ TERMINAL ------
-	{
-		"akinsho/toggleterm.nvim",
-		event = "VeryLazy",
-		version = "*",
-		config = function()
-			require("config.editor.toggleterm")
-		end,
-	},
+
 	----- SPLIT VIEW -----
 	{
 		"mrjones2014/smart-splits.nvim",
 		event = "VeryLazy",
+		opts = {
+			ignored_buftypes = { "nofile", "quickfix", "prompt" },
+			resize = { amount = 3 },
+			move = {
+				-- At the edge of nvim: hand off to wezterm/aerospace (async)
+				at_edge = function(ctx)
+					if vim.env.TERM_PROGRAM == "ghostty" then
+						vim.fn.jobstart({ "/opt/homebrew/bin/aerospace", "focus", ctx.direction }, { detach = true })
+						return
+					end
+					if not vim.env.WEZTERM_PANE then
+						return
+					end
+					local keys = { left = "h", down = "j", up = "k", right = "l" }
+					vim.fn.jobstart({
+						"bash",
+						vim.env.HOME .. "/.config/wezterm/navigate.sh",
+						vim.env.WEZTERM_PANE,
+						keys[ctx.direction],
+					}, { detach = true })
+				end,
+				same_row = false,
+			},
+		},
 	},
 	----- AUTOPAIRS -----
 	{
@@ -110,41 +98,14 @@ return {
 	----- AUTO TAG HTLM -----
 	{
 		"windwp/nvim-ts-autotag",
-		event = "InsertEnter",
+		event = { "BufReadPre", "BufNewFile" },
 		opts = {},
 	},
-	----- ZEN MODE -----
+	----- TODO COMMENTS -----
 	{
-		"folke/zen-mode.nvim",
-		opts = {
-			windows = {
-				width = 150,
-			},
-			plugins = {
-				wezterm = {
-					enabled = false,
-					-- can be either an absolute font size or the number of incremental steps
-					font = "+4", -- (10% increase per step)
-				},
-			},
-		},
-	},
-	----- CENTERED CURSOR ------
-	{
-		"arnamak/stay-centered.nvim",
-	},
-	----- INDENT LINE -----
-	{
-		"lukas-reineke/indent-blankline.nvim",
-		main = "ibl",
+		"folke/todo-comments.nvim",
+		event = { "BufReadPost", "BufNewFile" },
+		dependencies = { "nvim-lua/plenary.nvim" },
 		opts = {},
-		config = function()
-			require("config.editor.ibl")
-		end,
-	},
-	----- GITHUB COPILOT ------
-	{
-		"github/copilot.vim",
-		event = "VeryLazy",
 	},
 }

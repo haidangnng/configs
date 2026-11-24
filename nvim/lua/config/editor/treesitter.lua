@@ -1,32 +1,61 @@
-local status, treesitter_config = pcall(require, "nvim-treesitter.configs")
+-- nvim-treesitter (main branch): installs parsers, highlighting is built into nvim
+local ts = require("nvim-treesitter")
 
-if not status then
-	print("Something went wrong:", treesitter_config)
-else
-	treesitter_config.setup({
-		ensure_installed = {
-			"python",
-			"lua",
-			"query",
-			"javascript",
-			"html",
-			"typescript",
-			"tsx",
-			"toml",
-			"svelte",
-			"css",
-			"prisma",
-			"yaml",
-			"go",
-			"vue",
-			"gdscript",
-			"godot_resource",
-			"gdshader",
-			"ocaml",
-		},
-		auto_install = true,
-		sync_install = false,
-		highlight = { enable = true },
-		indent = { enable = false },
-	})
+ts.install({
+	"python",
+	"lua",
+	"luadoc",
+	"vim",
+	"vimdoc",
+	"query",
+	"markdown",
+	"markdown_inline",
+	"bash",
+	"javascript",
+	"html",
+	"typescript",
+	"tsx",
+	"json",
+	"toml",
+	"svelte",
+	"css",
+	"prisma",
+	"yaml",
+	"go",
+	"vue",
+	"ocaml",
+	"cpp",
+})
+
+-- glimmer (default for handlebars) chokes on <br>, unclosed void tags and {{{ }}}; html parses these templates fine
+vim.treesitter.language.register("html", "handlebars")
+
+local available = {}
+for _, lang in ipairs(ts.get_available()) do
+	available[lang] = true
 end
+
+local function start(buf, lang)
+	pcall(vim.treesitter.start, buf, lang)
+end
+
+vim.api.nvim_create_autocmd("FileType", {
+	group = vim.api.nvim_create_augroup("treesitter-start", { clear = true }),
+	callback = function(event)
+		local lang = vim.treesitter.language.get_lang(event.match)
+		if not lang then
+			return
+		end
+
+		if vim.treesitter.language.add(lang) then
+			start(event.buf, lang)
+		elseif available[lang] then
+			-- auto install missing parsers, then attach
+			ts.install({ lang }):await(function()
+				if vim.api.nvim_buf_is_valid(event.buf) then
+					start(event.buf, lang)
+				end
+			end)
+		end
+	end,
+})
