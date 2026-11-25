@@ -1,6 +1,5 @@
 export ZSH="$HOME/.oh-my-zsh"
 
-export PATH="$PATH:/Applications/WezTerm.app/Contents/MacOS"
 export PATH="/opt/homebrew/bin:$PATH"
 export HOMEBREW_PREFIX="/opt/homebrew"
 

@@ -42,22 +42,11 @@ return {
 			ignored_buftypes = { "nofile", "quickfix", "prompt" },
 			resize = { amount = 3 },
 			move = {
-				-- At the edge of nvim (and of tmux/wezterm panes): hand off to aerospace (async)
+				-- At the edge of nvim and of tmux panes: hand off to aerospace (async)
 				at_edge = function(ctx)
 					if vim.env.TMUX or vim.env.TERM_PROGRAM == "ghostty" then
 						vim.fn.jobstart({ "/opt/homebrew/bin/aerospace", "focus", ctx.direction }, { detach = true })
-						return
 					end
-					if not vim.env.WEZTERM_PANE then
-						return
-					end
-					local keys = { left = "h", down = "j", up = "k", right = "l" }
-					vim.fn.jobstart({
-						"bash",
-						vim.env.HOME .. "/.config/wezterm/navigate.sh",
-						vim.env.WEZTERM_PANE,
-						keys[ctx.direction],
-					}, { detach = true })
 				end,
 				same_row = false,
 			},

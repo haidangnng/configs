@@ -204,10 +204,6 @@ P = ['p2723de', 'secondary', 'main']
   run = ['layout floating', 'move-node-to-workspace S']
 
 [[on-window-detected]]
-  if.app-id = 'com.github.wez.wezterm'
-  run = "move-node-to-workspace T"
-
-[[on-window-detected]]
   if.app-id = 'com.mitchellh.ghostty'
   run = "move-node-to-workspace T"
 

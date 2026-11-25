@@ -53,7 +53,7 @@ end, desc("Copy current file path (relative)"))
 --------------------------------------------------------------------------------
 -- WINDOW/SPLIT MANAGEMENT
 --------------------------------------------------------------------------------
--- Navigate between splits (edge fallback to wezterm/aerospace lives in smart-splits' move.at_edge)
+-- Navigate between splits (edge fallback to tmux/aerospace lives in smart-splits' move.at_edge)
 local function smart_move(direction)
 	return function()
 		require("smart-splits")["move_cursor_" .. direction]()

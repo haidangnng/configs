@@ -1,4 +1,4 @@
-# Ported from ~/.config/wezterm
+# Ghostty config; tabs/splits/sessions are handled by tmux (~/.config/tmux)
 
 # FONT
 font-family = Monaspace Neon

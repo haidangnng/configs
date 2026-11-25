@@ -61,14 +61,16 @@ brew install \
   atuin \
   zoxide \
   jandedobbeleer/oh-my-posh/oh-my-posh \
-  pyenv
+  pyenv \
+  tmux \
+  lazygit
 
 brew install --cask \
   raycast \
   bitwarden \
   google-chrome  \
   firefox \
-  wezterm \
+  ghostty \
   visual-studio-code \
   docker \
   discord \
