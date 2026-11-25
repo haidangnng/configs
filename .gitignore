@@ -1,2 +1,7 @@
-.github-copilot/
 raycast/
+
+# App state, not config
+darktable/*.db
+darktable/*.db-*
+flutter/
+atuin/atuin-receipt.json

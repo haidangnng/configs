@@ -6,16 +6,6 @@ local function is_vim(pane)
 	-- Check if nvim or vim is running in the pane
 	local process_name = pane:get_foreground_process_name()
 	
-	-- Debug log
-	local debug_file = io.open("/tmp/wezterm_process_check.txt", "a")
-	if debug_file then
-		local is_match = false
-		if process_name then
-			is_match = (process_name:find("vim") ~= nil) or (process_name:find("nvim") ~= nil)
-		end
-		debug_file:write(os.date("%Y-%m-%d %H:%M:%S") .. " - process: " .. tostring(process_name) .. " is_vim: " .. tostring(is_match) .. "\n")
-		debug_file:close()
-	end
 	
 	if process_name then
 		-- Match vim or nvim specifically
@@ -37,13 +27,6 @@ local function split_nav(resize_or_move, key)
 		mods = resize_or_move == "resize" and "META" or "CTRL",
 		action = w.action_callback(function(win, pane)
 			local vim_check = is_vim(pane)
-			
-			-- Debug: write to file to verify this is being called
-			local debug_file = io.open("/tmp/wezterm_lua_debug.txt", "a")
-			if debug_file then
-				debug_file:write(os.date("%Y-%m-%d %H:%M:%S") .. " - key=" .. key .. " is_vim=" .. tostring(vim_check) .. "\n")
-				debug_file:close()
-			end
 			
 			if vim_check then
 				-- pass the keys through to vim/nvim

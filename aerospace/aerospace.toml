@@ -9,17 +9,7 @@ after-login-command = []
 # You can use it to add commands that run after AeroSpace startup.
 # 'after-startup-command' is run after 'after-login-command'
 # Available commands : https://nikitabobko.github.io/AeroSpace/commands
-after-startup-command = [
-  'exec-and-forget borders active_color=0xff4bebcd inactive_color=0xffc4c2c2 width=5.0',
-  'exec-and-forget sketchybar'
-]
-
-exec-on-workspace-change = ['/bin/bash', '-c',
-    'sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE=$AEROSPACE_FOCUSED_WORKSPACE'
-]
-# exec-on-workspace-change = ['/bin/bash', '-c',
-#     'sketchybar --trigger aerospace_workspace_change FOCUSED_WORKSPACE=$AEROSPACE_FOCUSED_WORKSPACE'
-# ]
+after-startup-command = []
 
 # Start AeroSpace at login
 start-at-login = true
@@ -219,9 +209,7 @@ P = ['p2723de', 'secondary', 'main']
 
 [[on-window-detected]]
   if.app-id = 'com.mitchellh.ghostty'
-  # Native tabs are separate macOS windows; 'layout tiling' keeps new tabs from
-  # being tiled as a new window (https://ghostty.org/docs/help/macos-tiling-wms)
-  run = ['layout tiling', 'move-node-to-workspace T']
+  run = "move-node-to-workspace T"
 
 [[on-window-detected]]
   if.app-id = 'com.google.Chrome'
