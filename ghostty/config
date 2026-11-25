@@ -7,7 +7,7 @@ font-style-italic = Light Italic
 adjust-cell-height = 30%
 
 # COLORS
-theme = Jellybeans
+theme = vscode-dark-2026
 bold-color = bright
 
 # WINDOW
@@ -15,8 +15,8 @@ window-padding-x = 5
 window-padding-y = 0
 window-padding-balance = true
 window-padding-color = extend
-background-opacity = 0.9
-background-blur = 20
+# Solid like VS Code (was 0.9 opacity + blur)
+background-opacity = 1
 # tmux draws tabs/status, so no native titlebar or tab bar
 macos-titlebar-style = hidden
 window-colorspace = display-p3
