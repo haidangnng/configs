@@ -26,6 +26,7 @@ return {
 			"typescriptreact",
 		},
 	},
+	astro = {},
 	eslint = {},
 	cssls = {},
 	html = {
@@ -72,6 +73,7 @@ return {
 			"sass",
 			"less",
 			"vue",
+			"astro",
 			"handlebars",
 		},
 	},

@@ -41,6 +41,7 @@ local options = {
 		typescriptreact = { "prettierd", "prettier", stop_after_first = true },
 		javascript = { "prettierd", "prettier", stop_after_first = true },
 		javascriptreact = { "prettierd", "prettier", stop_after_first = true },
+		astro = { "prettierd", "prettier", stop_after_first = true },
 		gdscript = { "gdformat" },
 		ocaml = { "ocamlformat" },
 	},

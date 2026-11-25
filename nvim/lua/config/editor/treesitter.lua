@@ -23,6 +23,7 @@ ts.install({
 	"yaml",
 	"go",
 	"vue",
+	"astro",
 	"ocaml",
 	"cpp",
 })
