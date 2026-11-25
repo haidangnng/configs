@@ -11,16 +11,29 @@ theme = Jellybeans
 bold-color = bright
 
 # WINDOW
-window-padding-x = 8
+window-padding-x = 5
 window-padding-y = 0
+window-padding-balance = true
+window-padding-color = extend
 background-opacity = 0.9
-background-blur = 10
-macos-titlebar-style = tabs
-unfocused-split-opacity = 0.9
+background-blur = 20
+# tmux draws tabs/status, so no native titlebar or tab bar
+macos-titlebar-style = hidden
+window-colorspace = display-p3
 maximize = true
+
+# CURSOR / MOUSE
+cursor-style = bar
+cursor-style-blink = true
+adjust-cursor-thickness = 2
+mouse-hide-while-typing = true
 
 # Install Ghostty's terminfo on ssh hosts (TERM=xterm-ghostty)
 shell-integration-features = ssh-env,ssh-terminfo
+
+# Every window starts in (or reattaches to) the tmux session "main";
+# tabs, splits and workspaces live in tmux (~/.config/tmux/tmux.conf)
+command = /opt/homebrew/bin/tmux new-session -A -s main
 
 # KEYS
 # Pass cmd+m through instead of minimizing
@@ -31,35 +44,18 @@ keybind = alt+right=esc:f
 keybind = ctrl+shift+u=scroll_page_fractional:-0.5
 keybind = ctrl+shift+d=scroll_page_fractional:0.5
 
-# TABS (leader = ctrl+a)
-keybind = ctrl+a>l=next_tab
-keybind = ctrl+a>h=previous_tab
-keybind = ctrl+a>e=prompt_tab_title
-keybind = ctrl+1=goto_tab:1
-keybind = ctrl+2=goto_tab:2
-keybind = ctrl+3=goto_tab:3
-keybind = ctrl+4=goto_tab:4
-keybind = ctrl+5=goto_tab:5
-keybind = ctrl+6=goto_tab:6
-keybind = ctrl+7=goto_tab:7
-keybind = ctrl+8=goto_tab:8
-keybind = ctrl+9=goto_tab:9
-
-# SPLITS
-keybind = ctrl+a>|=new_split:right
-keybind = ctrl+a>-=new_split:down
-keybind = ctrl+a>w=close_surface
-keybind = ctrl+a>m=toggle_split_zoom
-keybind = ctrl+a>ctrl+h=goto_split:left
-keybind = ctrl+a>ctrl+j=goto_split:down
-keybind = ctrl+a>ctrl+k=goto_split:up
-keybind = ctrl+a>ctrl+l=goto_split:right
-
-# Resize mode: ctrl+a r, then hjkl, q/esc to leave
-keybind = ctrl+a>r=activate_key_table:resize_pane
-keybind = resize_pane/h=resize_split:left,40
-keybind = resize_pane/j=resize_split:down,40
-keybind = resize_pane/k=resize_split:up,40
-keybind = resize_pane/l=resize_split:right,40
-keybind = resize_pane/q=deactivate_key_table
-keybind = resize_pane/escape=deactivate_key_table
+# TMUX (leader = ctrl+a, handled by tmux)
+# ctrl+1..9 and cmd+t send "leader <key>" so tmux switches/creates windows
+keybind = ctrl+1=text:\x011
+keybind = ctrl+2=text:\x012
+keybind = ctrl+3=text:\x013
+keybind = ctrl+4=text:\x014
+keybind = ctrl+5=text:\x015
+keybind = ctrl+6=text:\x016
+keybind = ctrl+7=text:\x017
+keybind = ctrl+8=text:\x018
+keybind = ctrl+9=text:\x019
+keybind = cmd+t=text:\x01t
+# Ghostty's own splits are unused; drop cmd+d / cmd+shift+d
+keybind = super+d=unbind
+keybind = super+shift+d=unbind

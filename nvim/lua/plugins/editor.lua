@@ -32,14 +32,19 @@ return {
 	----- SPLIT VIEW -----
 	{
 		"mrjones2014/smart-splits.nvim",
-		event = "VeryLazy",
+		-- not lazy: tmux only learns a pane runs nvim (@pane-is-vim) when the plugin loads
+		lazy = false,
+		dependencies = {
+			{ "smart-splits-nvim/backend-tmux", main = "smart-splits-backend-tmux" },
+		},
 		opts = {
+			mux = { backend = "smart-splits-backend-tmux", warn_if_unusable = false },
 			ignored_buftypes = { "nofile", "quickfix", "prompt" },
 			resize = { amount = 3 },
 			move = {
-				-- At the edge of nvim: hand off to wezterm/aerospace (async)
+				-- At the edge of nvim (and of tmux/wezterm panes): hand off to aerospace (async)
 				at_edge = function(ctx)
-					if vim.env.TERM_PROGRAM == "ghostty" then
+					if vim.env.TMUX or vim.env.TERM_PROGRAM == "ghostty" then
 						vim.fn.jobstart({ "/opt/homebrew/bin/aerospace", "focus", ctx.direction }, { detach = true })
 						return
 					end
