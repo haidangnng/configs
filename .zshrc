@@ -154,3 +154,6 @@ esac
 
 # zoxide must be initialised last
 eval "$(zoxide init zsh)"
+
+# elive: el runs the repository's CLI (pnpm run cli)
+alias el='/Users/ngoc.hai.dang.nguyen/Desktop/work/elive/elive/.elive/cli/el'

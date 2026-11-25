@@ -3,6 +3,14 @@ if not status_ok then
 	return
 end
 
+local web_filetypes = {
+	typescript = true,
+	typescriptreact = true,
+	javascript = true,
+	javascriptreact = true,
+	astro = true,
+}
+
 local options = {
 	-- format_on_save = function(bufnr)
 	-- 	-- Disable "format_on_save lsp_fallback" for languages that don't
@@ -20,11 +28,21 @@ local options = {
 	-- 		lsp_format = lsp_format_opt,
 	-- 	}
 	-- end,
-	format_on_save = {
-		-- These options will be passed to conform.format()
-		timeout_ms = 500,
-		lsp_format = "fallback",
-	},
+	format_on_save = function(bufnr)
+		-- JS/TS/Astro: Prettier only where the project has a Prettier config;
+		-- otherwise fall back to the ESLint server (eslint --fix), never ts_ls
+		if web_filetypes[vim.bo[bufnr].filetype] then
+			return {
+				timeout_ms = 3000,
+				lsp_format = "fallback",
+				filter = function(client)
+					return client.name == "eslint"
+				end,
+			}
+		end
+
+		return { timeout_ms = 500, lsp_format = "fallback" }
+	end,
 	formatters_by_ft = {
 		-- Conform will run multiple formatters sequentially
 		-- python = { "isort", "black" },
@@ -46,6 +64,9 @@ local options = {
 		ocaml = { "ocamlformat" },
 	},
 	formatters = {
+		-- Only run where a Prettier config exists (elive uses ESLint @stylistic, not Prettier)
+		prettier = { require_cwd = true },
+		prettierd = { require_cwd = true },
 		ocamlformat = {
 			prepend_args = {
 				"--if-then-else",
