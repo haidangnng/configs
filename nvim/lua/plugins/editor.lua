@@ -42,8 +42,27 @@ return {
 			ignored_buftypes = { "nofile", "quickfix", "prompt" },
 			resize = { amount = 3 },
 			move = {
-				-- At the edge of nvim and of tmux panes: hand off to aerospace (async)
+				-- At the edge of nvim and of tmux panes: hand off to aerospace (async).
+				-- In a zoomed tmux pane, unzoom and move to the neighbouring pane; if there
+				-- is none that way, re-zoom and hand off to aerospace (same as tmux.conf).
 				at_edge = function(ctx)
+					if vim.env.TMUX then
+						local pane = vim.env.TMUX_PANE
+						local function tmux(args)
+							return vim.trim(vim.fn.system(vim.list_extend({ "tmux" }, args)))
+						end
+						if tmux({ "display", "-p", "-t", pane, "#{window_zoomed_flag}" }) == "1" then
+							tmux({ "resize-pane", "-Z", "-t", pane })
+							local edges = { left = "left", down = "bottom", up = "top", right = "right" }
+							if tmux({ "display", "-p", "-t", pane, "#{pane_at_" .. edges[ctx.direction] .. "}" }) == "1" then
+								tmux({ "resize-pane", "-Z", "-t", pane })
+							else
+								local flags = { left = "-L", down = "-D", up = "-U", right = "-R" }
+								tmux({ "select-pane", "-t", pane, flags[ctx.direction] })
+								return
+							end
+						end
+					end
 					if vim.env.TMUX or vim.env.TERM_PROGRAM == "ghostty" then
 						vim.fn.jobstart({ "/opt/homebrew/bin/aerospace", "focus", ctx.direction }, { detach = true })
 					end
