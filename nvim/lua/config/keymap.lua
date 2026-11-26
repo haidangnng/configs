@@ -56,7 +56,14 @@ end, desc("Copy current file path (relative)"))
 -- Navigate between splits (edge fallback to tmux/aerospace lives in smart-splits' move.at_edge)
 local function smart_move(direction)
 	return function()
-		require("smart-splits")["move_cursor_" .. direction]()
+		-- In a zen/zoom float (<leader>z / <leader>Z), close it first and move from the original window
+		local move = require("smart-splits")["move_cursor_" .. direction]
+		local zen = Snacks.zen.win
+		if zen and zen:valid() and zen.win == vim.api.nvim_get_current_win() then
+			zen:close()
+			Snacks.zen.win = nil
+		end
+		move()
 	end
 end
 
